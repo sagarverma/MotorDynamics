@@ -1,20 +1,18 @@
-\documentclass{article}
-\usepackage[utf8]{inputenc}
+\documentclass[conference]{IEEEtran}
+\IEEEoverridecommandlockouts
+% The preceding line is only needed to identify funding in the first footnote. If that is unneeded, please comment it out.
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{booktabs, times, epsfig, graphicx, amsmath, amssymb,url, multirow,comment,commath}
 
-\usepackage{amsmath}
-\usepackage{hyperref}
-\hypersetup{
-    colorlinks=true,
-    linkcolor=blue,
-    filecolor=magenta,
-    urlcolor=cyan,
-}
-
-
-\title{Literature Review: Machine Learning Applied to Dynamic Physial System.}
-\date{August 2018}
 
 \begin{document}
+
+\title{Literature Review: Machine Learning Applied to Dynamic Physial System}
+\date{August 2018}
 
 \maketitle
 
@@ -24,27 +22,27 @@
 \subsection{Modeling of physical systems}
 \begin{enumerate}
   \item Traditional work in modeling physical systems \\
-  Automated Design of Complex Dynamic Systems \\
+  Automated Design of Complex Dynamic Systems \cite{hermans2014automated} \\
 
   \item Data driven design \\
-  Theory-Guided Data Science: A New Paradigmfor Scientific Discovery from Data \\
+  Theory-Guided Data Science: A New Paradigmfor Scientific Discovery from Data \cite{karpatne2017theory-guided}\\
   \begin{enumerate}
     \item Machine learning based approach \\
     \item Deep learning based approach \\
       Towards a Hybrid Approach to Physical ProcessModeling \\
-      Deep learning for universal linear embeddings of nonlinear dynamics \\
-      Nonlinear Systems Identification Using Deep Dynamic Neural Networks \\
-      Analyzing Inverse Problems withInvertible Neural Networks \\
-      Deep Hidden Physics Models:  Deep Learning ofNonlinear Partial Differential Equations \\
+      Deep learning for universal linear embeddings of nonlinear dynamics \cite{lusch2017deep} \\
+      Nonlinear Systems Identification Using Deep Dynamic Neural Networks \cite{ogunmolu2016nonlinear}\\
+      Analyzing Inverse Problems withInvertible Neural Networks \cite{ardizzone2018analyzing}\\
+      Deep Hidden Physics Models:  Deep Learning ofNonlinear Partial Differential Equations \cite{raissi2018deep} \\
       How Can Physics Inform Deep Learning Methods inScientific Problems?: Recent Progress andFuture Prospects \\
-      Learning New Physics from a Machine \\
+      Learning New Physics from a Machine \cite{d'agnolo2018learning}\\
       Nanophotonic Particle Simulation and Inverse DesignUsing Artificial Neural Networks \\
       Particle Track Reconstruction with Deep Learning \\
       Neural Message Passing for Jet Physics \\
-      Physics-guided Neural Networks (PGNN):An Application in Lake Temperature Modeling \\
+      Physics-guided Neural Networks (PGNN):An Application in Lake Temperature Modeling \cite{karpatne2017physics-guided} \\
     \item Reinforcement learning based approach \\
-      Large-Scale Study of Curiosity-Driven Learning \\
-      DeepMimic: Example-Guided Deep Reinforcement Learningof Physics-Based Character Skills \\
+      Large-Scale Study of Curiosity-Driven Learning \cite{burda2018large-scale}\\
+      DeepMimic: Example-Guided Deep Reinforcement Learningof Physics-Based Character Skills \cite{peng2018deepmimic} \\
     \item Adversarial learning based approach \\
       Tips and Tricks for Training GANs with PhysicsConstraints \\
       Adversarial learning to eliminate systematic errors:a case study in High Energy Physics \\
@@ -56,16 +54,20 @@
 Solving differential equations with unknownconstitutive relations as recurrent neural networks \\
 
 \subsection{Non-linear control}
-Adaptive Inverse Control of Linear and Nonlinear Systems Using Dynamic Neural Networks \\
+Adaptive Inverse Control of Linear and Nonlinear Systems Using Dynamic Neural Networks \cite{plett2003adaptive} \\
 Nonlinear System Control Using Neural Networks \\
 Feedback-Linearization-Based Neural Adaptive Control for Unknown Nonaffine Nonlinear Discrete-Time Systems \\
-A Novel Neural Approximate Inverse Control for Unknown Nonlinear Discrete Dynamical Systems \\
-Intelligent Control Using Neural Networks and Multiple Models \\
-Dynamic Power Conditioning Method of Microgrid Via Adaptive Inverse Control \\
-Discrete-time neuroadaptive control using dynamic state feedback with application to vehicle motion control for intelligent vehicle highway systems \\
-ICAIdentification and Adaptive Control of Dynamic Nonlinear Systems Using Sigmoid Diagonal Recurrent Neural Network \\
+A Novel Neural Approximate Inverse Control for Unknown Nonlinear Discrete Dynamical Systems \cite{deng2005a} \\
+Intelligent Control Using Neural Networks and Multiple Models \cite{fu2008intelligent} \\
+Dynamic Power Conditioning Method of Microgrid Via Adaptive Inverse Control \cite{li2015dynamic} \\
+Discrete-time neuroadaptive control using dynamic state feedback with application to vehicle motion control for intelligent vehicle highway systems \cite{kumarawadu2010discrete-time} \\
+Identification and Adaptive Control of Dynamic Nonlinear Systems Using Sigmoid Diagonal Recurrent Neural Network \cite{aboueldahab2011identification} \\
 
 \subsection{Motor control}
 \subsection{Time series}
+
+
+\bibliographystyle{IEEEtran}
+\bibliography{literature_review}
 
 \end{document}

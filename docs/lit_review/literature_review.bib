@@ -241,3 +241,48 @@
   title = {Physics-guided Neural Networks (PGNN): An Application in Lake Temperature Modeling},
   author = {Karpatne, Anuj and Watkins, William and Read, Jordan and Kumar, Vipin},
   url = {http://arxiv.org/abs/1710.11431}}
+
+  @INPROCEEDINGS{kutz2017datadriven,
+  author={J. N. Kutz and S. H. Rudy and A. Alla and S. L. Brunton},
+  booktitle={2017 IEEE 7th International Workshop on Computational Advances in Multi-Sensor Adaptive Processing (CAMSAP)},
+  title={Data-Driven discovery of governing physical laws and their parametric dependencies in engineering, physics and biology},
+  year={2017},
+  volume={},
+  number={},
+  pages={1-5},
+  keywords={data handling;Pareto analysis;regression analysis;scientific information systems;time series;group sparsity;given system;time series measurements;method balances model complexity;regression accuracy;parsimonious model;Pareto analysis;governing equations;simple parametric dependencies;physical engineering systems;biological engineering systems;physical laws;physics;biology;regression method;data-driven discovery;Mathematical model;Libraries;Optimization;Reactive power;Computational modeling;Nonlinear dynamical systems;Time measurement;data-driven discovery;dynamical systems;sparse regression;parametric systems},
+  doi={10.1109/CAMSAP.2017.8313100},
+  ISSN={},
+  month={Dec},}
+
+  @article{rudy2017datadriven,
+  author = {Rudy, Samuel H. and Brunton, Steven L. and Proctor, Joshua L. and Kutz, J. Nathan},
+  year = {2017},
+  title = {Data-driven discovery of partial differential equations},
+  journal = {Science Advances},
+  publisher = {Science Advances},
+  issn = {2375-2548},
+  doi = {10.1126/sciadv.1602614},
+  pmid = {28508044},
+  url = {http://dx.doi.org/10.1126/sciadv.1602614},
+  volume = {3},
+  pages = {e1602614},
+  number = {4},
+  abstract = {We propose a sparse regression method capable of discovering the governing partial differential equation(s) of a given system by time series measurements in the spatial domain. The regression framework relies on sparsity-promoting techniques to select the nonlinear and partial derivative terms of the governing equations that most accurately represent the data, bypassing a combinatorially large search through all possible candidate models. The method balances model complexity and regression accuracy by selecting a parsimonious model via Pareto analysis. Time series measurements can be made in an Eulerian framework, where the sensors are fixed spatially, or in a Lagrangian framework, where the sensors move with the dynamics. The method is computationally efficient, robust, and demonstrated to work on a variety of canonical problems spanning a number of scientific domains including Navier-Stokes, the quantum harmonic oscillator, and the diffusion equation. Moreover, the method is capable of disambiguating between potentially nonunique dynamical terms by using multiple time series taken with different initial data. Thus, for a traveling wave, the method can distinguish between a linear wave equation and the Korteweg–de Vries equation, for instance. The method provides a promising new technique for discovering governing equations and physical laws in parameterized spatiotemporal systems, where first-principles derivations are intractable.}
+}
+
+@article {Brunton3932,
+	author = {Brunton, Steven L. and Proctor, Joshua L. and Kutz, J. Nathan},
+	title = {Discovering governing equations from data by sparse identification of nonlinear dynamical systems},
+	volume = {113},
+	number = {15},
+	pages = {3932--3937},
+	year = {2016},
+	doi = {10.1073/pnas.1517384113},
+	publisher = {National Academy of Sciences},
+	abstract = {Understanding dynamic constraints and balances in nature has facilitated rapid development of knowledge and enabled technology, including aircraft, combustion engines, satellites, and electrical power. This work develops a novel framework to discover governing equations underlying a dynamical system simply from data measurements, leveraging advances in sparsity techniques and machine learning. The resulting models are parsimonious, balancing model complexity with descriptive ability while avoiding overfitting. There are many critical data-driven problems, such as understanding cognition from neural recordings, inferring climate patterns, determining stability of financial markets, predicting and suppressing the spread of disease, and controlling turbulence for greener transportation and energy. With abundant data and elusive laws, data-driven discovery of dynamics will continue to play an important role in these efforts.Extracting governing equations from data is a central challenge in many diverse areas of science and engineering. Data are abundant whereas models often remain elusive, as in climate science, neuroscience, ecology, finance, and epidemiology, to name only a few examples. In this work, we combine sparsity-promoting techniques and machine learning with nonlinear dynamical systems to discover governing equations from noisy measurement data. The only assumption about the structure of the model is that there are only a few important terms that govern the dynamics, so that the equations are sparse in the space of possible functions; this assumption holds for many physical systems in an appropriate basis. In particular, we use sparse regression to determine the fewest terms in the dynamic governing equations required to accurately represent the data. This results in parsimonious models that balance accuracy with model complexity to avoid overfitting. We demonstrate the algorithm on a wide range of problems, from simple canonical systems, including linear and nonlinear oscillators and the chaotic Lorenz system, to the fluid vortex shedding behind an obstacle. The fluid example illustrates the ability of this method to discover the underlying dynamics of a system that took experts in the community nearly 30 years to resolve. We also show that this method generalizes to parameterized systems and systems that are time-varying or have external forcing.},
+	issn = {0027-8424},
+	URL = {http://www.pnas.org/content/113/15/3932},
+	eprint = {http://www.pnas.org/content/113/15/3932.full.pdf},
+	journal = {Proceedings of the National Academy of Sciences}
+}

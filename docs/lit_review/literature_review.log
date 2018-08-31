@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.8.28)  29 AUG 2018 12:09
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.8.28)  31 AUG 2018 10:42
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -477,62 +477,62 @@ Underfull \hbox (badness 10000) in paragraph at lines 27--30
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 30--31
+Underfull \hbox (badness 2197) in paragraph at lines 30--34
+\OT1/ptm/m/n/10 Data-Driven Dis-cov-ery of Gov-ern-ing Phys-i-cal
+ []
+
+
+Underfull \hbox (badness 1688) in paragraph at lines 30--34
+\OT1/ptm/m/n/10 Laws and Their Pa-ram-e-teric De-pen-den-cies in
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 30--34
+\OT1/ptm/m/n/10 Data-driven dis-cov-ery of par-tial dif-fer-en-tial
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 30--34
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 31--43
+Underfull \hbox (badness 10000) in paragraph at lines 34--46
 \OT1/ptm/m/n/10 Towards a Hy-brid Ap-proach to Phys-i-cal
  []
 
 
-Underfull \hbox (badness 3803) in paragraph at lines 31--43
+Underfull \hbox (badness 3803) in paragraph at lines 34--46
 \OT1/ptm/m/n/10 Nonlinear Sys-tems Iden-ti-fi-ca-tion Us-ing Deep
  []
 
 
-Underfull \hbox (badness 2503) in paragraph at lines 31--43
+Underfull \hbox (badness 2503) in paragraph at lines 34--46
 \OT1/ptm/m/n/10 Nanophotonic Par-ti-cle Sim-u-la-tion and In-verse
  []
 
 
-Underfull \hbox (badness 8019) in paragraph at lines 31--43
+Underfull \hbox (badness 8019) in paragraph at lines 34--46
 \OT1/ptm/m/n/10 Physics-guided Neu-ral Net-works (PGNN):An
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 31--43
+Underfull \hbox (badness 10000) in paragraph at lines 34--46
 
  []
 
 
 LaTeX Warning: Citation `peng2018deepmimic' on page 1 undefined on input line 4
-5.
+8.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 43--46
+Underfull \hbox (badness 10000) in paragraph at lines 46--49
 \OT1/ptm/m/n/10 DeepMimic: Example-Guided Deep
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 43--46
+Underfull \hbox (badness 10000) in paragraph at lines 46--49
 \OT1/ptm/m/n/10 Re-in-force-ment Learningof Physics-Based
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 43--46
-
- []
-
-
-Underfull \hbox (badness 7925) in paragraph at lines 46--49
-\OT1/ptm/m/n/10 Tips and Tricks for Train-ing GANs with
- []
-
-
-Underfull \hbox (badness 7522) in paragraph at lines 46--49
-\OT1/ptm/m/n/10 Adversarial learn-ing to elim-i-nate sys-tem-atic
  []
 
 
@@ -541,22 +541,37 @@ Underfull \hbox (badness 10000) in paragraph at lines 46--49
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 54--55
+Underfull \hbox (badness 7925) in paragraph at lines 49--52
+\OT1/ptm/m/n/10 Tips and Tricks for Train-ing GANs with
+ []
+
+
+Underfull \hbox (badness 7522) in paragraph at lines 49--52
+\OT1/ptm/m/n/10 Adversarial learn-ing to elim-i-nate sys-tem-atic
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 49--52
 
  []
 
 
-Underfull \hbox (badness 1540) in paragraph at lines 57--65
+Underfull \hbox (badness 10000) in paragraph at lines 57--58
+
+ []
+
+
+Underfull \hbox (badness 1540) in paragraph at lines 60--68
 \OT1/ptm/m/n/10 Dynamic Power Con-di-tion-ing Method of Mi-cro-grid Via
  []
 
 
-Underfull \hbox (badness 2205) in paragraph at lines 57--65
+Underfull \hbox (badness 2205) in paragraph at lines 60--68
 \OT1/ptm/m/n/10 Discrete-time neu-road-ap-tive con-trol us-ing dy-namic state
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 57--65
+Underfull \hbox (badness 10000) in paragraph at lines 60--68
 
  []
 
@@ -570,13 +585,12 @@ LaTeX Font Info:    Try loading font information for U+msb on input line 28.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-)
-Missing character: There is no Ã in font ptmr7t!
-Missing character: There is no ¶ in font ptmr7t!
- [1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
+) [1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
 
 
 ]
+Missing character: There is no Ã in font ptmr7t!
+Missing character: There is no ¶ in font ptmr7t!
 Missing character: There is no â in font ptmri7t!
 Missing character: There is no € in font ptmri7t!
 Missing character: There is no ” in font ptmri7t!
@@ -600,10 +614,10 @@ LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 4247 strings out of 494953
- 62560 string characters out of 6180977
- 123580 words of memory out of 5000000
- 7451 multiletter control sequences out of 15000+600000
+ 4250 strings out of 494953
+ 62613 string characters out of 6180977
+ 129592 words of memory out of 5000000
+ 7454 multiletter control sequences out of 15000+600000
  35714 words of font info for 76 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  38i,7n,26p,312b,364s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -611,7 +625,7 @@ Here is how much of TeX's memory you used:
 e/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/texmf-dist/fo
 nts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/t
 imes/utmri8a.pfb>
-Output written on literature_review.pdf (2 pages, 44817 bytes).
+Output written on literature_review.pdf (2 pages, 46458 bytes).
 PDF statistics:
  24 PDF objects out of 1000 (max. 8388607)
  16 compressed objects within 1 object stream

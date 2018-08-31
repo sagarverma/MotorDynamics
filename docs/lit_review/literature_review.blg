@@ -21,45 +21,45 @@ Warning--empty journal in karpatne2017physics-guided
 Warning--empty journal in burda2018large-scale
 
 Done.
-You've used 15 entries,
+You've used 18 entries,
             4024 wiz_defined-function locations,
-            902 strings with 10686 characters,
-and the built_in function-call counts, 10650 in all, are:
-= -- 896
-> -- 283
-< -- 70
-+ -- 152
-- -- 56
-* -- 572
-:= -- 1770
-add.period$ -- 30
-call.type$ -- 15
-change.case$ -- 15
-chr.to.int$ -- 138
-cite$ -- 22
-duplicate$ -- 765
-empty$ -- 751
-format.name$ -- 69
-if$ -- 2365
+            924 strings with 11517 characters,
+and the built_in function-call counts, 13258 in all, are:
+= -- 1126
+> -- 343
+< -- 90
++ -- 184
+- -- 67
+* -- 702
+:= -- 2164
+add.period$ -- 36
+call.type$ -- 18
+change.case$ -- 18
+chr.to.int$ -- 177
+cite$ -- 25
+duplicate$ -- 956
+empty$ -- 946
+format.name$ -- 83
+if$ -- 2974
 int.to.chr$ -- 0
-int.to.str$ -- 15
-missing$ -- 140
-newline$ -- 98
-num.names$ -- 15
-pop$ -- 316
+int.to.str$ -- 18
+missing$ -- 173
+newline$ -- 111
+num.names$ -- 18
+pop$ -- 386
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 2
-skip$ -- 821
+skip$ -- 1033
 stack$ -- 0
-substring$ -- 355
-swap$ -- 611
-text.length$ -- 24
+substring$ -- 465
+swap$ -- 774
+text.length$ -- 31
 text.prefix$ -- 0
 top$ -- 5
-type$ -- 15
+type$ -- 18
 warning$ -- 7
-while$ -- 35
-width$ -- 17
-write$ -- 204
+while$ -- 46
+width$ -- 20
+write$ -- 241
 (There were 8 warnings)

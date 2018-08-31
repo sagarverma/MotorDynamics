@@ -37,6 +37,30 @@ A.~Karpatne, G.~Atluri, J.~H. Faghmous, M.~Steinbach, A.~Banerjee, A.~Ganguly,
   [Online]. Available: \url{http://dx.doi.org/10.1109/tkde.2017.2720168}
 \BIBentrySTDinterwordspacing
 
+\bibitem{kutz2017datadriven}
+J.~N. Kutz, S.~H. Rudy, A.~Alla, and S.~L. Brunton, ``Data-driven discovery of
+  governing physical laws and their parametric dependencies in engineering,
+  physics and biology,'' in \emph{2017 IEEE 7th International Workshop on
+  Computational Advances in Multi-Sensor Adaptive Processing (CAMSAP)}, Dec
+  2017, pp. 1--5.
+
+\bibitem{rudy2017datadriven}
+\BIBentryALTinterwordspacing
+S.~H. Rudy, S.~L. Brunton, J.~L. Proctor, and J.~N. Kutz, ``Data-driven
+  discovery of partial differential equations,'' \emph{Science Advances},
+  vol.~3, no.~4, p. e1602614, 2017. [Online]. Available:
+  \url{http://dx.doi.org/10.1126/sciadv.1602614}
+\BIBentrySTDinterwordspacing
+
+\bibitem{Brunton3932}
+\BIBentryALTinterwordspacing
+S.~L. Brunton, J.~L. Proctor, and J.~N. Kutz, ``Discovering governing equations
+  from data by sparse identification of nonlinear dynamical systems,''
+  \emph{Proceedings of the National Academy of Sciences}, vol. 113, no.~15, pp.
+  3932--3937, 2016. [Online]. Available:
+  \url{http://www.pnas.org/content/113/15/3932}
+\BIBentrySTDinterwordspacing
+
 \bibitem{lusch2017deep}
 \BIBentryALTinterwordspacing
 B.~Lusch, J.~N. Kutz, and S.~L. Brunton, ``Deep learning for universal linear

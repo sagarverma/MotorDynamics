@@ -28,15 +28,6 @@ M.~Hermans, B.~Schrauwen, P.~Bienstman, and J.~Dambre, ``Automated design of
   [Online]. Available: \url{http://dx.doi.org/10.1371/journal.pone.0086696}
 \BIBentrySTDinterwordspacing
 
-\bibitem{karpatne2017theory-guided}
-\BIBentryALTinterwordspacing
-A.~Karpatne, G.~Atluri, J.~H. Faghmous, M.~Steinbach, A.~Banerjee, A.~Ganguly,
-  S.~Shekhar, N.~Samatova, and V.~Kumar, ``Theory-guided data science: A new
-  paradigm for scientific discovery from data,'' \emph{IEEE Transactions on
-  Knowledge and Data Engineering}, vol.~29, no.~10, pp. 2318--2331, 2017.
-  [Online]. Available: \url{http://dx.doi.org/10.1109/tkde.2017.2720168}
-\BIBentrySTDinterwordspacing
-
 \bibitem{kutz2017datadriven}
 J.~N. Kutz, S.~H. Rudy, A.~Alla, and S.~L. Brunton, ``Data-driven discovery of
   governing physical laws and their parametric dependencies in engineering,
@@ -59,6 +50,55 @@ S.~L. Brunton, J.~L. Proctor, and J.~N. Kutz, ``Discovering governing equations
   \emph{Proceedings of the National Academy of Sciences}, vol. 113, no.~15, pp.
   3932--3937, 2016. [Online]. Available:
   \url{http://www.pnas.org/content/113/15/3932}
+\BIBentrySTDinterwordspacing
+
+\bibitem{benzenac2017dlphy}
+\BIBentryALTinterwordspacing
+E.~d. Bezenac, A.~Pajot, and P.~Gallinari, ``Towards a hybrid approach to
+  physical process modeling,'' \emph{Deep Learning for Physical Sciences
+  workshop in Neural Information Processing Systems}, 2017. [Online].
+  Available:
+  \url{https://dl4physicalsciences.github.io/files/nips_dlps_2017_9.pdf}
+\BIBentrySTDinterwordspacing
+
+\bibitem{d'agnolo2018learning}
+\BIBentryALTinterwordspacing
+R.~T. D'Agnolo and A.~Wulzer, ``Learning new physics from a machine,'' 2018.
+  [Online]. Available: \url{http://arxiv.org/abs/1806.02350}
+\BIBentrySTDinterwordspacing
+
+\bibitem{Peurifoyeaar4206}
+\BIBentryALTinterwordspacing
+J.~Peurifoy, Y.~Shen, L.~Jing, Y.~Yang, F.~Cano-Renteria, B.~G. DeLacy, J.~D.
+  Joannopoulos, M.~Tegmark, and M.~Solja{\v c}i{\'c}, ``Nanophotonic particle
+  simulation and inverse design using artificial neural networks,''
+  \emph{Science Advances}, vol.~4, no.~6, 2018. [Online]. Available:
+  \url{http://advances.sciencemag.org/content/4/6/eaar4206}
+\BIBentrySTDinterwordspacing
+
+\bibitem{burda2018large-scale}
+\BIBentryALTinterwordspacing
+Y.~Burda, H.~Edwards, D.~Pathak, A.~Storkey, T.~Darrell, and A.~A. Efros,
+  ``Large-scale study of curiosity-driven learning,'' 2018. [Online].
+  Available: \url{http://arxiv.org/abs/1808.04355}
+\BIBentrySTDinterwordspacing
+
+\bibitem{karpatne2017nips}
+\BIBentryALTinterwordspacing
+E.~d. Bezenac, A.~Pajot, and P.~Gallinari, ``Towards a hybrid approach to
+  physical process modeling,'' \emph{Deep Learning for Physical Sciences
+  workshop in Neural Information Processing Systems}, 2017. [Online].
+  Available:
+  \url{https://dl4physicalsciences.github.io/files/nips_dlps_2017_9.pdf}
+\BIBentrySTDinterwordspacing
+
+\bibitem{karpatne2017theory-guided}
+\BIBentryALTinterwordspacing
+A.~Karpatne, G.~Atluri, J.~H. Faghmous, M.~Steinbach, A.~Banerjee, A.~Ganguly,
+  S.~Shekhar, N.~Samatova, and V.~Kumar, ``Theory-guided data science: A new
+  paradigm for scientific discovery from data,'' \emph{IEEE Transactions on
+  Knowledge and Data Engineering}, vol.~29, no.~10, pp. 2318--2331, 2017.
+  [Online]. Available: \url{http://dx.doi.org/10.1109/tkde.2017.2720168}
 \BIBentrySTDinterwordspacing
 
 \bibitem{lusch2017deep}
@@ -90,10 +130,23 @@ M.~Raissi, ``Deep hidden physics models: Deep learning of nonlinear partial
   \url{http://arxiv.org/abs/1801.06637}
 \BIBentrySTDinterwordspacing
 
-\bibitem{d'agnolo2018learning}
+\bibitem{farrell2017nips}
 \BIBentryALTinterwordspacing
-R.~T. D'Agnolo and A.~Wulzer, ``Learning new physics from a machine,'' 2018.
-  [Online]. Available: \url{http://arxiv.org/abs/1806.02350}
+S.~Farrell, P.~Calafiura, M.~Mudigonda, D.~Prabhat, Anderson, J.~Bendavid,
+  M.~Spiropoulou, J.-R. Vlimant, S.~Zheng, G.~Cerati, L.~Gray, K.~Kapoor,
+  J.~Kowalkowski, P.~Spentzouris, A.~Tsaris, and D.~Zurawski, ``Particle track
+  reconstruction with deep learning,'' \emph{Deep Learning for Physical
+  Sciences workshop in Neural Information Processing Systems}, 2017. [Online].
+  Available:
+  \url{https://dl4physicalsciences.github.io/files/nips_dlps_2017_28.pdf}
+\BIBentrySTDinterwordspacing
+
+\bibitem{henrion2017nips}
+\BIBentryALTinterwordspacing
+I.~Henrion, J.~Brehmer, J.~Bruna, K.~Cho, and K.~Cranmer, ``Neural message
+  passing for jet physics,'' \emph{Deep Learning for Physical Sciences workshop
+  in Neural Information Processing Systems}, 2017. [Online]. Available:
+  \url{https://dl4physicalsciences.github.io/files/nips_dlps_2017_29.pdf}
 \BIBentrySTDinterwordspacing
 
 \bibitem{karpatne2017physics-guided}
@@ -103,11 +156,22 @@ A.~Karpatne, W.~Watkins, J.~Read, and V.~Kumar, ``Physics-guided neural
   [Online]. Available: \url{http://arxiv.org/abs/1710.11431}
 \BIBentrySTDinterwordspacing
 
-\bibitem{burda2018large-scale}
+\bibitem{oliveria2017nips}
 \BIBentryALTinterwordspacing
-Y.~Burda, H.~Edwards, D.~Pathak, A.~Storkey, T.~Darrell, and A.~A. Efros,
-  ``Large-scale study of curiosity-driven learning,'' 2018. [Online].
-  Available: \url{http://arxiv.org/abs/1808.04355}
+L.~d. Oliveira, M.~Paganini, and B.~Nachman, ``Tips and tricks for training
+  gans with physics constraints,'' \emph{Deep Learning for Physical Sciences
+  workshop in Neural Information Processing Systems}, 2017. [Online].
+  Available:
+  \url{https://dl4physicalsciences.github.io/files/nips_dlps_2017_26.pdf}
+\BIBentrySTDinterwordspacing
+
+\bibitem{estrade2017nips}
+\BIBentryALTinterwordspacing
+V.~Estrade, C.~Germain, I.~Guyon, and D.~Rousseau, ``Adversarial learning to
+  eliminate systematic errors: a case study in high energy physics,''
+  \emph{Deep Learning for Physical Sciences workshop in Neural Information
+  Processing Systems}, 2017. [Online]. Available:
+  \url{https://dl4physicalsciences.github.io/files/nips_dlps_2017_1.pdf}
 \BIBentrySTDinterwordspacing
 
 \bibitem{plett2003adaptive}
@@ -117,6 +181,11 @@ G.~L. Plett, ``Adaptive inverse control of linear and nonlinear systems using
   vol.~14, no.~2, p. 360, 2003. [Online]. Available:
   \url{http://dx.doi.org/10.1109/tnn.2003.809412}
 \BIBentrySTDinterwordspacing
+
+\bibitem{deng2008feedback}
+H.~Deng, H.~Li, and Y.~Wu, ``Feedback-linearization-based neural adaptive
+  control for unknown nonaffine nonlinear discrete-time systems,'' \emph{IEEE
+  Transactions on Neural Networks}, vol.~19, no.~9, pp. 1615--1625, Sept 2008.
 
 \bibitem{deng2005a}
 \BIBentryALTinterwordspacing
@@ -157,6 +226,33 @@ T.~Aboueldahab and M.~Fakhreldin, ``Identification and adaptive control of
   dynamic nonlinear systems using sigmoid diagonal recurrent neural network,''
   \emph{Intelligent Control and Automation}, vol.~02, no.~03, pp. 176--181,
   2011. [Online]. Available: \url{http://dx.doi.org/10.4236/ica.2011.23021}
+\BIBentrySTDinterwordspacing
+
+\bibitem{brdys1999dynamic}
+\BIBentryALTinterwordspacing
+M.~Brdys and G.~Kulawski, ``Dynamic neural controllers for induction motor,''
+  \emph{IEEE Transactions on Neural Networks}, vol.~10, no.~2, pp. 340--355,
+  1999. [Online]. Available: \url{http://dx.doi.org/10.1109/72.750564}
+\BIBentrySTDinterwordspacing
+
+\bibitem{rivalsnonlinear}
+I.~Rivals and L.~Personnaz, ``Nonlinear internal model control using neural
+  networks : application to processes with delay and design issues.''
+
+\bibitem{yao2010adaline}
+\BIBentryALTinterwordspacing
+J.~Yao, X.~Wang, S.~Hu, and W.~Fu, ``Adaline neural network-based adaptive
+  inverse control for an electro-hydraulic servo system,'' \emph{Journal of
+  Vibration and Control}, vol.~17, no.~13, pp. 2007--2014, 2010. [Online].
+  Available: \url{http://dx.doi.org/10.1177/1077546310395972}
+\BIBentrySTDinterwordspacing
+
+\bibitem{nouri2008adaptive}
+\BIBentryALTinterwordspacing
+K.~Nouri, R.~Dhaouadi, and N.~B. Braiek, ``Adaptive control of a nonlinear dc
+  motor drive using recurrent neural networks,'' \emph{Applied Soft Computing},
+  vol.~8, no.~1, pp. 371--382, 2008. [Online]. Available:
+  \url{http://dx.doi.org/10.1016/j.asoc.2007.03.002}
 \BIBentrySTDinterwordspacing
 
 \end{thebibliography}

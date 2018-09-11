@@ -17,15 +17,29 @@
 \maketitle
 
 \section{Abstract}
+This survery is on recent advancements in the intersection of physical modelling and machine learning.
+
+\section{Introduction}
+Understanding of physical process from data when there is no first prinicple solution is very hard. The abundance of data in both natural and physical sciences has enabled the use of machine learning models to understand governing dynamics of many complex process. There are different ways in which physical modeling and machine learning methods have been used together. There are works in the problem of understanding pysical process from data, classifying or predicting complex physical process, using physics to generate simulation data to train machine learning models, using physics to help train machine learning models, physics inspired machine learning models, etc.
+
+This survey is on all the different areas where there has been an amalgation of machine learning and physics. The application on which we focus is on time series modeling, non-linear control and motor control.
 
 \section{Background}
+The background section is divided in to several subsections; first is modeling of physical systems, second is on non-linear control, third is on motor control and fourth is on time series modeling.
+
 \subsection{Modeling of physical systems}
+
+This section is on works that are specifically on modeling dynamical systems using machine learning. Modeling of complex systems has been presented in \cite{hermans2014automated, kutz2017datadriven, rudy2017datadriven, Brunton3932, benzenac2017dlphy, d'agnolo2018learning}. Using physics to generate data to train models have been presented in \cite{Peurifoyeaar4206, burda2018large-scale, peng2018deepmimic}. Physics assisted machine learning were architecture, loss funtion or training method is based on some phsyical model are presented in \cite{karpatne2017nips}
+
+
+
+
 \begin{enumerate}
   \item Traditional work in modeling physical systems \\
-  Automated Design of Complex Dynamic Systems \cite{hermans2014automated} \\
+  Automated Design of Complex Dynamic Systems \cite{hermans2014automated}. Internalize a large part of the necessary computation within the physical system itself by exploiting its inherent non-linear dynamics. A ML algorithm to optimize physical dynamic system. Continuous time dynamical systems. Using gradient descent continuous time BPTT, online learning, matrix can be very large, for modest size dynamical system the learned matrix can become very large. Batch learning, real time recurrent learning, backpropagation through time.
 
   \item Data driven design \\
-  Theory-Guided Data Science: A New Paradigmfor Scientific Discovery from Data \cite{karpatne2017theory-guided}\\
+  Theory-Guided Data Science: A New Paradigmfor Scientific Discovery from Data \cite{karpatne2017theory-guided}. Scientific theories are systematically integrated with data science models in the process of knowledge discovery. Scientific knowledge can help in reducing the model variance by removing physically insonsistent solutions without likely affecting their bias. Physically consistent models. Black box models only capture associative relationship between variables, they do not fully serve the goal of understanding 
   \begin{enumerate}
     \item Machine learning based approach \\
       Data-Driven Discovery of Governing Physical Laws and Their Parameteric Dependencies in Engineering, Physics and Biology \cite{kutz2017datadriven} \\
@@ -36,19 +50,19 @@
       Deep learning for universal linear embeddings of nonlinear dynamics \cite{lusch2017deep} \\
       Nonlinear Systems Identification Using Deep Dynamic Neural Networks \cite{ogunmolu2016nonlinear}\\
       Analyzing Inverse Problems withInvertible Neural Networks \cite{ardizzone2018analyzing}\\
-      Deep Hidden Physics Models:  Deep Learning ofNonlinear Partial Differential Equations \cite{raissi2018deep} \\
-      How Can Physics Inform Deep Learning Methods inScientific Problems?: Recent Progress andFuture Prospects \\
+      Deep Hidden Physics Models:  Deep Learning of Nonlinear Partial Differential Equations \cite{raissi2018deep} \\
+      How Can Physics Inform Deep Learning Methods in Scientific Problems?: Recent Progress andFuture Prospects \cite{karpatne2017nips} \\
       Learning New Physics from a Machine \cite{d'agnolo2018learning}\\
-      Nanophotonic Particle Simulation and Inverse DesignUsing Artificial Neural Networks \\
-      Particle Track Reconstruction with Deep Learning \\
-      Neural Message Passing for Jet Physics \\
+      Nanophotonic Particle Simulation and Inverse DesignUsing Artificial Neural Networks \cite{Peurifoyeaar4206}\\
+      Particle Track Reconstruction with Deep Learning \cite{farrell2017nips}\\
+      Neural Message Passing for Jet Physics \cite{henrion2017nips}\\
       Physics-guided Neural Networks (PGNN):An Application in Lake Temperature Modeling \cite{karpatne2017physics-guided} \\
     \item Reinforcement learning based approach \\
       Large-Scale Study of Curiosity-Driven Learning \cite{burda2018large-scale}\\
       DeepMimic: Example-Guided Deep Reinforcement Learningof Physics-Based Character Skills \cite{peng2018deepmimic} \\
     \item Adversarial learning based approach \\
-      Tips and Tricks for Training GANs with PhysicsConstraints \\
-      Adversarial learning to eliminate systematic errors:a case study in High Energy Physics \\
+      Tips and Tricks for Training GANs with Physics Constraints \cite{oliveria2017nips} \\
+      Adversarial learning to eliminate systematic errors:a case study in High Energy Physics \cite{estrade2017nips} \\
   \end{enumerate}
 
 \end{enumerate}
@@ -58,8 +72,7 @@ Solving differential equations with unknownconstitutive relations as recurrent n
 
 \subsection{Non-linear control}
 Adaptive Inverse Control of Linear and Nonlinear Systems Using Dynamic Neural Networks \cite{plett2003adaptive} \\
-Nonlinear System Control Using Neural Networks \\
-Feedback-Linearization-Based Neural Adaptive Control for Unknown Nonaffine Nonlinear Discrete-Time Systems \\
+Feedback-Linearization-Based Neural Adaptive Control for Unknown Nonaffine Nonlinear Discrete-Time Systems \cite{deng2008feedback}\\
 A Novel Neural Approximate Inverse Control for Unknown Nonlinear Discrete Dynamical Systems \cite{deng2005a} \\
 Intelligent Control Using Neural Networks and Multiple Models \cite{fu2008intelligent} \\
 Dynamic Power Conditioning Method of Microgrid Via Adaptive Inverse Control \cite{li2015dynamic} \\
@@ -67,6 +80,10 @@ Discrete-time neuroadaptive control using dynamic state feedback with applicatio
 Identification and Adaptive Control of Dynamic Nonlinear Systems Using Sigmoid Diagonal Recurrent Neural Network \cite{aboueldahab2011identification} \\
 
 \subsection{Motor control}
+Dynamic neural controllers for induction motor \cite{brdys1999dynamic} \\
+Nonlinear Internal Model Control using Neural networks : application to Processes with Delay and Design Issues \cite{rivalsnonlinear}
+Adaline neural network-based adaptive inverse control for an electro-hydraulic servo system \cite{yao2010adaline}
+Adaptive control of a nonlinear dc motor drive using recurrent neural networks \cite{nouri2008adaptive}
 \subsection{Time series}
 
 

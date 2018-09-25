@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.8.28)  10 SEP 2018 16:05
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.8.28)  25 SEP 2018 16:47
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -462,127 +462,198 @@ LaTeX Warning: No \author given.
 LaTeX Warning: No \author given.
 
 
-LaTeX Warning: Citation `peng2018deepmimic' on page 1 undefined on input line 3
+LaTeX Warning: Citation `john2009nonlinear' on page 1 undefined on input line 3
 2.
 
 
-Underfull \hbox (badness 2197) in paragraph at lines 44--48
-\OT1/ptm/m/n/10 Data-Driven Dis-cov-ery of Gov-ern-ing Phys-i-cal
- []
+LaTeX Warning: Citation `lusch2017deep' on page 1 undefined on input line 32.
 
 
-Underfull \hbox (badness 1688) in paragraph at lines 44--48
-\OT1/ptm/m/n/10 Laws and Their Pa-ram-e-teric De-pen-den-cies in
- []
+LaTeX Warning: Citation `karpatne2017nips' on page 1 undefined on input line 32
+.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 44--48
-\OT1/ptm/m/n/10 Data-driven dis-cov-ery of par-tial dif-fer-en-tial
- []
+LaTeX Warning: Citation `d'agnolo2018learning' on page 1 undefined on input lin
+e 32.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 44--48
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 48--60
-\OT1/ptm/m/n/10 Towards a Hy-brid Ap-proach to Phys-i-cal
- []
+LaTeX Warning: Citation `ogunmolu2016nonlinear' on page 1 undefined on input li
+ne 32.
 
 
-Underfull \hbox (badness 3803) in paragraph at lines 48--60
-\OT1/ptm/m/n/10 Nonlinear Sys-tems Iden-ti-fi-ca-tion Us-ing Deep
- []
+LaTeX Warning: Citation `karpatne2017physics-guided' on page 1 undefined on inp
+ut line 32.
 
 
-Underfull \hbox (badness 2503) in paragraph at lines 48--60
-\OT1/ptm/m/n/10 Nanophotonic Par-ti-cle Sim-u-la-tion and In-verse
- []
+LaTeX Warning: Citation `karpatne2017theory-guided' on page 1 undefined on inpu
+t line 32.
 
 
-Underfull \hbox (badness 8019) in paragraph at lines 48--60
-\OT1/ptm/m/n/10 Physics-guided Neu-ral Net-works (PGNN):An
- []
+LaTeX Warning: Citation `oliveria2017nips' on page 1 undefined on input line 32
+.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 48--60
-
- []
-
-
-LaTeX Warning: Citation `peng2018deepmimic' on page 1 undefined on input line 6
+LaTeX Warning: Citation `benzenac2017dlphy' on page 1 undefined on input line 3
 2.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 60--63
-\OT1/ptm/m/n/10 DeepMimic: Example-Guided Deep
- []
+LaTeX Warning: Citation `john2009nonlinear' on page 1 undefined on input line 4
+4.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 60--63
-\OT1/ptm/m/n/10 Re-in-force-ment Learningof Physics-Based
- []
+LaTeX Warning: Citation `kim2005nips' on page 1 undefined on input line 48.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 60--63
-
- []
-
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
+LaTeX Warning: Citation `aboueldahab2011identification' on page 1 undefined on 
+input line 48.
 
 
-]
-Underfull \hbox (badness 7522) in paragraph at lines 63--66
-\OT1/ptm/m/n/10 Adversarial learn-ing to elim-i-nate sys-tem-atic
- []
+LaTeX Warning: Citation `milito1991nips' on page 1 undefined on input line 48.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 63--66
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 71--72
-
- []
+LaTeX Warning: Citation `lippmann1991nips' on page 1 undefined on input line 48
+.
 
 
-Underfull \hbox (badness 1540) in paragraph at lines 74--81
-\OT1/ptm/m/n/10 Dynamic Power Con-di-tion-ing Method of Mi-cro-grid Via
- []
+LaTeX Warning: Citation `scott1992nips' on page 1 undefined on input line 48.
 
 
-Underfull \hbox (badness 2205) in paragraph at lines 74--81
-\OT1/ptm/m/n/10 Discrete-time neu-road-ap-tive con-trol us-ing dy-namic state
- []
+LaTeX Warning: Citation `HBZnips96' on page 1 undefined on input line 48.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 74--81
+LaTeX Warning: Citation `takashi2005nonlinear' on page 1 undefined on input lin
+e 48.
 
- []
 
-(./literature_review.bbl
-LaTeX Font Info:    Try loading font information for U+msa on input line 28.
+LaTeX Warning: Citation `sabino1999chaos' on page 1 undefined on input line 48.
 
-(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
-File: umsa.fd 2013/01/14 v3.01 AMS symbols A
-)
-LaTeX Font Info:    Try loading font information for U+msb on input line 28.
 
-(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
-File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-)
-Missing character: There is no Ã in font ptmr7t!
-Missing character: There is no ¶ in font ptmr7t!
- [2]
-Missing character: There is no â in font ptmri7t!
-Missing character: There is no € in font ptmri7t!
-Missing character: There is no ” in font ptmri7t!
-)
+
+LaTeX Warning: Citation `sergey2011nips' on page 1 undefined on input line 48.
+
+
+LaTeX Warning: Citation `schnider1997nips' on page 1 undefined on input line 48
+.
+
+
+LaTeX Warning: Citation `doya1997nips' on page 1 undefined on input line 48.
+
+
+LaTeX Warning: Citation `rawlik2010nips' on page 1 undefined on input line 48.
+
+
+LaTeX Warning: Citation `emanuel2009nips' on page 1 undefined on input line 48.
+
+
+
+LaTeX Warning: Citation `li2015dynamic' on page 1 undefined on input line 48.
+
+
+LaTeX Warning: Citation `watter2015nips' on page 1 undefined on input line 48.
+
+
+LaTeX Warning: Citation `jordan1990nips' on page 1 undefined on input line 48.
+
+
+LaTeX Warning: Citation `rivals2000nn' on page 1 undefined on input line 48.
+
+
+LaTeX Warning: Citation `brown1998ICDC' on page 1 undefined on input line 48.
+
+
+LaTeX Warning: Citation `susemihl2014nips' on page 1 undefined on input line 48
+.
+
+
+LaTeX Warning: Citation `Mozer1996TheNP' on page 1 undefined on input line 48.
+
+
+LaTeX Warning: Citation `deng2008feedback' on page 1 undefined on input line 48
+.
+
+
+LaTeX Warning: Citation `chen2002ICDC' on page 1 undefined on input line 48.
+
+
+LaTeX Warning: Citation `yu1996nips' on page 1 undefined on input line 48.
+
+
+LaTeX Warning: Citation `yao2010adaline' on page 1 undefined on input line 52.
+
+
+LaTeX Warning: Citation `nouri2008adaptive' on page 1 undefined on input line 5
+2.
+
+
+LaTeX Warning: Citation `aamir13pid' on page 1 undefined on input line 52.
+
+
+LaTeX Warning: Citation `kumarawadu2010discrete-time' on page 1 undefined on in
+put line 52.
+
+
+LaTeX Warning: Citation `brdys1999dynamic' on page 1 undefined on input line 52
+.
+
+
+LaTeX Warning: Citation `kim1991ICIECI' on page 1 undefined on input line 52.
+
+
+LaTeX Warning: Citation `meng2016safety' on page 1 undefined on input line 52.
+
+
+LaTeX Warning: Citation `Shao2017' on page 1 undefined on input line 52.
+
+
+LaTeX Warning: Citation `alicmotor' on page 1 undefined on input line 52.
+
+
+LaTeX Warning: Citation `zhang2017fault' on page 1 undefined on input line 52.
+
+
+LaTeX Warning: Citation `silva2013fault' on page 1 undefined on input line 52.
+
+
+LaTeX Warning: Citation `murphey2006fault' on page 1 undefined on input line 52
+.
+
+
+LaTeX Warning: Citation `murphey2006model' on page 1 undefined on input line 52
+.
+
+
+LaTeX Warning: Citation `meng2016safety' on page 1 undefined on input line 56.
+
+
+LaTeX Warning: Citation `Shao2017' on page 1 undefined on input line 56.
+
+
+LaTeX Warning: Citation `alicmotor' on page 1 undefined on input line 56.
+
+
+LaTeX Warning: Citation `zhang2017fault' on page 1 undefined on input line 56.
+
+
+LaTeX Warning: Citation `silva2013fault' on page 1 undefined on input line 56.
+
+
+LaTeX Warning: Citation `murphey2006fault' on page 1 undefined on input line 56
+.
+
+
+LaTeX Warning: Citation `murphey2006model' on page 1 undefined on input line 56
+.
+
+
+LaTeX Warning: Citation `George2017qtr' on page 1 undefined on input line 56.
+
+
+LaTeX Warning: Citation `marko1991nips' on page 1 undefined on input line 56.
+
+
+LaTeX Warning: Citation `kim2005nips' on page 1 undefined on input line 56.
+
+(./literature_review.bbl)
 
 ** Conference Paper **
 Before submitting the final camera ready copy, remember to:
@@ -594,7 +665,8 @@ Before submitting the final camera ready copy, remember to:
  uses only Type 1 fonts and that every step in the generation
  process uses the appropriate paper size.
 
-[3
+[1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
+
 
 ] (./literature_review.aux)
 
@@ -602,21 +674,21 @@ LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 4265 strings out of 494953
- 62864 string characters out of 6180977
- 129640 words of memory out of 5000000
- 7469 multiletter control sequences out of 15000+600000
- 36221 words of font info for 77 fonts, out of 8000000 for 9000
+ 4239 strings out of 494953
+ 62485 string characters out of 6180977
+ 122556 words of memory out of 5000000
+ 7464 multiletter control sequences out of 15000+600000
+ 30833 words of font info for 60 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 38i,7n,26p,693b,364s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 38i,7n,26p,698b,242s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texliv
 e/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/texmf-dist/fo
 nts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/t
 imes/utmri8a.pfb>
-Output written on literature_review.pdf (3 pages, 52107 bytes).
+Output written on literature_review.pdf (1 page, 38195 bytes).
 PDF statistics:
- 27 PDF objects out of 1000 (max. 8388607)
- 18 compressed objects within 1 object stream
+ 21 PDF objects out of 1000 (max. 8388607)
+ 14 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 

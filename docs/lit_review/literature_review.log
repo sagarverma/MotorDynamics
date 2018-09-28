@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.8.28)  25 SEP 2018 16:47
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.9.27)  28 SEP 2018 14:11
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -462,87 +462,107 @@ LaTeX Warning: No \author given.
 LaTeX Warning: No \author given.
 
 
-LaTeX Warning: Citation `john2009nonlinear' on page 1 undefined on input line 3
-2.
-
-
-LaTeX Warning: Citation `lusch2017deep' on page 1 undefined on input line 32.
-
-
-LaTeX Warning: Citation `karpatne2017nips' on page 1 undefined on input line 32
-.
-
-
-LaTeX Warning: Citation `d'agnolo2018learning' on page 1 undefined on input lin
-e 32.
-
-
-LaTeX Warning: Citation `ogunmolu2016nonlinear' on page 1 undefined on input li
+LaTeX Warning: Citation `langford2009nonlinear' on page 1 undefined on input li
 ne 32.
 
 
-LaTeX Warning: Citation `karpatne2017physics-guided' on page 1 undefined on inp
-ut line 32.
+LaTeX Warning: Citation `rudy2017datadriven' on page 1 undefined on input line 
+32.
 
 
-LaTeX Warning: Citation `karpatne2017theory-guided' on page 1 undefined on inpu
-t line 32.
+LaTeX Warning: Citation `levin1991nips' on page 1 undefined on input line 32.
 
 
-LaTeX Warning: Citation `oliveria2017nips' on page 1 undefined on input line 32
-.
+LaTeXt line 30.
+
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+LaTeX Font Info:    Try loading font information for U+msb on input line 30.
+
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+)
+Overfull \hbox (22.35335pt too wide) in paragraph at lines 43--50
+\OT1/ptm/m/n/8 363-[]modeling-[]time-[]varying-[]systems-[]using-[]hidden-[]con
+trol-[]neural-[]architecture .
+ []
+
+[1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
 
 
-LaTeX Warning: Citation `benzenac2017dlphy' on page 1 undefined on input line 3
-2.
+]
+Missing character: There is no Ã in font ptmr7t!
+Missing character: There is no ¶ in font ptmr7t!
+
+Overfull \hbox (10.73753pt too wide) in paragraph at lines 189--196
+\OT1/ptm/m/n/8 384-[]neural-[]networks-[]structured-[]for-[]control-[]applicati
+on-[]to-[]aircraft-[]landing .
+ []
 
 
-LaTeX Warning: Citation `john2009nonlinear' on page 1 undefined on input line 4
-4.
+Overfull \hbox (2.67378pt too wide) in paragraph at lines 229--236
+\OT1/ptm/m/n/8 4420-[]nonlinear-[]inverse-[]reinforcement-[]learning-[]with-[]g
+aussian-[]processes .
+ []
 
 
-LaTeX Warning: Citation `kim2005nips' on page 1 undefined on input line 48.
+Overfull \hbox (51.03711pt too wide) in paragraph at lines 253--261
+\OT1/ptm/m/n/8 4018-[]an-[]approximate-[]inference-[]approach-[]to-[]temporal-[
+]optimization-[]in-[]optimal-[]control .
+ []
 
 
-LaTeX Warning: Citation `aboueldahab2011identification' on page 1 undefined on 
-input line 48.
+Underfull \hbox (badness 10000) in paragraph at lines 289--295
+\OT1/ptm/m/n/8 199-[]learning-[]to-[]control-[]an-[]unstable-[]system-[]with-[]
+forward-[]modeling .
+ []
 
+[2]
+Overfull \hbox (50.89711pt too wide) in paragraph at lines 440--447
+\OT1/ptm/m/n/8 344-[]neural-[]network-[]application-[]to-[]diagnostics-[]and-[]
+control-[]of-[]vehicle-[]control-[]systems .
+ []
 
-LaTeX Warning: Citation `milito1991nips' on page 1 undefined on input line 48.
+)
 
+** Conference Paper **
+Before submitting the final camera ready copy, remember to:
 
-LaTeX Warning: Citation `lippmann1991nips' on page 1 undefined on input line 48
-.
+ 1. Manually equalize the lengths of two columns on the last page
+ of your paper;
 
+ 2. Ensure that any PostScript and/or PDF output post-processing
+ uses only Type 1 fonts and that every step in the generation
+ process uses the appropriate paper size.
 
-LaTeX Warning: Citation `scott1992nips' on page 1 undefined on input line 48.
+[3
 
+] (./literature_review.aux)
 
-LaTeX Warning: Citation `HBZnips96' on page 1 undefined on input line 48.
+LaTeX Warning: There were undefined references.
 
+ ) 
+Here is how much of TeX's memory you used:
+ 4289 strings out of 494953
+ 63224 string characters out of 6180977
+ 134740 words of memory out of 5000000
+ 7493 multiletter control sequences out of 15000+600000
+ 36221 words of font info for 77 fonts, out of 8000000 for 9000
+ 14 hyphenation exceptions out of 8191
+ 38i,7n,26p,698b,363s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texliv
+e/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/texmf-dist/fo
+nts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/t
+imes/utmri8a.pfb>
+Output written on literature_review.pdf (3 pages, 57851 bytes).
+PDF statistics:
+ 27 PDF objects out of 1000 (max. 8388607)
+ 18 compressed objects within 1 object stream
+ 0 named destinations out of 1000 (max. 500000)
+ 1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
-LaTeX Warning: Citation `takashi2005nonlinear' on page 1 undefined on input lin
-e 48.
-
-
-LaTeX Warning: Citation `sabino1999chaos' on page 1 undefined on input line 48.
-
-
-
-LaTeX Warning: Citation `sergey2011nips' on page 1 undefined on input line 48.
-
-
-LaTeX Warning: Citation `schnider1997nips' on page 1 undefined on input line 48
-.
-
-
-LaTeX Warning: Citation `doya1997nips' on page 1 undefined on input line 48.
-
-
-LaTeX Warning: Citation `rawlik2010nips' on page 1 undefined on input line 48.
-
-
-LaTeX Warning: Citation `emanuel2009nips' on page 1 undefined on input line 48.
+nput line 48.
 
 
 
@@ -573,6 +593,10 @@ LaTeX Warning: Citation `deng2008feedback' on page 1 undefined on input line 48
 
 
 LaTeX Warning: Citation `chen2002ICDC' on page 1 undefined on input line 48.
+
+
+LaTeX Warning: Citation `timothy1994nips' on page 1 undefined on input line 48.
+
 
 
 LaTeX Warning: Citation `yu1996nips' on page 1 undefined on input line 48.
@@ -653,7 +677,59 @@ LaTeX Warning: Citation `marko1991nips' on page 1 undefined on input line 56.
 
 LaTeX Warning: Citation `kim2005nips' on page 1 undefined on input line 56.
 
-(./literature_review.bbl)
+(./literature_review.bbl
+LaTeX Font Info:    Try loading font information for U+msa on input line 30.
+
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+LaTeX Font Info:    Try loading font information for U+msb on input line 30.
+
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+)
+Overfull \hbox (22.35335pt too wide) in paragraph at lines 43--50
+\OT1/ptm/m/n/8 363-[]modeling-[]time-[]varying-[]systems-[]using-[]hidden-[]con
+trol-[]neural-[]architecture .
+ []
+
+[1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
+
+
+]
+Missing character: There is no Ã in font ptmr7t!
+Missing character: There is no ¶ in font ptmr7t!
+
+Overfull \hbox (10.73753pt too wide) in paragraph at lines 189--196
+\OT1/ptm/m/n/8 384-[]neural-[]networks-[]structured-[]for-[]control-[]applicati
+on-[]to-[]aircraft-[]landing .
+ []
+
+
+Overfull \hbox (2.67378pt too wide) in paragraph at lines 229--236
+\OT1/ptm/m/n/8 4420-[]nonlinear-[]inverse-[]reinforcement-[]learning-[]with-[]g
+aussian-[]processes .
+ []
+
+
+Overfull \hbox (51.03711pt too wide) in paragraph at lines 253--261
+\OT1/ptm/m/n/8 4018-[]an-[]approximate-[]inference-[]approach-[]to-[]temporal-[
+]optimization-[]in-[]optimal-[]control .
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 289--295
+\OT1/ptm/m/n/8 199-[]learning-[]to-[]control-[]an-[]unstable-[]system-[]with-[]
+forward-[]modeling .
+ []
+
+[2]
+Overfull \hbox (50.89711pt too wide) in paragraph at lines 440--447
+\OT1/ptm/m/n/8 344-[]neural-[]network-[]application-[]to-[]diagnostics-[]and-[]
+control-[]of-[]vehicle-[]control-[]systems .
+ []
+
+)
 
 ** Conference Paper **
 Before submitting the final camera ready copy, remember to:
@@ -665,30 +741,32 @@ Before submitting the final camera ready copy, remember to:
  uses only Type 1 fonts and that every step in the generation
  process uses the appropriate paper size.
 
-[1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
-
+[3
 
 ] (./literature_review.aux)
 
 LaTeX Warning: There were undefined references.
 
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
  ) 
 Here is how much of TeX's memory you used:
- 4239 strings out of 494953
- 62485 string characters out of 6180977
- 122556 words of memory out of 5000000
- 7464 multiletter control sequences out of 15000+600000
- 30833 words of font info for 60 fonts, out of 8000000 for 9000
+ 4289 strings out of 494953
+ 63224 string characters out of 6180977
+ 134529 words of memory out of 5000000
+ 7493 multiletter control sequences out of 15000+600000
+ 36221 words of font info for 77 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 38i,7n,26p,698b,242s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 38i,7n,26p,698b,363s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texliv
 e/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/texmf-dist/fo
 nts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/t
 imes/utmri8a.pfb>
-Output written on literature_review.pdf (1 page, 38195 bytes).
+Output written on literature_review.pdf (3 pages, 58039 bytes).
 PDF statistics:
- 21 PDF objects out of 1000 (max. 8388607)
- 14 compressed objects within 1 object stream
+ 27 PDF objects out of 1000 (max. 8388607)
+ 18 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -1,0 +1,12 @@
+Reporting-MTA: dns; smtp3.ecp.fr
+X-Postfix-Queue-ID: 8205261ED1
+X-Postfix-Sender: rfc822; sagar.verma@centralesupelec.fr
+Arrival-Date: Mon,  1 Oct 2018 11:21:40 +0200 (CEST)
+
+Final-Recipient: rfc822; sagar.verma@centralesupelec.fr
+Original-Recipient: rfc822;sagar.verma@centralesupelec.fr
+Action: failed
+Status: 5.5.0
+Remote-MTA: dns; mxb.relay.renater.fr
+Diagnostic-Code: smtp; 550 5.5.0 Requested actions not taken as the mailbox is
+    unavailable

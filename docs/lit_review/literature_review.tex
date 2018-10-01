@@ -29,7 +29,7 @@ The background section is divided in to the following subsections; first is mode
 
 \subsection{Modeling of physical systems}
 
-This section is on recent works where modeling of dynamical systems using machine learning has been done. Modeling of complex systems has been presented in \cite{langford2009nonlinear, rudy2017datadriven, levin1991nips, doya1996nips, hermans2014automated, john2009nonlinear, timothy1994nips, ardizzone2018analyzing, raissi2018deep, lusch2017deep, karpatne2017nips, d'agnolo2018learning, ogunmolu2016nonlinear, karpatne2017physics-guided, karpatne2017theory-guided, oliveria2017nips, benzenac2017dlphy}
+This section is on recent works where modeling of dynamical systems using machine learning has been done. Modeling of complex systems has been presented in \cite{langford2009nonlinear, rudy2017datadriven, levin1991nips, doya1996nips, hermans2014automated, john2009nonlinear, ardizzone2018analyzing, raissi2018deep, lusch2017deep, karpatne2017nips, d'agnolo2018learning, ogunmolu2016nonlinear, karpatne2017physics-guided, karpatne2017theory-guided, levin1991nips}
 
 HMM or Kalman filter are able to learn linear dynamic models, for non-linear dynamics accomodating nonlinearity into HMM is very hard. In \cite{langford2009nonlinear} a new method called sufficient posterior representation is presented which can be used to model nonlinear dynamic behaviors using many nonlinear supervised learning algorithms such as neural networks, boosting and SVM in a simple and unified fashion.
 
@@ -43,10 +43,38 @@ Reinforcement learning has also been used for physial modelling. In \cite{doya19
 
 Most of the methods of data driven learning of dynamic systems deal with sequential data. In \cite{john2009nonlinear} method is presented to learn dynamics from non-sequential data.
 
+Computing hidden system paramters from measurable quantities of complex physical systems using invertible neural network(INN) is presented in \cite{ardizzone2018analyzing}.
+
+In \cite{raissi2018deep} a deep learning appraoch for discovering nonlinear partial differential equations from scattered and potentially noisy observations is presented. Two deep neural networks are used to approximate solution and nonlinear dynamics.
+
+In \cite{lusch2017deep} a data driven approach of approximating nonlinear dynamics to a linear one using deep neural networks has been present. Koopman operators are learned from data for coordinate transformation of nonlinear system to linear one.
+
+In \cite{karpatne2017nips, karpatne2017physics-guided} a physics-guided neural networ(PGNN) is presented which leverages the output of physics-based model simulations along with observational features to generate predictions using a neural network. The model predictions not only show lower errors on the training data but are also consistent with the system dynamics.
+
+There are systems where dynamics change with time and some dynamics may not have been seen before. It will be usefull to identify new dynamics. \cite{d'agnolo2018learning} uses neural networks to identify new phsyics.
+
+\cite{ogunmolu2016nonlinear} have trained three deep neural network structures on sequential data and have shown detailed analysis on how DNNs are able to model the underlying dynamical systems.
+
+\cite{karpatne2017theory-guided} has shown how physics can be used to do better data driven discoveries. Theory guided design, learning, refinement of machine learning model has been presented.
+
+In \cite{levin1991nips} a multi-layered neural networks called Hidden Control Neural Network(HCNN) is presented to model nonlinear dynamical systems with restricted time variability. The mapping of NN changes with time as a function of an aditional control input signal.
+
+
 \subsection{Nonlinear Control}
 
-\cite{plett2003nn, kim2005nips, aboueldahab2011identification, levin1991nips, milito1991nips, lippmann1991nips, scott1992nips, HBZnips96, takashi2005nonlinear, sabino1999chaos, sergey2011nips, schnider1997nips, doya1997nips, rawlik2010nips, emanuel2009nips, li2015dynamic, watter2015nips, jordan1990nips, rivals2000nn, brown1998ICDC, susemihl2014nips, Mozer1996TheNP, deng2008feedback, chen2002ICDC, timothy1994nips, yu1996nips}
+\cite{timothy1994nips, plett2003nn, aboueldahab2011identification, milito1991nips, lippmann1991nips, scott1992nips, HBZnips96, takashi2005nonlinear, sabino1999chaos, sergey2011nips, schnider1997nips, doya1997nips, rawlik2010nips, emanuel2009nips, li2015dynamic, watter2015nips, jordan1990nips, rivals2000nn, brown1998ICDC, susemihl2014nips, Mozer1996TheNP, deng2008feedback, chen2002ICDC, timothy1994nips, yu1996nips}
 
+Using recurrent network to create mixture of expertes for modelling and controlling dynamical systems is presented in \cite{timothy1994nips}.
+
+IN \cite{plett2003nn} a dynamical system is first modeled using recurrent neural network(RNN). Then the dynamic response of the system is controlled using another RNN. Disturbance cancelling is performed using an adtitional RNN.
+
+In \cite{aboueldahab2011identification} a recurrent neural network architecture called Simoid Diagonal Recurrent Neural Network(SDRNN) is used for adaptive control of nonlinear dynamical systems.
+
+In \cite{milito1991nips} a feedforward neural network is used to control an unkown stochastic nonlinear dynamical system.
+
+In \cite{lippmann1991nips} recurrent neural network is used to control nonlinear plants. Approach is used in controlin landing of a commercial aircraft in difficult wind conditions.
+
+In \cite{}
 \subsection{Motor Control}
 
 \cite{yao2010adaline, nouri2008adaptive, aamir13pid, kumarawadu2010discrete-time, brdys1999dynamic, kim1991ICIECI, meng2016safety, Shao2017, alicmotor, zhang2017fault, silva2013fault, murphey2006fault, murphey2006model}

@@ -64,16 +64,6 @@ M.~Hermans, B.~Schrauwen, P.~Bienstman, and J.~Dambre, ``Automated design of
   [Online]. Available: \url{http://dx.doi.org/10.1371/journal.pone.0086696}
 \BIBentrySTDinterwordspacing
 
-\bibitem{timothy1994nips}
-\BIBentryALTinterwordspacing
-T.~W. Cacciatore and S.~J. Nowlan, ``Mixtures of controllers for jump linear
-  and non-linear plants,'' in \emph{Advances in Neural Information Processing
-  Systems 6}, J.~D. Cowan, G.~Tesauro, and J.~Alspector, Eds.\hskip 1em plus
-  0.5em minus 0.4em\relax Morgan-Kaufmann, 1994, pp. 719--726. [Online].
-  Available:
-  \url{http://papers.nips.cc/paper/750-mixtures-of-controllers-for-jump-linear-and-non-linear-plants.pdf}
-\BIBentrySTDinterwordspacing
-
 \bibitem{ardizzone2018analyzing}
 \BIBentryALTinterwordspacing
 L.~Ardizzone, J.~Kruse, S.~Wirkert, D.~Rahner, E.~W. Pellegrini, R.~S. Klessen,
@@ -134,37 +124,20 @@ A.~Karpatne, G.~Atluri, J.~H. Faghmous, M.~Steinbach, A.~Banerjee, A.~Ganguly,
   [Online]. Available: \url{http://dx.doi.org/10.1109/tkde.2017.2720168}
 \BIBentrySTDinterwordspacing
 
-\bibitem{oliveria2017nips}
+\bibitem{timothy1994nips}
 \BIBentryALTinterwordspacing
-L.~d. Oliveira, M.~Paganini, and B.~Nachman, ``Tips and tricks for training
-  gans with physics constraints,'' \emph{Deep Learning for Physical Sciences
-  workshop in Neural Information Processing Systems}, 2017. [Online].
+T.~W. Cacciatore and S.~J. Nowlan, ``Mixtures of controllers for jump linear
+  and non-linear plants,'' in \emph{Advances in Neural Information Processing
+  Systems 6}, J.~D. Cowan, G.~Tesauro, and J.~Alspector, Eds.\hskip 1em plus
+  0.5em minus 0.4em\relax Morgan-Kaufmann, 1994, pp. 719--726. [Online].
   Available:
-  \url{https://dl4physicalsciences.github.io/files/nips_dlps_2017_26.pdf}
-\BIBentrySTDinterwordspacing
-
-\bibitem{benzenac2017dlphy}
-\BIBentryALTinterwordspacing
-E.~d. Bezenac, A.~Pajot, and P.~Gallinari, ``Towards a hybrid approach to
-  physical process modeling,'' \emph{Deep Learning for Physical Sciences
-  workshop in Neural Information Processing Systems}, 2017. [Online].
-  Available:
-  \url{https://dl4physicalsciences.github.io/files/nips_dlps_2017_9.pdf}
+  \url{http://papers.nips.cc/paper/750-mixtures-of-controllers-for-jump-linear-and-non-linear-plants.pdf}
 \BIBentrySTDinterwordspacing
 
 \bibitem{plett2003nn}
 G.~L. Plett, ``Adaptive inverse control of linear and nonlinear systems using
   dynamic neural networks,'' \emph{IEEE Transactions on Neural Networks},
   vol.~14, no.~2, pp. 360--376, March 2003.
-
-\bibitem{kim2005nips}
-\BIBentryALTinterwordspacing
-H.~J. Kim and A.~Y. Ng, ``Stable adaptive control with online learning,'' in
-  \emph{Advances in Neural Information Processing Systems 17}, L.~K. Saul,
-  Y.~Weiss, and L.~Bottou, Eds.\hskip 1em plus 0.5em minus 0.4em\relax MIT
-  Press, 2005, pp. 977--984. [Online]. Available:
-  \url{http://papers.nips.cc/paper/2623-stable-adaptive-control-with-online-learning.pdf}
-\BIBentrySTDinterwordspacing
 
 \bibitem{aboueldahab2011identification}
 \BIBentryALTinterwordspacing
@@ -443,6 +416,15 @@ K.~A. Marko, ``Neural network application to diagnostics and control of vehicle
   0.5em minus 0.4em\relax Morgan-Kaufmann, 1991, pp. 537--543. [Online].
   Available:
   \url{http://papers.nips.cc/paper/344-neural-network-application-to-diagnostics-and-control-of-vehicle-control-systems.pdf}
+\BIBentrySTDinterwordspacing
+
+\bibitem{kim2005nips}
+\BIBentryALTinterwordspacing
+H.~J. Kim and A.~Y. Ng, ``Stable adaptive control with online learning,'' in
+  \emph{Advances in Neural Information Processing Systems 17}, L.~K. Saul,
+  Y.~Weiss, and L.~Bottou, Eds.\hskip 1em plus 0.5em minus 0.4em\relax MIT
+  Press, 2005, pp. 977--984. [Online]. Available:
+  \url{http://papers.nips.cc/paper/2623-stable-adaptive-control-with-online-learning.pdf}
 \BIBentrySTDinterwordspacing
 
 \end{thebibliography}

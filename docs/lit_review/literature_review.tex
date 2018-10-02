@@ -62,7 +62,7 @@ In \cite{levin1991nips} a multi-layered neural networks called Hidden Control Ne
 
 \subsection{Nonlinear Control}
 
-\cite{timothy1994nips, plett2003nn, aboueldahab2011identification, milito1991nips, lippmann1991nips, scott1992nips, HBZnips96, takashi2005nonlinear, sabino1999chaos, sergey2011nips, schnider1997nips, doya1997nips, rawlik2010nips, emanuel2009nips, li2015dynamic, watter2015nips, jordan1990nips, rivals2000nn, brown1998ICDC, susemihl2014nips, Mozer1996TheNP, deng2008feedback, chen2002ICDC, timothy1994nips, yu1996nips}
+\cite{timothy1994nips, plett2003nn, aboueldahab2011identification, milito1991nips, lippmann1991nips, scott1992nips, HBZnips96, takashi2005nonlinear, sabino1999chaos, schnider1997nips, doya1997nips, rawlik2010nips, watter2015nips, Mozer1996TheNP, chen2002ICDC, yu1996nips}
 
 Using recurrent network to create mixture of expertes for modelling and controlling dynamical systems is presented in \cite{timothy1994nips}.
 
@@ -74,14 +74,61 @@ In \cite{milito1991nips} a feedforward neural network is used to control an unko
 
 In \cite{lippmann1991nips} recurrent neural network is used to control nonlinear plants. Approach is used in controlin landing of a commercial aircraft in difficult wind conditions.
 
-In \cite{}
+In \cite{scott1992nips} an algorithm is presented using which the governing equations of a PID controller is used to train an neural network to control a nonlinear system.
+
+Reinforcement learning algorithm that learns to combine open-loop and closed-loop control is presented in \cite{HBZnips96}. \cite{takashi2005nonlinear} also uses reinforcement learning to predict nonlinear time series.
+
+In \cite{sabino1999chaos} a general purpose chaos control algorithm based on reinforcement learning is introduced and applied to the stabilization of unstable periodic orbits in various chaotic systems and to the targeting problem. The algorithm does not require any information about the dynamical system nor about the
+location of periodic orbits.
+
+Model learning combined with dynamic programming has been shown to be effective for learning control of continuous state dynamic systems. The simplest method assumes the learned model is correct and applies dynamic programming to it, but many approximators provide uncertainty estimates on the fit. How can they be exploited? \cite{schnider1997nips} have presented the case where the system must be prevented from having catastrophic failures during learning.
+
+In \cite{doya1997nips} a new reinforcement learning architecture for nonlinear control is presented. A direct feedback controller, or the actor, is trained by a value-gradient based controller, or the tutor. This architecture enables both efficient use of the value function and simple computation for real-time implementation. Good performance was verified in multi-dimensional nonlinear control tasks using Gaussian softmax networks.
+
+In \cite{rawlik2010nips} a method for jointly optimizing the temporal parameters along with the control command profiles is presented.
+
+In \cite{watter2015nips} a method for model learning and control of non-linear dynamical systems from raw pixel images is presented. E2C consists of a deep generative model that learns to generate image trajectories from a latent space in which the dynamics is constrained to be locally linear.
+
+In \cite{Mozer1996TheNP} an adaptive controller for thermostate is presented. The consequences of control decisions are delayed in time, the controller anticipates heating demands with predictive models of occupancy patterns and the thermal response of the house and furnace. Occupancy pattern prediction is achieved by a hybrid neural net / look-up table. The controller searches, at each discrete time step, for a decision sequence that minimizes the expected cost over a fixed planning horizon. The first decision in this sequence is taken, and this process repeats.
+
+In \cite{chen2002ICDC}  a new framework for intelligent control is presented which adaptively controls a class of nonlinear discrete time dynamical systems while assuring boundedness of all signals. A linear robust adaptive controller and multiple nonlinear neural network based adaptive controllers are used, and a switching law is suitably defined to switch between them, based upon their performance in predicting the plant output. Boundedness of all the signals is established regardless of the parameter adjustment mechanism of the neural network controllers, and thus neural network models can be used in novel ways to better detect changes in the system and provide starting points for adaptation.
+
+In \cite{yu1996nips} a neural network based approach is presented for controlling two distinct types of nonlinear systems. The first corresponds to nonlinear systems with parametric uncertainties where the parameters occur nonlinearly. The second corresponds to systems for which stabilizing control structures cannot be determined. The proposed neural controllers are shown to result in closed-loop system stability under certain conditions.
+
 \subsection{Motor Control}
 
-\cite{yao2010adaline, nouri2008adaptive, aamir13pid, kumarawadu2010discrete-time, brdys1999dynamic, kim1991ICIECI, meng2016safety, Shao2017, alicmotor, zhang2017fault, silva2013fault, murphey2006fault, murphey2006model}
+\cite{yao2010adaline, nouri2008adaptive, aamir13pid, kumarawadu2010discrete-time, brdys1999dynamic}
+
+In \cite{yao2010adaline} a neural network adaptive inverse controller is presented. The dynamical system inverse model identifier is constructed by neural network. The task is accomplished by generating a tracking error between the input command signal and the system response. The weights of the neural network are updated by the error signal in such a way that the error is minimized in the sense of mean square using (LMS) algorithm and the neural network is close to the system inverse model. The above steps make the gain of the serial connection system close to unity, realizing waveform replication function in real-time. To enhance its convergence and robustness, the normalized LMS algorithm is applied.
+
+In \cite{nouri2008adaptive} a model-following adaptive control structure is proposed for the speed control of a nonlinear motor drive system and the compensation of the nonlinearities. A recurrent neural network is used for the online modeling and control of the nonlinear motor drive system with high static and Coulomb friction. The neural network is first trained off-line to learn the inverse dynamics of the motor drive system using a modified form of the decoupled extended Kalman filter algorithm. It is shown that the recurrent neural network structure combined with the inverse model control approach allows an effective direct adaptive control of the motor drive system. The performance of this method is validated experimentally on a dc motor drive system using a standard personal computer.
+
+In \cite{aamir13pid} a deep learning controller is designed by learning PID controller. The input/output of the PID controller are used as the learning data set for the deep learning network. Deep Belief Network algorithm is used to design the deep learning controller.
+
+In \cite{kumarawadu2010discrete-time} a discrete time neuro-compensated dynamic state feedback control system for  lateral and longitudinal control of intelligent vehicle highway systems (IVHS) is presented.
+
+In \cite{brdys1999dynamic} application of recently developed adaptive control techniques based on neural networks to the induction motor control is presented. The case study represents one of the more difficult control problems due to the complex, nonlinear, and time-varying dynamics of the motor and unavailability of full-state measurements. A partial solution is first presented based on a single input–single output (SISO) algorithm employing static multilayer perceptron (MLP) networks. A novel technique is subsequently described which is based on a recurrent neural network employed as a dynamical model of the plant. Recent stability results for this algorithm are reported. The technique is applied to multiinput–multioutput (MIMO) control of the motor.
+
 
 \subsection{Fault Detection}
 
-\cite{meng2016safety, Shao2017, alicmotor, zhang2017fault, silva2013fault, murphey2006fault, murphey2006model, George2017qtr, marko1991nips, kim2005nips}
+\cite{meng2016safety, Shao2017, alicmotor, zhang2017fault, silva2013fault, murphey2006fault, murphey2006model, marko1991nips, kim2005nips}
+
+In \cite{meng2016safety} the fault degree and health degree of the system are put forward based on the analysis of electric motor drive system’s control principle. With the self-organizing neural network’s advantage of competitive learning and unsupervised clustering, the system’s health clustering and safety identification are worked out.
+
+In \cite{Shao2017} a DBN is used to learn features from frequency distribution of vibration signals with the purpose of characterizing working status of induction motors.
+
+\cite{alicmotor} deals with the application of speed variable pumps in industrial hydraulic systems. The benefit of the natural feedback of the load torque is investigated for the issue of condition monitoring as the development of losses can be taken as evidence of faults. Neural network is used for adaptive modeling of the torque balance over a range of steady operation in fault free behavior. The goal is to keep a numeric reference with acceptable accuracy of the unit used in particular, taking into consideration the manufacturing tolerances and other operation conditions differences. The learned model gives baseline for identification of major possible abnormalities and offers a fundament for fault isolation by continuously estimating and analyzing the deviations.
+
+In \cite{zhang2017fault} DNN on raw time series data is applied to do fault detection.
+
+In \cite{silva2013fault} three different machine learning methods are presented for fault detection in electric motors. First one is feature extraction using Principal Component Analysis (PCA), second one is classification using the k-Nearest Neighbor (k-NN) or Probabilistic Neural Network (PNN) methods and the third one is classifier performance evaluation using the Cross-Validation (CV) method. While electric machine, inverter, and sensor faults are introduced, the supervised learning algorithms are applied to four case studies where two fault modes occur in a current sensor, and two occur in the speed encoder.
+
+In \cite{murphey2006fault, murphey2006model} a machine learning algorithm has been presented which automatically selects a set of representative operating points in the (torque, speed) domain, which in tum is sent to the simulated electric drive model to generate signals for the training of a diagnostic neural network called Fault Diagnostic Neural Network(FDNN).
+
+In \cite{marko1991nips} fault detection in real time systems using ANN and adaptive control of an active suspension system is presented.
+
+Learning algorithms have enjoyed numerous successes in robotic control tasks. In problems with time-varying dynamics, online learning methods have also proved to be a powerful tool for automatically tracking and/or adapting to the changing circumstances. However, for safety-critical applications such as airplane flight, the adoption of these algorithms has been significantly hampered by their lack of safety, such as “stability,” guarantees. Rather than trying to show difficult, a priori, stability guarantees for specific learning methods, in \cite{kim2005nips} authors have presented a method for “monitoring” the controllers suggested by the learning algorithm on-line, and rejecting controllers leading to instability.
 
 \bibliographystyle{IEEEtran}
 \bibliography{literature_review}

@@ -22,117 +22,120 @@
 \BIBdecl
 
 \bibitem{langford2009nonlinear}
-\BIBentryALTinterwordspacing
 J.~Langford, R.~Salakhutdinov, and T.~Zhang, ``Learning nonlinear dynamic
-  models,'' in \emph{Proceedings of the 26th Annual International Conference on
-  Machine Learning}, ser. ICML '09.\hskip 1em plus 0.5em minus 0.4em\relax New
-  York, NY, USA: ACM, 2009, pp. 593--600. [Online]. Available:
-  \url{http://doi.acm.org/10.1145/1553374.1553451}
-\BIBentrySTDinterwordspacing
-
-\bibitem{rudy2017datadriven}
-\BIBentryALTinterwordspacing
-S.~H. Rudy, S.~L. Brunton, J.~L. Proctor, and J.~N. Kutz, ``Data-driven
-  discovery of partial differential equations,'' \emph{Science Advances},
-  vol.~3, no.~4, p. e1602614, 2017. [Online]. Available:
-  \url{http://dx.doi.org/10.1126/sciadv.1602614}
-\BIBentrySTDinterwordspacing
+  models,'' pp. 593--600, 2009.
 
 \bibitem{levin1991nips}
-\BIBentryALTinterwordspacing
 E.~Levin, ``Modeling time varying systems using hidden control neural
   architecture,'' in \emph{Advances in Neural Information Processing Systems
   3}, R.~P. Lippmann, J.~E. Moody, and D.~S. Touretzky, Eds.\hskip 1em plus
-  0.5em minus 0.4em\relax Morgan-Kaufmann, 1991, pp. 147--154. [Online].
-  Available:
-  \url{http://papers.nips.cc/paper/363-modeling-time-varying-systems-using-hidden-control-neural-architecture.pdf}
-\BIBentrySTDinterwordspacing
+  0.5em minus 0.4em\relax Morgan-Kaufmann, 1991, pp. 147--154.
 
-\bibitem{doya1996nips}
-\BIBentryALTinterwordspacing
-K.~Doya, ``Temporal difference learning in continuous time and space,'' in
-  \emph{Advances in Neural Information Processing Systems 8}, D.~S. Touretzky,
-  M.~C. Mozer, and M.~E. Hasselmo, Eds.\hskip 1em plus 0.5em minus 0.4em\relax
-  MIT Press, 1996, pp. 1073--1079. [Online]. Available:
-  \url{http://papers.nips.cc/paper/1169-temporal-difference-learning-in-continuous-time-and-space.pdf}
-\BIBentrySTDinterwordspacing
+\bibitem{john2009nonlinear}
+T.~Huang, L.~Song, and J.~Schneider, ``Learning nonlinear dynamic models from
+  non-sequenced data,'' in \emph{Proceedings of the Thirteenth International
+  Conference on Artificial Intelligence and Statistics}, ser. Proceedings of
+  Machine Learning Research, Y.~W. Teh and M.~Titterington, Eds., vol.~9.\hskip
+  1em plus 0.5em minus 0.4em\relax Chia Laguna Resort, Sardinia, Italy: PMLR,
+  13--15 May 2010, pp. 350--357.
 
-\bibitem{hermans2014automated}
-\BIBentryALTinterwordspacing
-M.~Hermans, B.~Schrauwen, P.~Bienstman, and J.~Dambre, ``Automated design of
-  complex dynamic systems,'' \emph{PLoS ONE}, vol.~9, no.~1, p. e86696, 2014.
-  [Online]. Available: \url{http://dx.doi.org/10.1371/journal.pone.0086696}
-\BIBentrySTDinterwordspacing
+\bibitem{ogunmolu2016nonlinear}
+O.~Ogunmolu, X.~Gu, S.~Jiang, and N.~Gans, ``Nonlinear systems identification
+  using deep dynamic neural networks,'' 2016.
 
-\bibitem{ardizzone2018analyzing}
-\BIBentryALTinterwordspacing
-L.~Ardizzone, J.~Kruse, S.~Wirkert, D.~Rahner, E.~W. Pellegrini, R.~S. Klessen,
-  L.~Maier-Hein, C.~Rother, and U.~Köthe, ``Analyzing inverse problems with
-  invertible neural networks,'' 2018. [Online]. Available:
-  \url{http://arxiv.org/abs/1808.04730}
-\BIBentrySTDinterwordspacing
+\bibitem{rudy2017datadriven}
+S.~H. Rudy, S.~L. Brunton, J.~L. Proctor, and J.~N. Kutz, ``Data-driven
+  discovery of partial differential equations,'' \emph{Science Advances},
+  vol.~3, no.~4, p. e1602614, 2017.
 
 \bibitem{raissi2018deep}
-\BIBentryALTinterwordspacing
 M.~Raissi, ``Deep hidden physics models: Deep learning of nonlinear partial
-  differential equations,'' 2018. [Online]. Available:
-  \url{http://arxiv.org/abs/1801.06637}
-\BIBentrySTDinterwordspacing
+  differential equations,'' 2018.
+
+\bibitem{ardizzone2018analyzing}
+L.~Ardizzone, J.~Kruse, S.~Wirkert, D.~Rahner, E.~W. Pellegrini, R.~S. Klessen,
+  L.~Maier-Hein, C.~Rother, and U.~Köthe, ``Analyzing inverse problems with
+  invertible neural networks,'' 2018.
 
 \bibitem{lusch2017deep}
-\BIBentryALTinterwordspacing
 B.~Lusch, J.~N. Kutz, and S.~L. Brunton, ``Deep learning for universal linear
-  embeddings of nonlinear dynamics,'' 2017. [Online]. Available:
-  \url{http://arxiv.org/abs/1712.09707}
-\BIBentrySTDinterwordspacing
+  embeddings of nonlinear dynamics,'' 2017.
 
-\bibitem{karpatne2017nips}
+\bibitem{Koopman315}
 \BIBentryALTinterwordspacing
-E.~d. Bezenac, A.~Pajot, and P.~Gallinari, ``Towards a hybrid approach to
-  physical process modeling,'' \emph{Deep Learning for Physical Sciences
-  workshop in Neural Information Processing Systems}, 2017. [Online].
-  Available:
-  \url{https://dl4physicalsciences.github.io/files/nips_dlps_2017_9.pdf}
+B.~O. Koopman, ``Hamiltonian systems and transformation in hilbert space,''
+  \emph{Proceedings of the National Academy of Sciences}, vol.~17, no.~5, pp.
+  315--318, 1931. [Online]. Available:
+  \url{http://www.pnas.org/content/17/5/315}
 \BIBentrySTDinterwordspacing
 
 \bibitem{d'agnolo2018learning}
-\BIBentryALTinterwordspacing
 R.~T. D'Agnolo and A.~Wulzer, ``Learning new physics from a machine,'' 2018.
-  [Online]. Available: \url{http://arxiv.org/abs/1806.02350}
-\BIBentrySTDinterwordspacing
-
-\bibitem{ogunmolu2016nonlinear}
-\BIBentryALTinterwordspacing
-O.~Ogunmolu, X.~Gu, S.~Jiang, and N.~Gans, ``Nonlinear systems identification
-  using deep dynamic neural networks,'' 2016. [Online]. Available:
-  \url{http://arxiv.org/abs/1610.01439}
-\BIBentrySTDinterwordspacing
-
-\bibitem{karpatne2017physics-guided}
-\BIBentryALTinterwordspacing
-A.~Karpatne, W.~Watkins, J.~Read, and V.~Kumar, ``Physics-guided neural
-  networks (pgnn): An application in lake temperature modeling,'' 2017.
-  [Online]. Available: \url{http://arxiv.org/abs/1710.11431}
-\BIBentrySTDinterwordspacing
 
 \bibitem{karpatne2017theory-guided}
-\BIBentryALTinterwordspacing
 A.~Karpatne, G.~Atluri, J.~H. Faghmous, M.~Steinbach, A.~Banerjee, A.~Ganguly,
   S.~Shekhar, N.~Samatova, and V.~Kumar, ``Theory-guided data science: A new
   paradigm for scientific discovery from data,'' \emph{IEEE Transactions on
   Knowledge and Data Engineering}, vol.~29, no.~10, pp. 2318--2331, 2017.
-  [Online]. Available: \url{http://dx.doi.org/10.1109/tkde.2017.2720168}
-\BIBentrySTDinterwordspacing
+
+\bibitem{karpatne2017nips}
+E.~d. Bezenac, A.~Pajot, and P.~Gallinari, ``Towards a hybrid approach to
+  physical process modeling,'' \emph{Deep Learning for Physical Sciences
+  workshop in Neural Information Processing Systems}, 2017.
+
+\bibitem{karpatne2017physics-guided}
+A.~Karpatne, W.~Watkins, J.~Read, and V.~Kumar, ``Physics-guided neural
+  networks ({PGNN}): An application in lake temperature modeling,'' 2017.
+
+\bibitem{hermans2014automated}
+M.~Hermans, B.~Schrauwen, P.~Bienstman, and J.~Dambre, ``Automated design of
+  complex dynamic systems,'' \emph{PLoS ONE}, vol.~9, no.~1, p. e86696, 2014.
+
+\bibitem{doya1996nips}
+K.~Doya, ``Temporal difference learning in continuous time and space,'' in
+  \emph{Advances in Neural Information Processing Systems 8}, D.~S. Touretzky,
+  M.~C. Mozer, and M.~E. Hasselmo, Eds.\hskip 1em plus 0.5em minus 0.4em\relax
+  MIT Press, 1996, pp. 1073--1079.
+
+\bibitem{milito1991nips}
+R.~A. Milito, I.~Guyon, and S.~A. Solla, ``Neural network implementation of
+  admission control,'' in \emph{Advances in Neural Information Processing
+  Systems 3}, R.~P. Lippmann, J.~E. Moody, and D.~S. Touretzky, Eds.\hskip 1em
+  plus 0.5em minus 0.4em\relax Morgan-Kaufmann, 1991, pp. 493--499.
+
+\bibitem{scott1992nips}
+G.~M. Scott, J.~W. Shavlik, and W.~H. Ray, ``Refining pid controllers using
+  neural networks,'' in \emph{Advances in Neural Information Processing Systems
+  4}, J.~E. Moody, S.~J. Hanson, and R.~P. Lippmann, Eds.\hskip 1em plus 0.5em
+  minus 0.4em\relax Morgan-Kaufmann, 1992, pp. 555--562.
+
+\bibitem{rawlik2010nips}
+K.~Rawlik, M.~Toussaint, and S.~Vijayakumar, ``An approximate inference
+  approach to temporal optimization in optimal control,'' in \emph{Advances in
+  Neural Information Processing Systems 23}, J.~D. Lafferty, C.~K.~I. Williams,
+  J.~Shawe-Taylor, R.~S. Zemel, and A.~Culotta, Eds.\hskip 1em plus 0.5em minus
+  0.4em\relax Curran Associates, Inc., 2010, pp. 2011--2019.
+
+\bibitem{Mozer1996TheNP}
+M.~C. Mozer, L.~Vidmar, and R.~H. Dodier, ``The neurothermostat: Predictive
+  optimal control of residential heating systems,'' in \emph{NIPS}, 1996.
+
+\bibitem{chen2002ICDC}
+L.~Chen and K.~S. Narendra, ``Intelligent control using neural networks and
+  multiple models,'' in \emph{Proceedings of the 41st IEEE Conference on
+  Decision and Control, 2002.}, vol.~2, Dec 2002, pp. 1357--1362 vol.2.
+
+\bibitem{yu1996nips}
+S.-H. Yu and A.~M. Annaswamy, ``Neural control for nonlinear dynamic systems,''
+  in \emph{Advances in Neural Information Processing Systems 8}, D.~S.
+  Touretzky, M.~C. Mozer, and M.~E. Hasselmo, Eds.\hskip 1em plus 0.5em minus
+  0.4em\relax MIT Press, 1996, pp. 1010--1016.
 
 \bibitem{timothy1994nips}
-\BIBentryALTinterwordspacing
 T.~W. Cacciatore and S.~J. Nowlan, ``Mixtures of controllers for jump linear
   and non-linear plants,'' in \emph{Advances in Neural Information Processing
   Systems 6}, J.~D. Cowan, G.~Tesauro, and J.~Alspector, Eds.\hskip 1em plus
-  0.5em minus 0.4em\relax Morgan-Kaufmann, 1994, pp. 719--726. [Online].
-  Available:
-  \url{http://papers.nips.cc/paper/750-mixtures-of-controllers-for-jump-linear-and-non-linear-plants.pdf}
-\BIBentrySTDinterwordspacing
+  0.5em minus 0.4em\relax Morgan-Kaufmann, 1994, pp. 719--726.
 
 \bibitem{plett2003nn}
 G.~L. Plett, ``Adaptive inverse control of linear and nonlinear systems using
@@ -140,50 +143,23 @@ G.~L. Plett, ``Adaptive inverse control of linear and nonlinear systems using
   vol.~14, no.~2, pp. 360--376, March 2003.
 
 \bibitem{aboueldahab2011identification}
-\BIBentryALTinterwordspacing
 T.~Aboueldahab and M.~Fakhreldin, ``Identification and adaptive control of
   dynamic nonlinear systems using sigmoid diagonal recurrent neural network,''
   \emph{Intelligent Control and Automation}, vol.~02, no.~03, pp. 176--181,
-  2011. [Online]. Available: \url{http://dx.doi.org/10.4236/ica.2011.23021}
-\BIBentrySTDinterwordspacing
-
-\bibitem{milito1991nips}
-\BIBentryALTinterwordspacing
-R.~A. Milito, I.~Guyon, and S.~A. Solla, ``Neural network implementation of
-  admission control,'' in \emph{Advances in Neural Information Processing
-  Systems 3}, R.~P. Lippmann, J.~E. Moody, and D.~S. Touretzky, Eds.\hskip 1em
-  plus 0.5em minus 0.4em\relax Morgan-Kaufmann, 1991, pp. 493--499. [Online].
-  Available:
-  \url{http://papers.nips.cc/paper/327-neural-network-implementation-of-admission-control.pdf}
-\BIBentrySTDinterwordspacing
+  2011.
 
 \bibitem{lippmann1991nips}
-\BIBentryALTinterwordspacing
 C.~Schley, Y.~Chauvin, V.~Henkle, and R.~Golden, ``Neural networks structured
   for control application to aircraft landing,'' in \emph{Advances in Neural
   Information Processing Systems 3}, R.~P. Lippmann, J.~E. Moody, and D.~S.
   Touretzky, Eds.\hskip 1em plus 0.5em minus 0.4em\relax Morgan-Kaufmann, 1991,
-  pp. 415--421. [Online]. Available:
-  \url{http://papers.nips.cc/paper/384-neural-networks-structured-for-control-application-to-aircraft-landing.pdf}
-\BIBentrySTDinterwordspacing
-
-\bibitem{scott1992nips}
-\BIBentryALTinterwordspacing
-G.~M. Scott, J.~W. Shavlik, and W.~H. Ray, ``Refining pid controllers using
-  neural networks,'' in \emph{Advances in Neural Information Processing Systems
-  4}, J.~E. Moody, S.~J. Hanson, and R.~P. Lippmann, Eds.\hskip 1em plus 0.5em
-  minus 0.4em\relax Morgan-Kaufmann, 1992, pp. 555--562. [Online]. Available:
-  \url{http://papers.nips.cc/paper/503-refining-pid-controllers-using-neural-networks.pdf}
-\BIBentrySTDinterwordspacing
+  pp. 415--421.
 
 \bibitem{HBZnips96}
-\BIBentryALTinterwordspacing
 E.~Hansen, A.~G. Barto, and S.~Zilberstein, ``Reinforcement learning for mixed
   open-loop and closed-loop control,'' in \emph{Proceedings of the Ninth Neural
   Information Processing Systems Conference}, Denver, Colorado, 1996, pp.
-  1026--1032. [Online]. Available:
-  \url{http://rbr.cs.umass.edu/shlomo/papers/HBZnips96.html}
-\BIBentrySTDinterwordspacing
+  1026--1032.
 
 \bibitem{takashi2005nonlinear}
 T.~Kuremoto, M.~Obayashi, and K.~Kobayashi, ``Nonlinear prediction by
@@ -197,199 +173,62 @@ S.~Gadaleta and G.~Dangelmayr, ``Optimal chaos control through reinforcement
   learning,'' \emph{Chaos: An Interdisciplinary Journal of Nonlinear Science},
   vol.~9, no.~3, pp. 775--788, 1999.
 
-\bibitem{sergey2011nips}
-\BIBentryALTinterwordspacing
-S.~Levine, Z.~Popovic, and V.~Koltun, ``Nonlinear inverse reinforcement
-  learning with gaussian processes,'' in \emph{Advances in Neural Information
-  Processing Systems 24}, J.~Shawe-Taylor, R.~S. Zemel, P.~L. Bartlett,
-  F.~Pereira, and K.~Q. Weinberger, Eds.\hskip 1em plus 0.5em minus 0.4em\relax
-  Curran Associates, Inc., 2011, pp. 19--27. [Online]. Available:
-  \url{http://papers.nips.cc/paper/4420-nonlinear-inverse-reinforcement-learning-with-gaussian-processes.pdf}
-\BIBentrySTDinterwordspacing
-
 \bibitem{schnider1997nips}
 J.~G. Schneider, ``Exploiting model uncertainity estimates for safe dynamic
   control learning,'' in \emph{Proceedings of the Tenth Neural Information
   Processing Systems Conference}, 1997.
 
 \bibitem{doya1997nips}
-\BIBentryALTinterwordspacing
 K.~Doya, ``Efficient nonlinear control with actor-tutor architecture,'' in
   \emph{Advances in Neural Information Processing Systems 9}, M.~C. Mozer,
   M.~I. Jordan, and T.~Petsche, Eds.\hskip 1em plus 0.5em minus 0.4em\relax MIT
-  Press, 1997, pp. 1012--1018. [Online]. Available:
-  \url{http://papers.nips.cc/paper/1228-efficient-nonlinear-control-with-actor-tutor-architecture.pdf}
-\BIBentrySTDinterwordspacing
-
-\bibitem{rawlik2010nips}
-\BIBentryALTinterwordspacing
-K.~Rawlik, M.~Toussaint, and S.~Vijayakumar, ``An approximate inference
-  approach to temporal optimization in optimal control,'' in \emph{Advances in
-  Neural Information Processing Systems 23}, J.~D. Lafferty, C.~K.~I. Williams,
-  J.~Shawe-Taylor, R.~S. Zemel, and A.~Culotta, Eds.\hskip 1em plus 0.5em minus
-  0.4em\relax Curran Associates, Inc., 2010, pp. 2011--2019. [Online].
-  Available:
-  \url{http://papers.nips.cc/paper/4018-an-approximate-inference-approach-to-temporal-optimization-in-optimal-control.pdf}
-\BIBentrySTDinterwordspacing
-
-\bibitem{emanuel2009nips}
-\BIBentryALTinterwordspacing
-E.~Todorov, ``Compositionality of optimal control laws,'' in \emph{Proceedings
-  of the 22Nd International Conference on Neural Information Processing
-  Systems}, ser. NIPS'09.\hskip 1em plus 0.5em minus 0.4em\relax USA: Curran
-  Associates Inc., 2009, pp. 1856--1864. [Online]. Available:
-  \url{http://dl.acm.org/citation.cfm?id=2984093.2984301}
-\BIBentrySTDinterwordspacing
-
-\bibitem{li2015dynamic}
-\BIBentryALTinterwordspacing
-P.~Li, X.~Wang, W.-J. Lee, and D.~Xu, ``Dynamic power conditioning method of
-  microgrid via adaptive inverse control,'' \emph{IEEE Transactions on Power
-  Delivery}, vol.~30, no.~2, pp. 906--913, 2015. [Online]. Available:
-  \url{http://dx.doi.org/10.1109/tpwrd.2014.2323083}
-\BIBentrySTDinterwordspacing
+  Press, 1997, pp. 1012--1018.
 
 \bibitem{watter2015nips}
-\BIBentryALTinterwordspacing
 M.~Watter, J.~T. Springenberg, J.~Boedecker, and M.~A. Riedmiller, ``Embed to
   control: {A} locally linear latent dynamics model for control from raw
-  images,'' \emph{CoRR}, vol. abs/1506.07365, 2015. [Online]. Available:
-  \url{http://arxiv.org/abs/1506.07365}
-\BIBentrySTDinterwordspacing
-
-\bibitem{jordan1990nips}
-\BIBentryALTinterwordspacing
-M.~I. Jordan and R.~A. Jacobs, ``Learning to control an unstable system with
-  forward modeling,'' in \emph{Advances in Neural Information Processing
-  Systems 2}, D.~S. Touretzky, Ed.\hskip 1em plus 0.5em minus 0.4em\relax
-  Morgan-Kaufmann, 1990, pp. 324--331. [Online]. Available:
-  \url{http://papers.nips.cc/paper/199-learning-to-control-an-unstable-system-with-forward-modeling.pdf}
-\BIBentrySTDinterwordspacing
-
-\bibitem{rivals2000nn}
-\BIBentryALTinterwordspacing
-I.~Rivals and L.~Personnaz, ``{Nonlinear Internal Model Control using Neural
-  networks : application to Processes with Delay and Design Issues},''
-  \emph{{IEEE Transactions on Neural Networks}}, vol.~11, no.~1, pp. 80--90,
-  2000. [Online]. Available:
-  \url{https://hal-espci.archives-ouvertes.fr/hal-00797666}
-\BIBentrySTDinterwordspacing
-
-\bibitem{brown1998ICDC}
-L.~J. Brown, G.~E. Gonye, and J.~S. Schwaber, ``Non-linear pi control inspired
-  by biological control systems,'' in \emph{Proceedings of the 37th IEEE
-  Conference on Decision and Control (Cat. No.98CH36171)}, vol.~1, Dec 1998,
-  pp. 1040--1045 vol.1.
-
-\bibitem{susemihl2014nips}
-\BIBentryALTinterwordspacing
-A.~K. Susemihl, R.~Meir, and M.~Opper, ``Optimal neural codes for control and
-  estimation,'' in \emph{Advances in Neural Information Processing Systems 27},
-  Z.~Ghahramani, M.~Welling, C.~Cortes, N.~D. Lawrence, and K.~Q. Weinberger,
-  Eds.\hskip 1em plus 0.5em minus 0.4em\relax Curran Associates, Inc., 2014,
-  pp. 2987--2995. [Online]. Available:
-  \url{http://papers.nips.cc/paper/5390-optimal-neural-codes-for-control-and-estimation.pdf}
-\BIBentrySTDinterwordspacing
-
-\bibitem{Mozer1996TheNP}
-M.~C. Mozer, L.~Vidmar, and R.~H. Dodier, ``The neurothermostat: Predictive
-  optimal control of residential heating systems,'' in \emph{NIPS}, 1996.
-
-\bibitem{deng2008feedback}
-H.~Deng, H.~Li, and Y.~Wu, ``Feedback-linearization-based neural adaptive
-  control for unknown nonaffine nonlinear discrete-time systems,'' \emph{IEEE
-  Transactions on Neural Networks}, vol.~19, no.~9, pp. 1615--1625, Sept 2008.
-
-\bibitem{chen2002ICDC}
-L.~Chen and K.~S. Narendra, ``Intelligent control using neural networks and
-  multiple models,'' in \emph{Proceedings of the 41st IEEE Conference on
-  Decision and Control, 2002.}, vol.~2, Dec 2002, pp. 1357--1362 vol.2.
-
-\bibitem{yu1996nips}
-\BIBentryALTinterwordspacing
-S.-H. Yu and A.~M. Annaswamy, ``Neural control for nonlinear dynamic systems,''
-  in \emph{Advances in Neural Information Processing Systems 8}, D.~S.
-  Touretzky, M.~C. Mozer, and M.~E. Hasselmo, Eds.\hskip 1em plus 0.5em minus
-  0.4em\relax MIT Press, 1996, pp. 1010--1016. [Online]. Available:
-  \url{http://papers.nips.cc/paper/1043-neural-control-for-nonlinear-dynamic-systems.pdf}
-\BIBentrySTDinterwordspacing
+  images,'' \emph{CoRR}, vol. abs/1506.07365, 2015.
 
 \bibitem{yao2010adaline}
-\BIBentryALTinterwordspacing
 J.~Yao, X.~Wang, S.~Hu, and W.~Fu, ``Adaline neural network-based adaptive
   inverse control for an electro-hydraulic servo system,'' \emph{Journal of
-  Vibration and Control}, vol.~17, no.~13, pp. 2007--2014, 2010. [Online].
-  Available: \url{http://dx.doi.org/10.1177/1077546310395972}
-\BIBentrySTDinterwordspacing
+  Vibration and Control}, vol.~17, no.~13, pp. 2007--2014, 2010.
 
 \bibitem{nouri2008adaptive}
-\BIBentryALTinterwordspacing
 K.~Nouri, R.~Dhaouadi, and N.~B. Braiek, ``Adaptive control of a nonlinear dc
   motor drive using recurrent neural networks,'' \emph{Applied Soft Computing},
-  vol.~8, no.~1, pp. 371--382, 2008. [Online]. Available:
-  \url{http://dx.doi.org/10.1016/j.asoc.2007.03.002}
-\BIBentrySTDinterwordspacing
+  vol.~8, no.~1, pp. 371--382, 2008.
+
+\bibitem{brdys1999dynamic}
+M.~Brdys and G.~Kulawski, ``Dynamic neural controllers for induction motor,''
+  \emph{IEEE Transactions on Neural Networks}, vol.~10, no.~2, pp. 340--355,
+  1999.
 
 \bibitem{aamir13pid}
-\BIBentryALTinterwordspacing
 M.~Aamir, ``On replacing {PID} controller with {ANN} controller for {DC} motor
-  position control,'' \emph{CoRR}, vol. abs/1312.0148, 2013. [Online].
-  Available: \url{http://arxiv.org/abs/1312.0148}
-\BIBentrySTDinterwordspacing
+  position control,'' \emph{CoRR}, vol. abs/1312.0148, 2013.
 
 \bibitem{kumarawadu2010discrete-time}
-\BIBentryALTinterwordspacing
 S.~Kumarawadu and W.~U.~N. Fernando, ``Discrete-time neuroadaptive control
   using dynamic state feedback with application to vehicle motion control for
   intelligent vehicle highway systems,'' \emph{IET Control Theory and
-  Applications}, vol.~4, no.~8, pp. 1465--1477, 2010. [Online]. Available:
-  \url{http://dx.doi.org/10.1049/iet-cta.2009.0144}
-\BIBentrySTDinterwordspacing
+  Applications}, vol.~4, no.~8, pp. 1465--1477, 2010.
 
-\bibitem{brdys1999dynamic}
-\BIBentryALTinterwordspacing
-M.~Brdys and G.~Kulawski, ``Dynamic neural controllers for induction motor,''
-  \emph{IEEE Transactions on Neural Networks}, vol.~10, no.~2, pp. 340--355,
-  1999. [Online]. Available: \url{http://dx.doi.org/10.1109/72.750564}
-\BIBentrySTDinterwordspacing
-
-\bibitem{kim1991ICIECI}
-G.~. Kim, I.~. Ha, M.~. Ko, and H.~. Bae, ``Control of induction motors for
-  both high dynamic performance and high power efficiency,'' in
-  \emph{Proceedings IECON '91: 1991 International Conference on Industrial
-  Electronics, Control and Instrumentation}, Oct 1991, pp. 787--792 vol.1.
-
-\bibitem{meng2016safety}
-L.~Meng, P.~Wang, Z.~Liu, R.~Qiu, L.~Wang, and C.~X. Xu, ``Safety assessment
-  for electrical motor drive system based on som neural network,''
-  \emph{Mathematical Problems in Engineering}, 2016.
-
-\bibitem{Shao2017}
-\BIBentryALTinterwordspacing
-S.-Y. Shao, W.-J. Sun, R.-Q. Yan, P.~Wang, and R.~X. Gao, ``A deep learning
-  approach for fault diagnosis of induction motors in manufacturing,''
-  \emph{Chinese Journal of Mechanical Engineering}, vol.~30, no.~6, pp.
-  1347--1356, Nov 2017. [Online]. Available:
-  \url{https://doi.org/10.1007/s10033-017-0189-y}
-\BIBentrySTDinterwordspacing
-
-\bibitem{alicmotor}
-E.~Ali, J.~Weber, and M.~Wahler, ``A machine learning approach for tracking the
-  torque losses in internal gear pump - ac motor units,'' \emph{Intelligent
-  Control}.
-
-\bibitem{zhang2017fault}
-\BIBentryALTinterwordspacing
-R.~Zhang, Z.~Peng, L.~Wu, B.~Yao, and Y.~Guan, ``Fault diagnosis from raw
-  sensor data using deep neural networks considering temporal coherence,''
-  \emph{Sensors}, vol.~17, no.~3, p. 549, 2017. [Online]. Available:
-  \url{https://doi.org/10.3390/s17030549}
-\BIBentrySTDinterwordspacing
+\bibitem{kim2005nips}
+H.~J. Kim and A.~Y. Ng, ``Stable adaptive control with online learning,'' in
+  \emph{Advances in Neural Information Processing Systems 17}, L.~K. Saul,
+  Y.~Weiss, and L.~Bottou, Eds.\hskip 1em plus 0.5em minus 0.4em\relax MIT
+  Press, 2005, pp. 977--984.
 
 \bibitem{silva2013fault}
 A.~A. Silva, A.~M. Bazzi, and S.~Gupta, ``Fault diagnosis in electric drives
   using machine learning approaches,'' in \emph{2013 International Electric
   Machines Drives Conference}, May 2013, pp. 722--726.
+
+\bibitem{alicmotor}
+E.~Ali, J.~Weber, and M.~Wahler, ``A machine learning approach for tracking the
+  torque losses in internal gear pump - ac motor units,'' \emph{Intelligent
+  Control}.
 
 \bibitem{murphey2006fault}
 Y.~L. Murphey, M.~A. Masrur, and Z.~Chen, ``Fault diagnostics in electric
@@ -403,28 +242,26 @@ Y.~L. Murphey, M.~A. Masrur, Z.~Chen, and B.~Zhang, ``Model-based fault
   diagnosis in electric drives using machine learning,'' \emph{IEEE/ASME
   Transactions on Mechatronics}, vol.~11, no.~3, pp. 290--303, June 2006.
 
-\bibitem{George2017qtr}
-D.~George, H.~Shen, and E.~A. Huerta, ``{Glitch Classification and Clustering
-  for LIGO with Deep Transfer Learning},'' in \emph{{NiPS Summer School 2017
-  Gubbio, Perugia, Italy, June 30-July 3, 2017}}, 2017.
+\bibitem{meng2016safety}
+L.~Meng, P.~Wang, Z.~Liu, R.~Qiu, L.~Wang, and C.~X. Xu, ``Safety assessment
+  for electrical motor drive system based on som neural network,''
+  \emph{Mathematical Problems in Engineering}, 2016.
+
+\bibitem{Shao2017}
+S.-Y. Shao, W.-J. Sun, R.-Q. Yan, P.~Wang, and R.~X. Gao, ``A deep learning
+  approach for fault diagnosis of induction motors in manufacturing,''
+  \emph{Chinese Journal of Mechanical Engineering}, vol.~30, no.~6, pp.
+  1347--1356, Nov 2017.
+
+\bibitem{zhang2017fault}
+R.~Zhang, Z.~Peng, L.~Wu, B.~Yao, and Y.~Guan, ``Fault diagnosis from raw
+  sensor data using deep neural networks considering temporal coherence,''
+  \emph{Sensors}, vol.~17, no.~3, p. 549, 2017.
 
 \bibitem{marko1991nips}
-\BIBentryALTinterwordspacing
 K.~A. Marko, ``Neural network application to diagnostics and control of vehicle
   control systems,'' in \emph{Advances in Neural Information Processing Systems
   3}, R.~P. Lippmann, J.~E. Moody, and D.~S. Touretzky, Eds.\hskip 1em plus
-  0.5em minus 0.4em\relax Morgan-Kaufmann, 1991, pp. 537--543. [Online].
-  Available:
-  \url{http://papers.nips.cc/paper/344-neural-network-application-to-diagnostics-and-control-of-vehicle-control-systems.pdf}
-\BIBentrySTDinterwordspacing
-
-\bibitem{kim2005nips}
-\BIBentryALTinterwordspacing
-H.~J. Kim and A.~Y. Ng, ``Stable adaptive control with online learning,'' in
-  \emph{Advances in Neural Information Processing Systems 17}, L.~K. Saul,
-  Y.~Weiss, and L.~Bottou, Eds.\hskip 1em plus 0.5em minus 0.4em\relax MIT
-  Press, 2005, pp. 977--984. [Online]. Available:
-  \url{http://papers.nips.cc/paper/2623-stable-adaptive-control-with-online-learning.pdf}
-\BIBentrySTDinterwordspacing
+  0.5em minus 0.4em\relax Morgan-Kaufmann, 1991, pp. 537--543.
 
 \end{thebibliography}

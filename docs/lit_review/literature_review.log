@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.10.30)  30 OCT 2018 11:14
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.10.30)  8 NOV 2018 10:40
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1324,7 +1324,7 @@ Before submitting the final camera ready copy, remember to:
 Here is how much of TeX's memory you used:
  6257 strings out of 494877
  89649 string characters out of 6179314
- 148384 words of memory out of 5000000
+ 149384 words of memory out of 5000000
  9421 multiletter control sequences out of 15000+600000
  109330 words of font info for 123 fonts, out of 8000000 for 9000
  59 hyphenation exceptions out of 8191
@@ -1337,7 +1337,7 @@ r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share
 ve/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb></usr/share/texlive/texmf-dist/
 fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw
 /times/utmri8a.pfb>
-Output written on literature_review.pdf (5 pages, 98016 bytes).
+Output written on literature_review.pdf (5 pages, 97847 bytes).
 PDF statistics:
  49 PDF objects out of 1000 (max. 8388607)
  34 compressed objects within 1 object stream

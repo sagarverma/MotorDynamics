@@ -10,7 +10,6 @@
 \usepackage{subfig,fixltx2e,url}
 \usepackage[latin1]{inputenc}
 \usepackage{pgfplots}
-\usepackage{subcaption}
 \usepackage{hyperref}
 
 %\usetheme{Warsaw}
@@ -94,8 +93,8 @@
   \mbox{output} & = & \left\{ \begin{array}{ll}
       0 & \mbox{if } \sum_i w_i x_i \leq \mbox{ threshold} \\
       1 & \mbox{if } \sum_i w_i x_i > \mbox{ threshold}
-      \end{array} \right.
-\tag{1}\end{eqnarray}
+      \end{array} .
+\end{eqnarray}
 \end{enumerate}
     \begin{center}
       \includegraphics[width=0.8\linewidth, height=4cm]{images/perceptron}
@@ -108,7 +107,7 @@
 
   \item Multiple stacked perceptrons \\
 
-  \item \#connections increases with \#perceptrons, input size, and output size \\
+  \item \#connections increases with \#perceptrons \\
 
   \item Learning weights is difficult
     \begin{enumerate}
@@ -226,7 +225,7 @@
 
 \begin{frame}{Loss Functions}
 \begin{enumerate}
-  \item Tells us how good or bad weights are. \\
+  \item Tells us how good or bad network is. \\
 
   \item \textbf{L1 Loss} $\mathcal{L}(y_{true},y_{pred}) = |y_{true}-y_{pred}|$ \\
 
@@ -305,9 +304,8 @@
 \begin{frame}{Long-Short Term Memory}
   \begin{enumerate}
     \item RNNs have vanishing and exploding gradients problem.
-    \item In practice gradients become too big or small for long sequences.
     \item LSTM resolves above problems.
-    \item Knows when to forget and when to remember.
+    \item Computes when to forget and when to remember.
     % \begin{center}
     %   \begin{figure}
     %   \includegraphics[width=0.6\linewidth, height=4cm]{images/lstm}
@@ -345,7 +343,7 @@
     \item PyTorch for network implementation.
     \item Dataset scaled between $(-1,1)$.
     \item Simulink gives data at 20KHz, downsample to 100Hz.
-    \item Splitting data, window size: 60 at stride: 10.
+    \item Window size, $w$: 30, 60, and 100 at stride $s$: 10.
     \item Mean Square Error (MSE) to evaluate.
   \end{enumerate}
 \end{frame}
@@ -353,37 +351,62 @@
 \begin{frame}{ANN for signal prediction}
   \begin{enumerate}
     \item Three outputs, three networks.
-    \item Input: $180, 60\times3$
-    \item Output: $60$
-    \item Architecture: 3 Layers, 180x360 -> 360x120 -> 120X60
-    \item Current1 model MSE: 0.043
-    \item Current2 model MSE: 0.105
-    \item Torque model MSE: 0.564
+    \item Input: $w\times3$ 1-D vector, Output: $w$
+    \item Activation, $f$: tanh
   \end{enumerate}
-  \begin{table}[]
-    \begin{tabular}{c c c}
-     Model & Current1 & Current2 & Torque\\
-     MSE & ssssssssssssssss
-    \end{tabular}
-    \end{table}
+  \begin{center}
+    \begin{figure}
+    \includegraphics[scale=0.35]{images/motor_ann}
+    \end{figure}
+  \end{center}
 \end{frame}
 
 \begin{frame}{LSTM for signal prediction}
-  \item Three outputs, three networks.
-  \item Input: $60\times3$
-  \item Output: $60$
-  \item Current1 model MSE: 0.043
-  \item Current2 model MSE: 0.105
-  \item Torque model MSE: 0.564
+  \begin{enumerate}
+    \item Three outputs, three networks.
+    \item Input: $w\times3$ 2-D vector, Output: $w$
+    \item Activation, $f$: tanh
+  \end{enumerate}
+  \begin{center}
+    \begin{figure}
+    \includegraphics[scale=0.35]{images/motor_lstm}
+    \end{figure}
+  \end{center}
 \end{frame}
 
+\begin{frame}{Single LSTM model}
+\begin{enumerate}
+  \item Input: $w\times3$ 2-D vector, Output: $w\times3$
+  \item Activation, $f$: tanh
+\end{enumerate}
+\begin{center}
+  \begin{figure}
+  \includegraphics[scale=0.35]{images/motor_comb_lstm}
+  \end{figure}
+\end{center}
+\end{frame}
+
+\begin{frame}{Results}
+\begin{table}[]
+  \toprule
+  \begin{tabular}{c c c c c}
+   \textbf{Model} & \textbf{w} & \textbf{Current1} & \textbf{Current2} & \textbf{Torque}\\
+   & 100 & & & \\
+   \textbf{ANN} & 60 & 0.043 & 0.105 & 0.564 \\
+   & 30 & & & \\
+   & 100 & & & \\
+   \textbf{LSTM} & 60 & 0.136 & 0.107 & 0.688 \\
+   & 30 & & & \\
+   & 100 & & & \\
+   \textbf{LSTM Combined} & 60 & 0.136 & 0.107 & 0.688 \\
+   & 30 & & & \\
+  \end{tabular}
+  \end{table}
+\end{frame}
 % \begin{frame}{RBM for signal prediction}
 %
 % \end{frame}
 
-\begin{frame}{Multiple models or Single model?}
-
-\end{frame}
 
 \section{Conclusions and Future Work}
 \begin{frame}{Conclusions}

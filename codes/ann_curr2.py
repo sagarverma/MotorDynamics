@@ -58,7 +58,7 @@ train = []
 test = []
 
 stride = 10
-window = 60
+window = 30
 for exp in experiment_samples.keys()[:14]:
     experiment_sample = experiment_samples[exp]
 
@@ -91,7 +91,7 @@ class FFNet(nn.Module):
         super(FFNet, self).__init__()
         self.linear1 = nn.Linear(input_dim, 360)
         self.linear2 = nn.Linear(360, 120)
-        self.linear4 = nn.Linear(120, 60)
+        self.linear4 = nn.Linear(120, 30)
 
     def forward(self, seq):
         x = seq.view(seq.size()[0], -1)
@@ -104,12 +104,12 @@ class FFNet(nn.Module):
         return out
 
 
-model = FFNet(180).cuda()
+model = FFNet(90).cuda()
 loss_function = nn.MSELoss()
 lr = 0.1
 optimizer = optim.SGD(model.parameters(), lr=lr)
 
-w = csv.writer(open('../datasets/ann_curr2.log','wb'))
+w = csv.writer(open('../datasets/ann30_curr2.log','wb'))
 
 for epoch in range(200):
     train = np.random.permutation(train)
@@ -164,8 +164,8 @@ for epoch in range(200):
 
             # print (len(pred_curr1), experiment_samples['exp10'].shape)
             plt.plot(experiment_samples[exp][:,4])
-            plt.savefig('../datasets/results_ann/curr2_' + exp + '_epoch' + str(epoch) + '_true.png')
+            plt.savefig('../datasets/results_ann30/curr2_' + exp + '_epoch' + str(epoch) + '_true.png')
             plt.close()
             plt.plot(pred_curr1)
-            plt.savefig('../datasets/results_ann/curr2_' + exp + '_epoch' + str(epoch) + '_pred.png')
+            plt.savefig('../datasets/results_ann30/curr2_' + exp + '_epoch' + str(epoch) + '_pred.png')
             plt.close()

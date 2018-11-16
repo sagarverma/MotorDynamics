@@ -58,7 +58,7 @@ train = []
 test = []
 
 stride = 10
-window = 60
+window = 30
 for exp in experiment_samples.keys()[:14]:
     experiment_sample = experiment_samples[exp]
 
@@ -100,7 +100,7 @@ class LSTMNet(nn.Module):
         lstm_out = self.lstm(seq)[0]
         tmp1 = self.linear1(lstm_out)
         _out = self.linear2(tmp1)
-        base_out = _out.view(-1, 60)
+        base_out = _out.view(-1, 30)
         return base_out
 
 
@@ -109,7 +109,7 @@ loss_function = nn.MSELoss()
 lr = 0.1
 optimizer = optim.SGD(model.parameters(), lr=lr)
 
-w = csv.writer(open('../datasets/lstm_curr2.log','wb'))
+w = csv.writer(open('../datasets/lstm30_curr2.log','wb'))
 
 for epoch in range(200):
     train = np.random.permutation(train)
@@ -162,8 +162,8 @@ for epoch in range(200):
 
             # print (len(pred_curr1), experiment_samples['exp10'].shape)
             plt.plot(experiment_samples[exp][:,4])
-            plt.savefig('../datasets/results/curr2_' + exp + '_epoch' + str(epoch) + '_true.png')
+            plt.savefig('../datasets/results_lstm30/curr2_' + exp + '_epoch' + str(epoch) + '_true.png')
             plt.close()
             plt.plot(pred)
-            plt.savefig('../datasets/results/curr2_' + exp + '_epoch' + str(epoch) + '_pred.png')
+            plt.savefig('../datasets/results_lstm30/curr2_' + exp + '_epoch' + str(epoch) + '_pred.png')
             plt.close()

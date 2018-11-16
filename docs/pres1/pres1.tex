@@ -11,6 +11,7 @@
 \usepackage[latin1]{inputenc}
 \usepackage{pgfplots}
 \usepackage{hyperref}
+\usepackage{booktabs}
 
 %\usetheme{Warsaw}
 \usecolortheme{lily}
@@ -42,6 +43,15 @@
 \titlepage
 \end{frame}
 
+\begin{frame}{Table Of Contents}
+\begin{enumerate}
+\item Problem Statement
+\item Background
+\item Dataset and Experiments
+\item Results and Conclusions
+\end{enumerate}
+\end{frame}
+
 \section{Problem Statement}
 
 \begin{frame}{Problem Statement}
@@ -57,9 +67,9 @@
 \end{frame}
 
 
-\begin{frame}{Challenges}
+\begin{frame}{Problem Statement}{Challenges}
   \begin{enumerate}
-    \item How to handle continous signals?
+    \item How to handle continuous signals?
     \item How to handle long sequences? Electric motors generally operate for long hours.
     \item Which prediction model to use?
     \item How to handle multiple outputs?
@@ -79,7 +89,7 @@
   \end{enumerate}
 \end{frame}
 
-\begin{frame}{Perceptrons}
+\begin{frame}{Background}{Perceptrons}
 \begin{enumerate}
   \item Basic block of neural networks \\
 
@@ -87,7 +97,7 @@
 
   \item Output: Binary decision, $y$ \\
 
-  \item $w_i$ is a weight, output is calculated using \\
+  \item $w_i$ is a weight, the output is calculated using \\
 
   \begin{eqnarray}
   \mbox{output} & = & \left\{ \begin{array}{ll}
@@ -101,7 +111,7 @@
     \end{center}
 \end{frame}
 
-\begin{frame}{Feed-forword Networks}
+\begin{frame}{Background}{Feed-forword Networks}
 \begin{enumerate}
   \item AKA Artificial Neural Networks (ANNs) \\
 
@@ -120,9 +130,9 @@
     \end{center}
 \end{frame}
 
-\begin{frame}{Activation Functions}
+\begin{frame}{Background}{Activation Functions}
   \begin{enumerate}
-    \item To learn weights of an ANN we need continous output. \\
+    \item To learn weights of an ANN we need continuous output. \\
 
     \item Function that can give small changes in output when small changes in weights are made. \\
 
@@ -135,7 +145,7 @@
   \end{center}
 \end{frame}
 
-\begin{frame}{Activation Functions: Examples}
+\begin{frame}{Background}{Activation Functions: Examples}
 
 
 \begin{enumerate}
@@ -219,11 +229,13 @@
               (x, ifthenelse(x<=0,0,x));
           \end{axis}
         \end{tikzpicture}}
+
+        \small{Sigmoid, Tanh, and ReLU}
 \end{center}
 \end{frame}
 
 
-\begin{frame}{Loss Functions}
+\begin{frame}{Background}{Loss Functions}
 \begin{enumerate}
   \item Tells us how good or bad network is. \\
 
@@ -235,14 +247,14 @@
 \end{enumerate}
 \end{frame}
 
-\begin{frame}{}
+\begin{frame}{Background}{}
     \center
     \Large{\color{blue}We have a network (ANN + activation function). \\
     We can judge it (loss function). \\
     \textit{How do we learn weights?}}
 \end{frame}
 
-\begin{frame}{Learning Weights}
+\begin{frame}{Background}{Learning Weights}
   \begin{enumerate}
     \item Small loss means good weights.
     \item Learn weights using \textit{Optimizers}.
@@ -259,22 +271,22 @@
 %   \end{enumerate}
 % \end{frame}
 
-\begin{frame}{Optimizers}
+\begin{frame}{Background}{Optimizers}
   \begin{enumerate}
-    \item Cannont process large dataset at once.
+    \item Can not process large dataset at once.
     \item Process data in small parts (mini-batches).
     \item Optimizers for learning weights using mini-batches.
     \item Stochastic Gradient Descent is the most used optimizer.
   \end{enumerate}
 \end{frame}
 
-\begin{frame}{}
+\begin{frame}{{Background}}
   \center
   \Large{\color{blue}We can now train an ANN. \\
   Can we process continous signals?}
 \end{frame}
 
-\begin{frame}{Sequential Networks}
+\begin{frame}{Background}{Sequential Networks}
   \begin{enumerate}
     \item ANNs can be used by splitting sequences.
     \item Sequence networks for temporal learning.
@@ -282,13 +294,13 @@
   \end{enumerate}
   \begin{center}
     \begin{figure}
-    \includegraphics[width=0.65\linewidth, height=2cm]{images/rnn}
-    \caption{RNN unrolled in time. \href{https://towardsdatascience.com/introduction-to-recurrent-neural-network-27202c3945f3}{\color{blue}\textit{source}}}
+    \includegraphics[width=0.6\linewidth, height=3.5cm]{images/RNN}
+    \caption{RNN unrolled in time.}
     \end{figure}
   \end{center}
 \end{frame}
 
-\begin{frame}{Recurrent Neural Networks}
+\begin{frame}{Background}{Sequential Networks: Recurrent Neural Networks}
   \begin{enumerate}
     \item Perform same task for every element of a sequence.
     \item Output depends on previous elements.
@@ -301,7 +313,7 @@
 
 \end{frame}
 
-\begin{frame}{Long-Short Term Memory}
+\begin{frame}{Background}{Sequential Networks: Long-Short Term Memory}
   \begin{enumerate}
     \item RNNs have vanishing and exploding gradients problem.
     \item LSTM resolves above problems.
@@ -321,12 +333,12 @@
 %   \end{enumerate}
 % \end{frame}
 
-\begin{frame}{}
+\begin{frame}{Dataset and Experiments}
   \center\Large{\color{blue}Neural networks for motor control}
 \end{frame}
 
 \section{Dataset}
-\begin{frame}{Dataset}
+\begin{frame}{Dataset and Experiments}{Dataset}
   \begin{enumerate}
     \item \textit{CNC Mill Tool Wear} dataset from \href{https://www.kaggle.com/shasun/tool-wear-detection-in-cnc-mill}{\color{blue}\textit{kaggle}}.
     \item Provides real world motor speed.
@@ -337,7 +349,7 @@
 \end{frame}
 
 \section{Experiments and Results}
-\begin{frame}{Experimental Setup}
+\begin{frame}{Dataset and Experiments}{Experimental Setup}
   \begin{enumerate}
     \item Simulink model generates voltages, currents and torque.
     \item PyTorch for network implementation.
@@ -348,7 +360,7 @@
   \end{enumerate}
 \end{frame}
 
-\begin{frame}{ANN for signal prediction}
+\begin{frame}{Dataset and Experiments}{ANN for signal prediction}
   \begin{enumerate}
     \item Three outputs, three networks.
     \item Input: $w\times3$ 1-D vector, Output: $w$
@@ -361,7 +373,7 @@
   \end{center}
 \end{frame}
 
-\begin{frame}{LSTM for signal prediction}
+\begin{frame}{Dataset and Experiments}{LSTM for signal prediction}
   \begin{enumerate}
     \item Three outputs, three networks.
     \item Input: $w\times3$ 2-D vector, Output: $w$
@@ -374,7 +386,7 @@
   \end{center}
 \end{frame}
 
-\begin{frame}{Single LSTM model}
+\begin{frame}{Dataset and Experiments}{Multi-Output LSTM model}
 \begin{enumerate}
   \item Input: $w\times3$ 2-D vector, Output: $w\times3$
   \item Activation, $f$: tanh
@@ -386,35 +398,69 @@
 \end{center}
 \end{frame}
 
-\begin{frame}{Results}
+\begin{frame}{Results and Conclusions}{Best Model}
 \begin{table}[]
-  \toprule
-  \begin{tabular}{c c c c c}
+  \begin{tabular}{l c c c c}
+  \toprule[0.2mm]
    \textbf{Model} & \textbf{w} & \textbf{Current1} & \textbf{Current2} & \textbf{Torque}\\
-   & 100 & & & \\
+   \midrule
+   & 100 & 0.072 & 0.197 & 0.672 \\
    \textbf{ANN} & 60 & 0.043 & 0.105 & 0.564 \\
-   & 30 & & & \\
-   & 100 & & & \\
+   & 30 & \textbf{0.031} & \textbf{0.091} & \textbf{0.056} \\
+   \midrule
+   & 100 & 0.146 & 0.182 & 0.723 \\
    \textbf{LSTM} & 60 & 0.136 & 0.107 & 0.688 \\
-   & 30 & & & \\
-   & 100 & & & \\
-   \textbf{LSTM Combined} & 60 & 0.136 & 0.107 & 0.688 \\
-   & 30 & & & \\
+   & 30 & 0.045 & 0.105 & 0.072 \\
+   \midrule
+   \textbf{MO-LSTM} & 60 & 0.139 & 0.112 & 0.691 \\
+   & 30 & 0.051 & 0.109 & 0.081 \\
+   \bottomrule
   \end{tabular}
+  \caption{MSE of different models with different sequence lengths.}
   \end{table}
 \end{frame}
 % \begin{frame}{RBM for signal prediction}
 %
 % \end{frame}
 
+\begin{frame}{Results and Conclusions}{Model Convergence}
+\begin{center}
+  \begin{figure}
+  \includegraphics[scale=0.25]{images/ann30_curr1}
+  \includegraphics[scale=0.25]{images/ann30_curr2}
+  \includegraphics[scale=0.25]{images/ann30_torque}
+  \end{figure}
+\end{center}
+\end{frame}
+
+\begin{frame}{Results and Conclusions}{Example Outputs}
+\begin{center}
+  \begin{figure}
+  \includegraphics[scale=0.2]{images/curr1_exp13_epoch190_true}
+  \includegraphics[scale=0.2]{images/curr2_exp13_epoch190_true}
+  \includegraphics[scale=0.2]{images/torque_exp13_epoch190_true}\\
+  \includegraphics[scale=0.2]{images/curr1_exp13_epoch190_pred}
+  \includegraphics[scale=0.2]{images/curr2_exp13_epoch190_pred}
+  \includegraphics[scale=0.2]{images/torque_exp13_epoch190_pred}
+  \center{\caption{Top row: ground truth, bottom row: predicted signal, \\ left to right: current1, current2, and torque}}
+  \end{figure}
+\end{center}
+\end{frame}
 
 \section{Conclusions and Future Work}
-\begin{frame}{Conclusions}
-
+\begin{frame}{Results and Conclusions}{Some Answers}
+\begin{enumerate}
+  \item How to handle continous signals? \textbf{Use tanh}
+  \item How to handle long sequences? \textbf{Find optimal subsequence}
+  \item Which prediction model to use? \textbf{ANN}
+  \item How to handle multiple outputs? \textbf{Independent Models}
+\end{enumerate}
 \end{frame}
 
 \begin{frame}
-\huge{Thank you}\\
+\center
+\color{blue}
+\huge{Thank you!}\\
 \huge{Questions?}\\
 \end{frame}
 

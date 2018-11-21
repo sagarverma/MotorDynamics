@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.10.30)  16 NOV 2018 09:45
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.10.30)  16 NOV 2018 10:01
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1161,7 +1161,7 @@ LaTeX Font Warning: Font shape `OT1/cmss/m/n' in size <4> not available
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2
 
 ]
-<images/teaser.pdf, id=27, 722.7pt x 325.215pt>
+<images/teaser.pdf, id=47, 722.7pt x 325.215pt>
 File: images/teaser.pdf Graphic file (type pdf)
  <use images/teaser.pdf>
 Package pdftex.def Info: images/teaser.pdf used on input line 67.
@@ -1224,7 +1224,7 @@ With luck, this will get me unwedged. But if you
 really didn't forget anything, try typing `2' now; then
 my insertion and my current dilemma will both disappear.
 
-<images/perceptron.pdf, id=64, 578.16pt x 289.08pt>
+<images/perceptron.pdf, id=82, 578.16pt x 289.08pt>
 File: images/perceptron.pdf Graphic file (type pdf)
 
 <use images/perceptron.pdf>
@@ -1236,7 +1236,7 @@ Overfull \vbox (2.23509pt too high) detected at line 112
 
 [6
 
- <./images/perceptron.pdf>] <images/anns.pdf, id=86, 650.43pt x 361.35pt>
+ <./images/perceptron.pdf>] <images/anns.pdf, id=104, 650.43pt x 361.35pt>
 File: images/anns.pdf Graphic file (type pdf)
 
 <use images/anns.pdf>
@@ -1245,7 +1245,7 @@ Package pdftex.def Info: images/anns.pdf used on input line 131.
  [7
 
  <./images/anns.pdf>]
-<images/anns_change.pdf, id=104, 650.43pt x 361.35pt>
+<images/anns_change.pdf, id=122, 650.43pt x 361.35pt>
 File: images/anns_change.pdf Graphic file (type pdf)
 
 <use images/anns_change.pdf>
@@ -1293,7 +1293,7 @@ Missing character: There is no ; in font nullfont!
 
 ] [14
 
-] <images/RNN.pdf, id=179, 867.24pt x 469.755pt>
+] <images/RNN.pdf, id=204, 867.24pt x 469.755pt>
 File: images/RNN.pdf Graphic file (type pdf)
 
 <use images/RNN.pdf>
@@ -1312,7 +1312,7 @@ Package pdftex.def Info: images/RNN.pdf used on input line 301.
 ] [20
 
 ]
-<images/motor_ann.pdf, id=232, 722.7pt x 397.485pt>
+<images/motor_ann.pdf, id=255, 722.7pt x 397.485pt>
 File: images/motor_ann.pdf Graphic file (type pdf)
  <use images/motor_ann.pdf>
 Package pdftex.def Info: images/motor_ann.pdf used on input line 374.
@@ -1321,7 +1321,7 @@ Package pdftex.def Info: images/motor_ann.pdf used on input line 374.
 [21
 
  <./images/motor_ann.pdf>]
-<images/motor_lstm.pdf, id=263, 831.105pt x 252.945pt>
+<images/motor_lstm.pdf, id=286, 831.105pt x 252.945pt>
 File: images/motor_lstm.pdf Graphic file (type pdf)
 
 <use images/motor_lstm.pdf>
@@ -1330,7 +1330,7 @@ Package pdftex.def Info: images/motor_lstm.pdf used on input line 387.
  [22
 
  <./images/motor_lstm.pdf>]
-<images/motor_comb_lstm.pdf, id=295, 831.105pt x 397.485pt>
+<images/motor_comb_lstm.pdf, id=318, 831.105pt x 397.485pt>
 File: images/motor_comb_lstm.pdf Graphic file (type pdf)
 
 <use images/motor_comb_lstm.pdf>
@@ -1341,21 +1341,21 @@ Package pdftex.def Info: images/motor_comb_lstm.pdf used on input line 399.
  <./images/motor_comb_lstm.pdf>] [24
 
 ]
-<images/ann30_curr1.pdf, id=331, 397.12115pt x 278.34865pt>
+<images/ann30_curr1.pdf, id=354, 397.12115pt x 278.34865pt>
 File: images/ann30_curr1.pdf Graphic file (type pdf)
 
 <use images/ann30_curr1.pdf>
 Package pdftex.def Info: images/ann30_curr1.pdf used on input line 434.
 (pdftex.def)             Requested size: 99.28004pt x 69.58699pt.
 
-<images/ann30_curr2.pdf, id=332, 397.12115pt x 278.34865pt>
+<images/ann30_curr2.pdf, id=355, 397.12115pt x 278.34865pt>
 File: images/ann30_curr2.pdf Graphic file (type pdf)
 
 <use images/ann30_curr2.pdf>
 Package pdftex.def Info: images/ann30_curr2.pdf used on input line 434.
 (pdftex.def)             Requested size: 99.28004pt x 69.58699pt.
 
-<images/ann30_torque.pdf, id=333, 409.8876pt x 278.34865pt>
+<images/ann30_torque.pdf, id=356, 409.8876pt x 278.34865pt>
 File: images/ann30_torque.pdf Graphic file (type pdf)
 
 <use images/ann30_torque.pdf>
@@ -1371,7 +1371,7 @@ le pdfs with page group included in a single page
 
 pdfTeX warning: pdflatex (file ./images/ann30_torque.pdf): PDF inclusion: multi
 ple pdfs with page group included in a single page
->] <images/curr1_exp13_epoch190_true.png, id=449, 462.528pt x 346.896pt>
+>] <images/curr1_exp13_epoch190_true.png, id=472, 462.528pt x 346.896pt>
 File: images/curr1_exp13_epoch190_true.png Graphic file (type png)
 
 <use images/curr1_exp13_epoch190_true.png>
@@ -1379,7 +1379,7 @@ Package pdftex.def Info: images/curr1_exp13_epoch190_true.png used on input lin
 e 448.
 (pdftex.def)             Requested size: 92.50395pt x 69.37796pt.
 
-<images/curr2_exp13_epoch190_true.png, id=451, 462.528pt x 346.896pt>
+<images/curr2_exp13_epoch190_true.png, id=474, 462.528pt x 346.896pt>
 File: images/curr2_exp13_epoch190_true.png Graphic file (type png)
 
 <use images/curr2_exp13_epoch190_true.png>
@@ -1387,7 +1387,7 @@ Package pdftex.def Info: images/curr2_exp13_epoch190_true.png used on input lin
 e 448.
 (pdftex.def)             Requested size: 92.50395pt x 69.37796pt.
 
-<images/torque_exp13_epoch190_true.png, id=452, 462.528pt x 346.896pt>
+<images/torque_exp13_epoch190_true.png, id=475, 462.528pt x 346.896pt>
 File: images/torque_exp13_epoch190_true.png Graphic file (type png)
 
 <use images/torque_exp13_epoch190_true.png>
@@ -1395,7 +1395,7 @@ Package pdftex.def Info: images/torque_exp13_epoch190_true.png used on input li
 ne 448.
 (pdftex.def)             Requested size: 92.50395pt x 69.37796pt.
 
-<images/curr1_exp13_epoch190_pred.png, id=453, 462.528pt x 346.896pt>
+<images/curr1_exp13_epoch190_pred.png, id=476, 462.528pt x 346.896pt>
 File: images/curr1_exp13_epoch190_pred.png Graphic file (type png)
 
 <use images/curr1_exp13_epoch190_pred.png>
@@ -1403,7 +1403,7 @@ Package pdftex.def Info: images/curr1_exp13_epoch190_pred.png used on input lin
 e 448.
 (pdftex.def)             Requested size: 92.50395pt x 69.37796pt.
 
-<images/curr2_exp13_epoch190_pred.png, id=454, 462.528pt x 346.896pt>
+<images/curr2_exp13_epoch190_pred.png, id=477, 462.528pt x 346.896pt>
 File: images/curr2_exp13_epoch190_pred.png Graphic file (type png)
 
 <use images/curr2_exp13_epoch190_pred.png>
@@ -1411,7 +1411,7 @@ Package pdftex.def Info: images/curr2_exp13_epoch190_pred.png used on input lin
 e 448.
 (pdftex.def)             Requested size: 92.50395pt x 69.37796pt.
 
-<images/torque_exp13_epoch190_pred.png, id=455, 462.528pt x 346.896pt>
+<images/torque_exp13_epoch190_pred.png, id=478, 462.528pt x 346.896pt>
 File: images/torque_exp13_epoch190_pred.png Graphic file (type png)
 
 <use images/torque_exp13_epoch190_pred.png>
@@ -1443,15 +1443,9 @@ Package atveryend Info: Empty hook `AfterLastShipout' on input line 467.
 (./pres1.aux)
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 467.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 467.
+Package rerunfilecheck Info: File `pres1.out' has not changed.
+(rerunfilecheck)             Checksum: 9D059927B6E3D02493C61EA916C6BFC3;259.
 
-
-Package rerunfilecheck Warning: File `pres1.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `pres1.out':
-(rerunfilecheck)             Before: D41D8CD98F00B204E9800998ECF8427E;0
-(rerunfilecheck)             After:  9D059927B6E3D02493C61EA916C6BFC3;259.
 
 LaTeX Font Warning: Size substitutions with differences
 (Font)              up to 1.0pt have occurred.
@@ -1459,10 +1453,10 @@ LaTeX Font Warning: Size substitutions with differences
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 467.
  ) 
 Here is how much of TeX's memory you used:
- 30824 strings out of 494877
- 740950 string characters out of 6179314
+ 30830 strings out of 494877
+ 741012 string characters out of 6179314
  943506 words of memory out of 5000000
- 33437 multiletter control sequences out of 15000+600000
+ 33443 multiletter control sequences out of 15000+600000
  12316 words of font info for 44 fonts, out of 8000000 for 9000
  59 hyphenation exceptions out of 8191
  69i,13n,109p,718b,1934s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1480,10 +1474,10 @@ fonts/cm/cmssi12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts
 /cm/cmssi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cm
 sy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pf
 b>
-Output written on pres1.pdf (28 pages, 683204 bytes).
+Output written on pres1.pdf (28 pages, 692600 bytes).
 PDF statistics:
- 541 PDF objects out of 1000 (max. 8388607)
- 333 compressed objects within 4 object streams
+ 564 PDF objects out of 1000 (max. 8388607)
+ 354 compressed objects within 4 object streams
  62 named destinations out of 1000 (max. 500000)
- 128 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 168 words of extra memory for PDF output out of 10000 (max. 10000000)
 

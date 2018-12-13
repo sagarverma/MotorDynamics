@@ -1,5 +1,5 @@
 # Fdb version 3
-["pdflatex"] 1544693389 "pres1.tex" "pres1.pdf" "pres1" 1544693390
+["pdflatex"] 1544693533 "pres1.tex" "pres1.pdf" "pres1" 1544693534
   "/etc/texmf/web2c/texmf.cnf" 1542632779 1101 af7716885e081ab43982cab7b4672c1a ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1272929888 3287 e6b82fe08f5336d4d5ebc73fb1152e87 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1246382020 1004 54797486969f23fa377b128694d548df ""
@@ -256,15 +256,15 @@
   "images/torque.png" 1544691085 14861 2462ae3d883a63290d9e2cc7bd28b683 ""
   "images/voltage2_stator_pulse.png" 1544691162 37114 324ac6c36f451fa2f41012881248c907 ""
   "images/voltages.png" 1544691009 25784 bb210e1cd692caea60edec4432146598 ""
-  "pres1.aux" 1544693390 4186 868a2d3f392bce653f63f2ea9eba3986 ""
-  "pres1.nav" 1544693390 2395 94a6b7a4c14baed0a14d301cc2ece15c ""
-  "pres1.out" 1544693390 96 119cd599c8bd2c2ed41c113af9354da2 ""
-  "pres1.tex" 1544693389 6467 a672f10f0a05bb8ad5b234fcb7f23c7c ""
+  "pres1.aux" 1544693534 4186 868a2d3f392bce653f63f2ea9eba3986 ""
+  "pres1.nav" 1544693534 2395 94a6b7a4c14baed0a14d301cc2ece15c ""
+  "pres1.out" 1544693534 96 119cd599c8bd2c2ed41c113af9354da2 ""
+  "pres1.tex" 1544693533 6458 52ddf9a1053937493390fbc8957c9ff2 ""
   (generated)
-  "pres1.pdf"
-  "pres1.snm"
+  "pres1.log"
   "pres1.nav"
   "pres1.aux"
-  "pres1.log"
   "pres1.out"
+  "pres1.snm"
   "pres1.toc"
+  "pres1.pdf"

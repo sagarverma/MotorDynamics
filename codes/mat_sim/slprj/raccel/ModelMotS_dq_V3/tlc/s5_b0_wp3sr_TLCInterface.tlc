@@ -1,0 +1,122 @@
+%implements s5_b0_wp3sr_TLCInterface "C"
+
+%function getInputAddr_5_15_0_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&rtB.cyfpzpn3cs"
+%endfunction
+
+%function getInput_5_15_0_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "rtB.cyfpzpn3cs"
+%endfunction
+
+%function getInputAddr_5_15_0_0_0_1(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&rtB.gmuzx14amt"
+%endfunction
+
+%function getInput_5_15_0_0_0_1(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "rtB.gmuzx14amt"
+%endfunction
+
+%function getInputAddr_5_15_0_0_1_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&rtB.igg51ibxtg"
+%endfunction
+
+%function getInput_5_15_0_0_1_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "rtB.igg51ibxtg"
+%endfunction
+
+%function getInputAddr_5_15_0_0_1_1(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&rtB.eqbowlfftn"
+%endfunction
+
+%function getInput_5_15_0_0_1_1(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "rtB.eqbowlfftn"
+%endfunction
+
+%function getDWorkAddr_5_15_0_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&rtDW.gga3nkn0ys" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getDWork_5_15_0_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "rtDW.gga3nkn0ys" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getOutputAddr_5_0_0_2_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return ""
+%endfunction
+
+%function getOutput_5_0_0_2_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return ""
+%endfunction
+
+%function getOutputAddr_5_13_0_2_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return ""
+%endfunction
+
+%function getOutput_5_13_0_2_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return ""
+%endfunction
+
+%function getInputAddr_5_15_0_2_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&rtB.cyfpzpn3cs"
+%endfunction
+
+%function getInput_5_15_0_2_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "rtB.cyfpzpn3cs"
+%endfunction
+
+%function getInputAddr_5_15_0_2_0_1(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&rtB.gmuzx14amt"
+%endfunction
+
+%function getInput_5_15_0_2_0_1(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "rtB.gmuzx14amt"
+%endfunction
+
+%function getInputAddr_5_15_0_2_1_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&rtB.igg51ibxtg"
+%endfunction
+
+%function getInput_5_15_0_2_1_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "rtB.igg51ibxtg"
+%endfunction
+
+%function getInputAddr_5_15_0_2_1_1(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&rtB.eqbowlfftn"
+%endfunction
+
+%function getInput_5_15_0_2_1_1(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "rtB.eqbowlfftn"
+%endfunction
+
+%function getDWorkAddr_5_15_0_2_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&rtDW.gga3nkn0ys" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getDWork_5_15_0_2_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "rtDW.gga3nkn0ys" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+

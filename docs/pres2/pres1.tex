@@ -55,16 +55,13 @@
 \section{Problem Statement}
 
 \begin{frame}{What we discussed in the last meeting?}
-\begin{center}
 \begin{enumerate}
-  \item Defined the problem
-  \item Brief introduction of feed-forward and recurrent networks
-  \item Results on a publicly available time series motor control dataset
-  \item Error in predicting impulse peeks and scaling problem
+  \item Problem definition
+  \item Neural networks introduction
+  \item Early results on public dataset
+  \item Error in predicting impulse peeks
+  \item Prediction scaling problem
 \end{enumerate}
-\vspace{.5cm}
-\includegraphics[width=1\linewidth]{images/teaser}
-\end{center}
 \end{frame}
 
 
@@ -78,50 +75,44 @@
 
 \begin{frame}{Dataset}{Voltages}
 \begin{center}
-  \includegraphics[width=0.8\linewidth, height=4cm]{images/perceptron}
+  \includegraphics[width=0.8\linewidth, height=4cm]{images/voltages}
 \end{center}
 \end{frame}
 
 \begin{frame}{Dataset}{Stator Pulse}
 \begin{center}
-  \includegraphics[width=0.8\linewidth, height=4cm]{images/perceptron}
+  \includegraphics[width=0.8\linewidth, height=4cm]{images/stator_pulse}
 \end{center}
 \end{frame}
 
 \begin{frame}{Dataset}{Speed}
 \begin{center}
-  \includegraphics[width=0.8\linewidth, height=4cm]{images/perceptron}
+  \includegraphics[width=0.8\linewidth, height=4cm]{images/speed}
 \end{center}
 \end{frame}
 
 \begin{frame}{Dataset}{Currents}
 \begin{center}
-  \includegraphics[width=0.8\linewidth, height=4cm]{images/perceptron}
+  \includegraphics[width=0.8\linewidth, height=4cm]{images/current}
 \end{center}
 \end{frame}
 
 \begin{frame}{Dataset}{Torque}
 \begin{center}
-  \includegraphics[width=0.8\linewidth, height=4cm]{images/perceptron}
-\end{center}
-\end{frame}
-
-\begin{frame}{Dataset}{Speed}
-\begin{center}
-  \includegraphics[width=0.8\linewidth, height=4cm]{images/perceptron}
+  \includegraphics[width=0.8\linewidth, height=4cm]{images/torque}
 \end{center}
 \end{frame}
 
 \begin{frame}{Dataset}{Voltage2 and Stator Pulse}
 \begin{center}
-  \includegraphics[width=0.8\linewidth, height=4cm]{images/perceptron}
+  \includegraphics[width=0.8\linewidth, height=4cm]{images/voltage2_stator_pulse}
 \end{center}
 \end{frame}
 
 \begin{frame}{Dataset}{Train-Test Split}
   \begin{enumerate}
     \item Single experiment
-    \item Biased if splitted like 0-800s and 800-1200s
+    \item Biased if the split is 0-800s and 800-1200s
     \item Random sampling
       \begin{enumerate}
         \item Take window $w$ with stride $s$
@@ -129,6 +120,24 @@
         \item Train-test cover whole data
         \item No overlaping b/w train-test
       \end{enumerate}
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}{Experiments}{Input selection}
+  \begin{enumerate}
+    \item Use simulking for downsampling
+    \item Stride $s$ = 1,5,10; Works best at stride 1
+    \item Windows sizes that matter, $5\leq w<10$ and $10\leq w \leq100$
+    \item Ignore voltage 1
+    \item Use either voltage 2 or stator pulse
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}{Experiments}{Output selection}
+  \begin{enumerate}
+    \item Don't predict all time steps
+    \item Predict first, middle or last time step
+    \item Middle works better
   \end{enumerate}
 \end{frame}
 
@@ -145,7 +154,7 @@
   \end{center}
 \end{frame}
 
-\begin{frame}{Experiments}{ANN with auxilary task}
+\begin{frame}{Experiments}{ANN with auxiliary task}
   \begin{enumerate}
     \item Also reconstruct input signal.
     \item Three outputs, three networks.
@@ -162,9 +171,11 @@
 \begin{frame}{Experiments}{Convolution network}
   \begin{enumerate}
     \item CNN and ANN works better then RNN (Miller et al. 2018).
+    \item Kernels capture $w\leq10$
+    \item Channel featurization, correlate voltage2 and speed
     \item Three outputs, three networks.
-    \item Input: $w\times3$ 2-D vector, Output1: $1$
-    \item Activation, $f$: Leaky Relu
+    \item Input: $w\times3$ 2-D vector, Output: $1$
+    \item Activation, $f$: Leaky Relu (in conv)
   \end{enumerate}
   \begin{center}
     \begin{figure}
@@ -174,62 +185,47 @@
 \end{frame}
 
 
-\begin{frame}{Results and Conclusions}{Best Model}
+\begin{frame}{Results}{Best Model}
 \begin{table}[]
   \begin{tabular}{l c c c c}
   \toprule[0.2mm]
    \textbf{Model} & \textbf{w} & \textbf{Current1} & \textbf{Current2} & \textbf{Torque}\\
    \midrule
-   & 100 & 0.072 & 0.197 & 0.672 \\
-   \textbf{ANN} & 60 & 0.043 & 0.105 & 0.564 \\
-   & 30 & \textbf{0.031} & \textbf{0.091} & \textbf{0.056} \\
+   \textbf{ANN} & 100 & 0.223 & 0.197 & 0.101 \\
    \midrule
-   & 100 & 0.146 & 0.182 & 0.723 \\
-   \textbf{LSTM} & 60 & 0.136 & 0.107 & 0.688 \\
-   & 30 & 0.045 & 0.105 & 0.072 \\
+   \textbf{ANN Aux} & 100 & 0.192 & 0.182 & 0.112 \\
    \midrule
-   \textbf{MO-LSTM} & 60 & 0.139 & 0.112 & 0.691 \\
-   & 30 & 0.051 & 0.109 & 0.081 \\
+   \textbf{CNN} & 100 & \textbf{0.107} & \textbf{0.104} & \textbf{0.091} \\
    \bottomrule
   \end{tabular}
-  \caption{MSE of different models with different sequence lengths.}
+  \caption{MSE of different models.}
   \end{table}
 \end{frame}
 % \begin{frame}{RBM for signal prediction}
 %
 % \end{frame}
 
-\begin{frame}{Results and Conclusions}{Model Convergence}
+\begin{frame}{Results}{Example Outputs}
 \begin{center}
   \begin{figure}
-  \includegraphics[scale=0.25]{images/ann30_curr1}
-  \includegraphics[scale=0.25]{images/ann30_curr2}
-  \includegraphics[scale=0.25]{images/ann30_torque}
+  \includegraphics[scale=0.25]{images/plot_current1}
+  \includegraphics[scale=0.25]{images/plot_current2}
+  \includegraphics[scale=0.25]{images/plot_torque}
+  \center{\caption{Left to right: current1, current2, and torque, orange color: predicted}}
   \end{figure}
 \end{center}
 \end{frame}
 
-\begin{frame}{Results and Conclusions}{Example Outputs}
-\begin{center}
-  \begin{figure}
-  \includegraphics[scale=0.2]{images/curr1_exp13_epoch190_true}
-  \includegraphics[scale=0.2]{images/curr2_exp13_epoch190_true}
-  \includegraphics[scale=0.2]{images/torque_exp13_epoch190_true}\\
-  \includegraphics[scale=0.2]{images/curr1_exp13_epoch190_pred}
-  \includegraphics[scale=0.2]{images/curr2_exp13_epoch190_pred}
-  \includegraphics[scale=0.2]{images/torque_exp13_epoch190_pred}
-  \center{\caption{Top row: ground truth, bottom row: predicted signal, \\ left to right: current1, current2, and torque}}
-  \end{figure}
-\end{center}
-\end{frame}
-
-\section{Conclusions and Future Work}
-\begin{frame}{Results and Conclusions}{Some Answers}
+\section{Questions}
+\begin{frame}{Questions}
 \begin{enumerate}
-  \item How to handle continous signals? \textbf{Use tanh}
-  \item How to handle long sequences? \textbf{Find optimal subsequence}
-  \item Which prediction model to use? \textbf{ANN}
-  \item How to handle multiple outputs? \textbf{Independent Models}
+  \item Is data very simple?
+  \item When voltage 1 is not constant?
+  \item When Voltage 2 and stator pulse are not same?
+  \item Can signals be grouped into some classes?
+  \item Visual evaluations?
+  \item Other evaluation metrics?
+  \item Predict future(causal)?
 \end{enumerate}
 \end{frame}
 
@@ -237,7 +233,6 @@
 \center
 \color{blue}
 \huge{Thank you!}\\
-\huge{Questions?}\\
 \end{frame}
 
 \end{document}

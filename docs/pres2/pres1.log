@@ -1,6 +1,7 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.12.22)  16 NOV 2018 09:47
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.12.22)  12 DEC 2018 22:35
 entering extended mode
  restricted \write18 enabled.
+ file:line:error style messages enabled.
  %&-line parsing enabled.
 **pres1.tex
 (./pres1.tex
@@ -1119,210 +1120,156 @@ ick labels; missing features). Consider writing \pgfplotsset{compat=1.14} into
 your preamble.
  on input line 40.
 
-(./pres1.nav
-! Undefined control sequence.
-l.1 \beamer@endinputifotherversion
-                                   {3.36pt}
-? q
-OK, entering \batchmode...
-)
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
+(./pres1.nav)
 
 LaTeX Font Warning: Font shape `OT1/cmss/m/n' in size <4> not available
 (Font)              size <5> substituted on input line 44.
 
- [1
+[1
 
-{/usr/local/texlive/2017/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] [2] [3
+{/usr/local/texlive/2017/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
+[2
 
-] <images/teaser.pdf, id=52, 722.7pt x 325.215pt>
+] <images/teaser.pdf, id=35, 722.7pt x 325.215pt>
 File: images/teaser.pdf Graphic file (type pdf)
  <use images/teaser.pdf>
-Package pdftex.def Info: images/teaser.pdf used on input line 67.
+Package pdftex.def Info: images/teaser.pdf used on input line 68.
 (pdftex.def)             Requested size: 307.28987pt x 138.28152pt.
- [4
 
- <./images/teaser.pdf>] [5
+[3
 
-] [6
+ <./images/teaser.pdf>] [4
 
 ]
-LaTeX Font Info:    Try loading font information for U+msa on input line 112.
+<images/perceptron.pdf, id=65, 578.16pt x 289.08pt>
+File: images/perceptron.pdf Graphic file (type pdf)
+
+<use images/perceptron.pdf>
+Package pdftex.def Info: images/perceptron.pdf used on input line 83.
+(pdftex.def)             Requested size: 245.82501pt x 113.8082pt.
+ [5
+
+ <./images/perceptron.pdf>]
+File: images/perceptron.pdf Graphic file (type pdf)
+
+<use images/perceptron.pdf>
+Package pdftex.def Info: images/perceptron.pdf used on input line 89.
+(pdftex.def)             Requested size: 245.82501pt x 113.8082pt.
+ [6
+
+]
+File: images/perceptron.pdf Graphic file (type pdf)
+ <use images/perceptron.pdf>
+Package pdftex.def Info: images/perceptron.pdf used on input line 95.
+(pdftex.def)             Requested size: 245.82501pt x 113.8082pt.
+ [7
+
+]
+File: images/perceptron.pdf Graphic file (type pdf)
+
+<use images/perceptron.pdf>
+Package pdftex.def Info: images/perceptron.pdf used on input line 101.
+(pdftex.def)             Requested size: 245.82501pt x 113.8082pt.
+ [8
+
+]
+File: images/perceptron.pdf Graphic file (type pdf)
+ <use images/perceptron.pdf>
+Package pdftex.def Info: images/perceptron.pdf used on input line 107.
+(pdftex.def)             Requested size: 245.82501pt x 113.8082pt.
+ [9
+
+]
+File: images/perceptron.pdf Graphic file (type pdf)
+
+<use images/perceptron.pdf>
+Package pdftex.def Info: images/perceptron.pdf used on input line 113.
+(pdftex.def)             Requested size: 245.82501pt x 113.8082pt.
+ [10
+
+]
+File: images/perceptron.pdf Graphic file (type pdf)
+ <use images/perceptron.pdf>
+Package pdftex.def Info: images/perceptron.pdf used on input line 119.
+(pdftex.def)             Requested size: 245.82501pt x 113.8082pt.
+ [11
+
+]
+LaTeX Font Info:    Try loading font information for U+msa on input line 133.
 
 (/usr/local/texlive/2017/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 112.
+LaTeX Font Info:    Try loading font information for U+msb on input line 133.
 
 (/usr/local/texlive/2017/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 LaTeX Font Info:    Try loading font information for OT1+mathkerncmss on input 
-line 112.
+line 133.
 
 (/usr/local/texlive/2017/texmf-dist/tex/latex/sansmathaccent/ot1mathkerncmss.fd
 File: ot1mathkerncmss.fd 2013/03/27 Fontinst v1.933 font definitions for OT1/ma
 thkerncmss.
-)
-! Extra }, or forgotten \right.
-<template> }
-            $\hfil \endtemplate 
-l.112 \end{frame}
-                 
-I've deleted a group-closing symbol because it seems to be
-spurious, as in `$x}$'. But perhaps the } is legitimate and
-you forgot something else, as in `\hbox{$x}'. In such cases
-the way to recover is to insert both the forgotten and the
-deleted material, e.g., by typing `I$}'.
+) [12
 
-! Missing \right. inserted.
-<inserted text> 
-                \right .
-l.112 \end{frame}
-                 
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
+] <images/motor_ann_1.pdf, id=119, 722.7pt x 397.485pt>
+File: images/motor_ann_1.pdf Graphic file (type pdf)
 
-! Missing } inserted.
-<inserted text> 
-                }
-l.112 \end{frame}
-                 
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
+<use images/motor_ann_1.pdf>
+Package pdftex.def Info: images/motor_ann_1.pdf used on input line 146.
+(pdftex.def)             Requested size: 252.94878pt x 139.12183pt.
+ [13
 
- <images/perceptron.pdf, id=87, 578.16pt x 289.08pt>
-File: images/perceptron.pdf Graphic file (type pdf)
- <use images/perceptron.pdf>
-Package pdftex.def Info: images/perceptron.pdf used on input line 112.
-(pdftex.def)             Requested size: 245.82501pt x 113.8082pt.
+ <./images/motor_ann_1.pdf>]
+<images/motor_recon.pdf, id=153, 722.7pt x 397.485pt>
+File: images/motor_recon.pdf Graphic file (type pdf)
 
-Overfull \vbox (2.23509pt too high) detected at line 112
- []
+<use images/motor_recon.pdf>
+Package pdftex.def Info: images/motor_recon.pdf used on input line 160.
+(pdftex.def)             Requested size: 252.94878pt x 139.12183pt.
+ [14
 
- [7
+ <./images/motor_recon.pdf>]
 
- <./images/perceptron.pdf>] <images/anns.pdf, id=110, 650.43pt x 361.35pt>
-File: images/anns.pdf Graphic file (type pdf)
- <use images/anns.pdf>
-Package pdftex.def Info: images/anns.pdf used on input line 131.
-(pdftex.def)             Requested size: 199.73558pt x 99.58383pt.
- [8
+./pres1.tex:174: LaTeX Error: File `images/motor_cnn' not found.
 
- <./images/anns.pdf>] <images/anns_change.pdf, id=127, 650.43pt x 361.35pt>
-File: images/anns_change.pdf Graphic file (type pdf)
- <use images/anns_change.pdf>
-Package pdftex.def Info: images/anns_change.pdf used on input line 146.
-(pdftex.def)             Requested size: 199.73558pt x 99.58383pt.
- [9
-
- <./images/anns_change.pdf>]
-! Missing \right. inserted.
-<inserted text> 
-                \right .
-l.235 \end{frame}
-                 
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-
-! Package tikz Error: Giving up on this path. Did you forget a semicolon?.
-
-See the tikz package documentation for explanation.
+See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.235 \end{frame}
+l.174 \end{frame}
                  
-This error message was generated by an \errmessage
-command, so I can't give any explicit help.
-Pretend that you're Hercule Poirot: Examine all clues,
-and deduce the truth by order and method.
+I could not locate the file with any of these extensions:
+.png,.pdf,.jpg,.mps,.jpeg,.jbig2,.jb2,.PNG,.PDF,.JPG,.JPEG,.JBIG2,.JB2,.eps
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
 
-Missing character: There is no ; in font nullfont!
- [10
+[15
 
-] [11
+] [16
 
-] [12
-
-] [13
-
-] [14
-
-] [15
-
-] <images/RNN.pdf, id=202, 867.24pt x 469.755pt>
-File: images/RNN.pdf Graphic file (type pdf)
- <use images/RNN.pdf>
-Package pdftex.def Info: images/RNN.pdf used on input line 301.
-(pdftex.def)             Requested size: 184.37538pt x 99.58328pt.
- [16
-
- <./images/RNN.pdf>] [17
-
-] [18
-
-] [19
-
-] [20
-
-] [21
-
-] <images/motor_ann.pdf, id=253, 722.7pt x 397.485pt>
-File: images/motor_ann.pdf Graphic file (type pdf)
- <use images/motor_ann.pdf>
-Package pdftex.def Info: images/motor_ann.pdf used on input line 374.
-(pdftex.def)             Requested size: 252.94878pt x 139.12183pt.
- [22
-
- <./images/motor_ann.pdf>] <images/motor_lstm.pdf, id=284, 831.105pt x 252.945p
-t>
-File: images/motor_lstm.pdf Graphic file (type pdf)
- <use images/motor_lstm.pdf>
-Package pdftex.def Info: images/motor_lstm.pdf used on input line 387.
-(pdftex.def)             Requested size: 290.8911pt x 88.53207pt.
- [23
-
- <./images/motor_lstm.pdf>]
-<images/motor_comb_lstm.pdf, id=316, 831.105pt x 397.485pt>
-File: images/motor_comb_lstm.pdf Graphic file (type pdf)
- <use images/motor_comb_lstm.pdf>
-Package pdftex.def Info: images/motor_comb_lstm.pdf used on input line 399.
-(pdftex.def)             Requested size: 290.8911pt x 139.12183pt.
- [24
-
- <./images/motor_comb_lstm.pdf>] [25
-
-]
-<images/ann30_curr1.pdf, id=353, 397.12115pt x 278.34865pt>
+] <images/ann30_curr1.pdf, id=195, 397.12115pt x 278.34865pt>
 File: images/ann30_curr1.pdf Graphic file (type pdf)
- <use images/ann30_curr1.pdf>
-Package pdftex.def Info: images/ann30_curr1.pdf used on input line 434.
+
+<use images/ann30_curr1.pdf>
+Package pdftex.def Info: images/ann30_curr1.pdf used on input line 210.
 (pdftex.def)             Requested size: 99.28004pt x 69.58699pt.
 
-<images/ann30_curr2.pdf, id=354, 397.12115pt x 278.34865pt>
+<images/ann30_curr2.pdf, id=196, 397.12115pt x 278.34865pt>
 File: images/ann30_curr2.pdf Graphic file (type pdf)
- <use images/ann30_curr2.pdf>
-Package pdftex.def Info: images/ann30_curr2.pdf used on input line 434.
+
+<use images/ann30_curr2.pdf>
+Package pdftex.def Info: images/ann30_curr2.pdf used on input line 210.
 (pdftex.def)             Requested size: 99.28004pt x 69.58699pt.
 
-<images/ann30_torque.pdf, id=355, 409.8876pt x 278.34865pt>
+<images/ann30_torque.pdf, id=197, 409.8876pt x 278.34865pt>
 File: images/ann30_torque.pdf Graphic file (type pdf)
- <use images/ann30_torque.pdf>
-Package pdftex.def Info: images/ann30_torque.pdf used on input line 434.
+
+<use images/ann30_torque.pdf>
+Package pdftex.def Info: images/ann30_torque.pdf used on input line 210.
 (pdftex.def)             Requested size: 102.47165pt x 69.58699pt.
- [26
+ [17
 
  <./images/ann30_curr1.pdf> <./images/ann30_curr2.pdf
 
@@ -1332,56 +1279,61 @@ le pdfs with page group included in a single page
 
 pdfTeX warning: pdflatex (file ./images/ann30_torque.pdf): PDF inclusion: multi
 ple pdfs with page group included in a single page
->]
-<images/curr1_exp13_epoch190_true.png, id=470, 462.528pt x 346.896pt>
+>] <images/curr1_exp13_epoch190_true.png, id=312, 462.528pt x 346.896pt>
 File: images/curr1_exp13_epoch190_true.png Graphic file (type png)
- <use images/curr1_exp13_epoch190_true.png>
+
+<use images/curr1_exp13_epoch190_true.png>
 Package pdftex.def Info: images/curr1_exp13_epoch190_true.png used on input lin
-e 448.
+e 224.
 (pdftex.def)             Requested size: 92.50395pt x 69.37796pt.
 
-<images/curr2_exp13_epoch190_true.png, id=472, 462.528pt x 346.896pt>
+<images/curr2_exp13_epoch190_true.png, id=314, 462.528pt x 346.896pt>
 File: images/curr2_exp13_epoch190_true.png Graphic file (type png)
- <use images/curr2_exp13_epoch190_true.png>
+
+<use images/curr2_exp13_epoch190_true.png>
 Package pdftex.def Info: images/curr2_exp13_epoch190_true.png used on input lin
-e 448.
+e 224.
 (pdftex.def)             Requested size: 92.50395pt x 69.37796pt.
 
-<images/torque_exp13_epoch190_true.png, id=473, 462.528pt x 346.896pt>
+<images/torque_exp13_epoch190_true.png, id=315, 462.528pt x 346.896pt>
 File: images/torque_exp13_epoch190_true.png Graphic file (type png)
- <use images/torque_exp13_epoch190_true.png>
+
+<use images/torque_exp13_epoch190_true.png>
 Package pdftex.def Info: images/torque_exp13_epoch190_true.png used on input li
-ne 448.
+ne 224.
 (pdftex.def)             Requested size: 92.50395pt x 69.37796pt.
 
-<images/curr1_exp13_epoch190_pred.png, id=474, 462.528pt x 346.896pt>
+<images/curr1_exp13_epoch190_pred.png, id=316, 462.528pt x 346.896pt>
 File: images/curr1_exp13_epoch190_pred.png Graphic file (type png)
- <use images/curr1_exp13_epoch190_pred.png>
+
+<use images/curr1_exp13_epoch190_pred.png>
 Package pdftex.def Info: images/curr1_exp13_epoch190_pred.png used on input lin
-e 448.
+e 224.
 (pdftex.def)             Requested size: 92.50395pt x 69.37796pt.
 
-<images/curr2_exp13_epoch190_pred.png, id=475, 462.528pt x 346.896pt>
+<images/curr2_exp13_epoch190_pred.png, id=317, 462.528pt x 346.896pt>
 File: images/curr2_exp13_epoch190_pred.png Graphic file (type png)
- <use images/curr2_exp13_epoch190_pred.png>
+
+<use images/curr2_exp13_epoch190_pred.png>
 Package pdftex.def Info: images/curr2_exp13_epoch190_pred.png used on input lin
-e 448.
+e 224.
 (pdftex.def)             Requested size: 92.50395pt x 69.37796pt.
 
-<images/torque_exp13_epoch190_pred.png, id=476, 462.528pt x 346.896pt>
+<images/torque_exp13_epoch190_pred.png, id=318, 462.528pt x 346.896pt>
 File: images/torque_exp13_epoch190_pred.png Graphic file (type png)
- <use images/torque_exp13_epoch190_pred.png>
+
+<use images/torque_exp13_epoch190_pred.png>
 Package pdftex.def Info: images/torque_exp13_epoch190_pred.png used on input li
-ne 448.
+ne 224.
 (pdftex.def)             Requested size: 92.50395pt x 69.37796pt.
- [27
+ [18
 
  <./images/curr1_exp13_epoch190_true.png> <./images/curr2_exp13_epoch190_true.p
 ng> <./images/torque_exp13_epoch190_true.png> <./images/curr1_exp13_epoch190_pr
 ed.png> <./images/curr2_exp13_epoch190_pred.png> <./images/torque_exp13_epoch19
-0_pred.png>] [28
+0_pred.png>] [19
 
-] [29
+] [20
 
 ]
 \tf@nav=\write6
@@ -1393,44 +1345,40 @@ ed.png> <./images/curr2_exp13_epoch190_pred.png> <./images/torque_exp13_epoch19
 \tf@snm=\write8
 \openout8 = `pres1.snm'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 467.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 467.
- (./pres1.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 467.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 467.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 243.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 243.
+
+(./pres1.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 243.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 243.
 Package rerunfilecheck Info: File `pres1.out' has not changed.
-(rerunfilecheck)             Checksum: 9D059927B6E3D02493C61EA916C6BFC3;259.
+(rerunfilecheck)             Checksum: C56CB4F308AFA1B99F283C64037F99EE;114.
+
 
 LaTeX Font Warning: Size substitutions with differences
 (Font)              up to 1.0pt have occurred.
 
  ) 
 Here is how much of TeX's memory you used:
- 31418 strings out of 492995
- 757723 string characters out of 6132703
- 979998 words of memory out of 5000000
- 34285 multiletter control sequences out of 15000+600000
- 12316 words of font info for 44 fonts, out of 8000000 for 9000
+ 30895 strings out of 492995
+ 743577 string characters out of 6132703
+ 966998 words of memory out of 5000000
+ 33774 multiletter control sequences out of 15000+600000
+ 14790 words of font info for 54 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 69i,13n,109p,771b,1934s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb
-></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex8.
-pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.p
-fb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmss10.pf
-b></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmss12.pfb
-></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmss17.pfb>
-</usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb></
-usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmss9.pfb></us
-r/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmssbx10.pfb></u
-sr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi10.pfb></u
-sr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi12.pfb></u
-sr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi8.pfb></us
-r/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr
-/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb>
-Output written on pres1.pdf (29 pages, 682097 bytes).
+ 64i,11n,98p,771b,609s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmss10.pfb
+></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmss12.pfb>
+</usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmss17.pfb><
+/usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb></u
+sr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmss9.pfb></usr
+/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmssbx10.pfb></us
+r/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi10.pfb></us
+r/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
+Output written on pres1.pdf (20 pages, 463001 bytes).
 PDF statistics:
- 562 PDF objects out of 1000 (max. 8388607)
- 353 compressed objects within 4 object streams
- 64 named destinations out of 1000 (max. 500000)
- 168 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 383 PDF objects out of 1000 (max. 8388607)
+ 214 compressed objects within 3 object streams
+ 43 named destinations out of 1000 (max. 500000)
+ 124 words of extra memory for PDF output out of 10000 (max. 10000000)
 

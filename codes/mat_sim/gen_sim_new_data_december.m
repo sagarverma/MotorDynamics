@@ -1,8 +1,4 @@
 %load_system('ModelMotS_dq');
-fid = fopen('../../datasets/data1_compressed.txt');
-txt = textscan(fid,'%s','delimiter','\n');
-fclose(fid);
-
 
 
 Ts = 0.000250;
@@ -22,12 +18,19 @@ wn = 2*pi*50;
 Tn = 25;
 
 
-load_system('ModelMotS_dq_V2');
-set_param('ModelMotS_dq_V2/Reference Speed (rad//s)','rep_seq_t',txt{1,1}{3,1},'rep_seq_y',txt{1,1}{4,1});
-set_param('ModelMotS_dq_V2/Load value p.u.','rep_seq_t',txt{1,1}{1,1},'rep_seq_y',txt{1,1}{2,1});
-simOut = sim('ModelMotS_dq_V2', 'SimulationMode', 'rapid',... 
-        'StopTime', '1200', 'SaveOutput','on',...
-        'OutputSaveName','Data_dq','SaveFormat', 'Dataset');
-Data_dq = simOut.get('Data_dq');
-save('../../datasets/data_sim_ab_d2.mat', 'Data_dq');
+load_system('ModelMotS_dq_V2bis');
+data = load('../../datasets/DATACSdet.mat');
+
+t = strcat('[',num2str(data.t(1:12000)'),']');
+speed = strcat('[',num2str(data.Speed(1:12000)'),']');
+torque= strcat('[',num2str(data.TorqueLoad(1:12000)'),']');
+
+set_param('ModelMotS_dq_V2bis/Reference Speed (rad//s)','rep_seq_t',t,'rep_seq_y',speed);
+set_param('ModelMotS_dq_V2bis/Load value p.u.','rep_seq_t',t,'rep_seq_y',torque);
+
+% simOut = sim('ModelMotS_dq_V2', 'SimulationMode', 'rapid',... 
+%         'StopTime', '1200', 'SaveOutput','on',...
+%         'OutputSaveName','Data_dq','SaveFormat', 'Dataset');
+% Data_dq = simOut.get('Data_dq');
+% save('../../datasets/data_sim_ab_d2.mat', 'Data_dq');
     

@@ -25,11 +25,11 @@ import matplotlib.pyplot as plt
 
 from scipy.signal import correlate
 
-current = sio.loadmat('../datasets/DATACSdet_simulink_current_dq.mat')
-voltage = sio.loadmat('../datasets/DATACSdet_simulink_voltage_dq.mat')
-stator_plus = sio.loadmat('../datasets/DATACSdet_simulink_statorplus_dq.mat')
-speed = sio.loadmat('../datasets/DATACSdet_simulink_speed_dq.mat')
-torque = sio.loadmat('../datasets/DATACSdet_simulink_torque_dq.mat')
+current = sio.loadmat('../datasets/CS2018_12_14/Current.mat')
+voltage = sio.loadmat('../datasets/CS2018_12_14/Voltage.mat')
+stator_plus = sio.loadmat('../datasets/CS2018_12_14/StatorPuls.mat')
+speed = sio.loadmat('../datasets/CS2018_12_14/Speed.mat')
+torque = sio.loadmat('../datasets/CS2018_12_14/Torque.mat')
 
 dataset = np.hstack((voltage['Voltage'], stator_plus['StatorPuls'], speed['Speed'], current['Current'], torque['Torque']))
 
@@ -40,24 +40,24 @@ dataset = scaler.transform(dataset)
 class CNNet(nn.Module):
     def __init__(self, input_dim, output_dim):
         super(CNNet, self).__init__()
-        self.cnn1 = nn.Conv1d(1, 50, kernel_size=10, stride=3)
-        self.leaky_relu = nn.LeakyReLU(inplace=True)
-        self.maxpool = nn.MaxPool1d(3, stride=2, padding=1)
-        self.lstm = nn.LSTM(50, 50, 2, batch_first=True, bidirectional=True)
-        self.linear1 = nn.Linear(1600, output_dim)
+        self.cnn1 = nn.Conv1d(3, 64, kernel_size=10, stride=3)
+        self.cnn2 = nn.Conv1d(64, 128, kernel_size=7, stride=2)
+        self.cnn3 = nn.Conv1d(128, 256, kernel_size=5, stride=1)
+        self.linear1 = nn.Linear(256, 128)
+        self.linear2 = nn.Linear(128, 1)
 
     def forward(self, x):
         x = x.permute(0,2,1)
-        x = self.leaky_relu(self.cnn1(x))
+        x = F.avg_pool1d(F.relu6(self.cnn1(x)), kernel_size=5, stride=1)
 #         print (x.size())
-        x = self.maxpool(x)
+        x = F.avg_pool1d(F.relu6(self.cnn2(x)), kernel_size=3, stride=1)
 #         print (x.size())
-        x = x.permute(0,2,1)
-        x, _ = self.lstm(x)
+        x = F.avg_pool1d(F.relu6(self.cnn3(x)), kernel_size=5, stride=1)
 #         print (x.size())
-        x = x.contiguous().view(x.size()[0], -1)
-        x = self.linear1(x)
+        x = x.view(-1, 256)
+        x = F.relu6(self.linear1(x))
 #         print (x.size())
+        x = self.linear2(x)
         return x.view(-1)
 
         
@@ -65,9 +65,9 @@ for w in [100]:
     print w
     stride = 1
     window = w
-    batch_size = 64
-    lr = 0.01
-    num_epochs = 20
+    batch_size = 4096
+    lr = 0.1
+    num_epochs = 2000
     visualize = True
 
     samples = []
@@ -111,7 +111,7 @@ for w in [100]:
                 torque_true = []
                 
                 for t in train[i:i+batch_size]:
-                    inp.append(t[0][:,3:])
+                    inp.append(t[0][:,1:])
                     current1_true.append(t[1][0])
                     current2_true.append(t[1][1])
                     torque_true.append(t[1][2])
@@ -159,7 +159,7 @@ for w in [100]:
                 torque_true = []
                 
                 for t in test[i:i+batch_size]:
-                    inp.append(t[0][:,3:])
+                    inp.append(t[0][:,1:])
                     current1_true.append(t[1][0])
                     current2_true.append(t[1][1])
                     torque_true.append(t[1][2])
@@ -191,9 +191,9 @@ for w in [100]:
             print ("Current1 train loss = " + str(epoch_train_loss_current1.item()) + ", Current2 train loss = " + str(epoch_train_loss_current2.item()) + ", Torque train loss = " + str(epoch_train_loss_torque.item()))
             print ("Current1 test loss = " + str(epoch_test_loss_current1.item()) + ", Current2 test loss = " + str(epoch_test_loss_current2.item()) + ", Torque test loss = " + str(epoch_test_loss_torque.item()))
 
-        torch.save(model_current1, '../weights/SE_data_current1_cnn' + str(window) + '.pt')
-        torch.save(model_current2, '../weights/SE_data_current2_cnn' + str(window) + '.pt')
-        torch.save(model_torque, '../weights/SE_data_torque_cnn' + str(window) + '.pt')
+            torch.save(model_current1, '../weights/SE_data_current1_cnn' + str(window) + '.pt')
+            torch.save(model_current2, '../weights/SE_data_current2_cnn' + str(window) + '.pt')
+            torch.save(model_torque, '../weights/SE_data_torque_cnn' + str(window) + '.pt')
 
     else:
         model_current1 = torch.load('../weights/SE_data_current1_cnn' + str(window) + '.pt')
@@ -214,7 +214,7 @@ for w in [100]:
 
         for i in range(dataset.shape[0]):
             if i + window < dataset.shape[0]:
-                inp = np.asarray([dataset[i:i+window, 3:4]])
+                inp = np.asarray([dataset[i:i+window, 1:4]])
                 inp = Variable(torch.from_numpy(inp).type(torch.FloatTensor).cuda())
 
                 current1_pred = model_current1(inp)

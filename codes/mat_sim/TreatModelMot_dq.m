@@ -4,8 +4,9 @@
 %      Torque: [1x1 timeseries]
 
 %
-% 
-Data = Data_dq;
+%
+data = load('../../datasets/CS2018_12_14/DataForSagar.mat');
+Data = data.Data_dq;
 
 Voltage = Data.Voltage.Data; t = Data.Voltage.Time;
 StatorPuls = Data.StatorPuls.Data; %t = Data.StatorPuls.Time;

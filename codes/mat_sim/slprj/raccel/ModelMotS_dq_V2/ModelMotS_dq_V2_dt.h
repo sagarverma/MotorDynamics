@@ -16,7 +16,7 @@ const char_T * rtDataTypeNames [ ] = { "real_T" , "real32_T" , "int8_T" ,
 "uint8_T" , "int16_T" , "uint16_T" , "int32_T" , "uint32_T" , "boolean_T" ,
 "fcn_call_T" , "int_T" , "pointer_T" , "action_T" , "timer_uint32_pair_T" ,
 "int64_T" , "int64_T" , "uint64_T" } ; static DataTypeTransition
-rtBTransitions [ ] = { { ( char_T * ) ( & rtB . llcuyb21kn ) , 0 , 0 , 82 } ,
+rtBTransitions [ ] = { { ( char_T * ) ( & rtB . llcuyb21kn ) , 0 , 0 , 21 } ,
 { ( char_T * ) ( & rtB . k4xamhzsst ) , 8 , 0 , 2 } , { ( char_T * ) ( & rtDW
 . piiyfoznre ) , 0 , 0 , 2 } , { ( char_T * ) ( & rtDW . abyvocg0q5 ) , 14 ,
 0 , 1 } , { ( char_T * ) ( & rtDW . jevq1wybfe . LoggedData [ 0 ] ) , 11 , 0
@@ -24,5 +24,5 @@ rtBTransitions [ ] = { { ( char_T * ) ( & rtB . llcuyb21kn ) , 0 , 0 , 82 } ,
 ( & rtDW . hdmj0f2xda ) , 2 , 0 , 2 } , { ( char_T * ) ( & rtDW . cobnjav3td
 ) , 8 , 0 , 2 } } ; static DataTypeTransitionTable rtBTransTable = { 8U ,
 rtBTransitions } ; static DataTypeTransition rtPTransitions [ ] = { { (
-char_T * ) ( & rtP . J ) , 0 , 0 , 1403627 } } ; static
-DataTypeTransitionTable rtPTransTable = { 1U , rtPTransitions } ;
+char_T * ) ( & rtP . J ) , 0 , 0 , 48037 } } ; static DataTypeTransitionTable
+rtPTransTable = { 1U , rtPTransitions } ;

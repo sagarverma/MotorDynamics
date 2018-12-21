@@ -25,11 +25,11 @@ import matplotlib.pyplot as plt
 
 from scipy.signal import correlate
 
-current = sio.loadmat('../datasets/DATACSdet_simulink_current_dq.mat')
-voltage = sio.loadmat('../datasets/DATACSdet_simulink_voltage_dq.mat')
-stator_plus = sio.loadmat('../datasets/DATACSdet_simulink_statorplus_dq.mat')
-speed = sio.loadmat('../datasets/DATACSdet_simulink_speed_dq.mat')
-torque = sio.loadmat('../datasets/DATACSdet_simulink_torque_dq.mat')
+current = sio.loadmat('../datasets/CS2018_12_14/Current.mat')
+voltage = sio.loadmat('../datasets/CS2018_12_14/Voltage.mat')
+stator_plus = sio.loadmat('../datasets/CS2018_12_14/StatorPuls.mat')
+speed = sio.loadmat('../datasets/CS2018_12_14/Speed.mat')
+torque = sio.loadmat('../datasets/CS2018_12_14/Torque.mat')
 
 dataset = np.hstack((voltage['Voltage'], stator_plus['StatorPuls'], speed['Speed'], current['Current'], torque['Torque']))
 
@@ -40,26 +40,28 @@ dataset = scaler.transform(dataset)
 class FFNet(nn.Module):
     def __init__(self, input_dim, output_dim):
         super(FFNet, self).__init__()
-        self.linear1 = nn.Linear(input_dim, 360)
-        self.linear2 = nn.Linear(360, 120)
-        self.linear3 = nn.Linear(120, output_dim)
+        self.linear1 = nn.Linear(input_dim, 500)
+        self.linear2 = nn.Linear(500, 250)
+        self.linear3 = nn.Linear(250, 50)
+        self.linear4 = nn.Linear(50, 1)
         self.dropout = nn.Dropout(0.5)
 
     def forward(self, seq):
         x = seq.view(seq.size()[0], -1)
-        out = F.relu6(self.linear1(x))
-        out = F.relu6(self.linear2(out))
-        out = F.relu6(self.linear3(out))
+        out = F.relu(self.linear1(x))
+        out = F.relu(self.linear2(out))
+        out = F.relu(self.linear3(out))
+        out = self.linear4(out)
         return out.view(-1)
 
         
-for w in [5,10,15,20,25,50,100]:
+for w in [500]:
     print w
     stride = 1
     window = w
-    batch_size = 512
+    batch_size = 2048
     lr = 0.1
-    num_epochs = 20
+    num_epochs = 1000
     visualize = True
 
     samples = []
@@ -76,9 +78,9 @@ for w in [5,10,15,20,25,50,100]:
 
     print 'Train samples:',len(train), 'Test samples:',len(test)
 
-    model_current1 = FFNet(window*2, 1).cuda()
-    model_current2 = FFNet(window*2, 1).cuda()
-    model_torque = FFNet(window*2, 1).cuda()
+    model_current1 = FFNet(window*3, 1).cuda()
+    model_current2 = FFNet(window*3, 1).cuda()
+    model_torque = FFNet(window*3, 1).cuda()
 
     if not visualize:
         loss_function_current1 = nn.MSELoss()
@@ -90,7 +92,7 @@ for w in [5,10,15,20,25,50,100]:
         optimizer_torque = optim.SGD(model_torque.parameters(), lr=lr)
 
         for epoch in range(num_epochs):
-            train = np.random.permutation(train)
+#             train = np.random.permutation(train)
 
             epoch_train_loss_current1 = 0
             epoch_train_loss_current2 = 0
@@ -103,7 +105,7 @@ for w in [5,10,15,20,25,50,100]:
                 torque_true = []
                 
                 for t in train[i:i+batch_size]:
-                    inp.append(t[0][:,2:])
+                    inp.append(t[0][:,1:])
                     current1_true.append(t[1][0])
                     current2_true.append(t[1][1])
                     torque_true.append(t[1][2])
@@ -151,7 +153,7 @@ for w in [5,10,15,20,25,50,100]:
                 torque_true = []
                 
                 for t in test[i:i+batch_size]:
-                    inp.append(t[0][:,2:])
+                    inp.append(t[0][:,1:])
                     current1_true.append(t[1][0])
                     current2_true.append(t[1][1])
                     torque_true.append(t[1][2])
@@ -206,7 +208,7 @@ for w in [5,10,15,20,25,50,100]:
 
         for i in range(dataset.shape[0]):
             if i + window < dataset.shape[0]:
-                inp = np.asarray([dataset[i:i+window, 2:4]])
+                inp = np.asarray([dataset[i:i+window, 1:4]])
                 inp = Variable(torch.from_numpy(inp).type(torch.FloatTensor).cuda())
 
                 current1_pred = model_current1(inp)

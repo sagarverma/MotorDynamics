@@ -44,13 +44,15 @@ dataset = np.hstack((dataset, time))
 class DCNNet(nn.Module):
     def __init__(self, input_dim, output_dim):
         super(DCNNet, self).__init__()
-        self.cnn1 = nn.Conv1d(3, 32, kernel_size=7, stride=1)
+        self.cnn1 = nn.Conv1d(3, 32, kernel_size=5, stride=1)
         self.cnn2 = nn.Conv1d(32, 64, kernel_size=5, stride=1)
         self.cnn3 = nn.Conv1d(64, 128, kernel_size=3, stride=1)
+        self.cnn4 = nn.Conv1d(128, 256, kernel_size=3, stride=1)
                         
+        self.dcnn4 = nn.ConvTranspose1d(256, 128, kernel_size=3, stride=1)
         self.dcnn3 = nn.ConvTranspose1d(128, 64, kernel_size=3, stride=1)
         self.dcnn2 = nn.ConvTranspose1d(64, 32, kernel_size=5, stride=1)
-        self.dcnn1 = nn.ConvTranspose1d(32, 1, kernel_size=7, stride=1)
+        self.dcnn1 = nn.ConvTranspose1d(32, 1, kernel_size=5, stride=1)
     
     def forward(self, x):
         x = x.permute(0,2,1)
@@ -96,9 +98,6 @@ for w in [100]:
     model_current2 = DCNNet(window*2, 1).cuda()
     model_torque = DCNNet(window*2, 1).cuda()
     
-    model_current1 = torch.load('../weights/SE_data_current1_relu_dcnn' + str(window) + '.pt')
-    model_current2 = torch.load('../weights/SE_data_current2_relu_dcnn' + str(window) + '.pt')
-    model_torque = torch.load('../weights/SE_data_torque_relu_dcnn' + str(window) + '.pt')
 
     if not visualize:
         loss_function_current1 = nn.MSELoss()
@@ -203,14 +202,14 @@ for w in [100]:
             print ("Current1 train loss = " + str(epoch_train_loss_current1.item()) + ", Current2 train loss = " + str(epoch_train_loss_current2.item()) + ", Torque train loss = " + str(epoch_train_loss_torque.item()))
             print ("Current1 test loss = " + str(epoch_test_loss_current1.item()) + ", Current2 test loss = " + str(epoch_test_loss_current2.item()) + ", Torque test loss = " + str(epoch_test_loss_torque.item()))
 
-            torch.save(model_current1, '../weights/SE_data_current1_relu_dcnn' + str(window) + '.pt')
-            torch.save(model_current2, '../weights/SE_data_current2_relu_dcnn' + str(window) + '.pt')
-            torch.save(model_torque, '../weights/SE_data_torque_relu_dcnn' + str(window) + '.pt')
+            torch.save(model_current1, '../weights/SE_data_current1_relu_dcnn_4layers' + str(window) + '.pt')
+            torch.save(model_current2, '../weights/SE_data_current2_relu_dcnn_4layers' + str(window) + '.pt')
+            torch.save(model_torque, '../weights/SE_data_torque_relu_dcnn_4layers' + str(window) + '.pt')
 
     else:
-        model_current1 = torch.load('../weights/SE_data_current1_relu_dcnn' + str(window) + '.pt')
-        model_current2 = torch.load('../weights/SE_data_current2_relu_dcnn' + str(window) + '.pt')
-        model_torque = torch.load('../weights/SE_data_torque_relu_dcnn' + str(window) + '.pt')
+        model_current1 = torch.load('../weights/SE_data_current1_relu_dcnn_4layers' + str(window) + '.pt')
+        model_current2 = torch.load('../weights/SE_data_current2_relu_dcnn_4layers' + str(window) + '.pt')
+        model_torque = torch.load('../weights/SE_data_torque_relu_dcnn_4layers' + str(window) + '.pt')
         
         model_current1.eval()
         model_current2.eval()
@@ -278,5 +277,5 @@ for w in [100]:
        
         out = np.stack([np.vstack(out_current1), np.vstack(true_current1), np.vstack(out_current2), np.vstack(true_current2), np.vstack(out_torque), np.vstack(true_torque), np.vstack(true_voltage1), np.vstack(true_voltage2), np.vstack(true_statorpuls), np.vstack(true_speed), np.vstack(true_time),])
         
-        np.save('../datasets/results_npy/SE_data_relu_dcnn' + str(window) + '_out.npy', out)
+        np.save('../datasets/results_npy/SE_data_relu_dcnn_4layers' + str(window) + '_out.npy', out)
 

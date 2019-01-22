@@ -1,29 +1,36 @@
+import sys, glob, cv2, random, math, argparse
+import numpy as np
+import pandas as pd
+from tqdm import tqdm_notebook as tqdm
+from sklearn.metrics import classification_report
+
 import torch
-import torch.autograd as autograd
+import torch.utils.data
 import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
+import torch.autograd as autograd
 from torch.autograd import Variable
 
-import scipy.io as sio
-from scipy.signal import resample
-import os
+sys.path.append('utils')
+sys.path.append('models')
 
-import csv
+from dataloader import *
+from models import *
 
-import numpy as np
-import random
+parser = argparse.ArgumentParser(description='Train a model on electric motor simulink data')
 
-from multilabel_rbm import RBM as MRBM
-from rbm import RBM
-from class_rbm import ClassRBM
+parser.add_argument('--data_path', required=True)
+parser.add_argument('--weight_path', required=True)
+parser.add_argument('--log_path', required=True)
+parser.add_argument('--gpu_id', default=0, required=False)
+parser.add_argument('--epochs', default=10, required=False)
+parser.add_argument('--batch_size', default=128, required=False)
+parser.add_argument('--lr', default=0.01, required=False)
+parser.add_argument('--inp_quants', default='Voltage1,Voltage2,StatorPuls,Speed', required=False)
+parser.add_argument('--out_quants', default='Current1,Current2,Troque', required=False)
 
-from sklearn import preprocessing
-
-# %matplotlib inline
-import matplotlib.pyplot as plt
-
-from scipy.signal import correlate
+opt = parser.parse_args()
 
 current = sio.loadmat('../datasets/CS2018_12_14/Current.mat')
 voltage = sio.loadmat('../datasets/CS2018_12_14/Voltage.mat')
@@ -54,7 +61,7 @@ class FFNet(nn.Module):
         out = self.linear4(out)
         return out.view(-1)
 
-        
+
 for w in [500]:
     print w
     stride = 1
@@ -72,7 +79,7 @@ for w in [500]:
     print 'Total samples:',len(samples)
 
     random.shuffle(samples)
-    
+
     train = samples[:int(len(samples)*0.7)]
     test = samples[int(len(samples)*0.7):]
 
@@ -103,13 +110,13 @@ for w in [500]:
                 current1_true = []
                 current2_true = []
                 torque_true = []
-                
+
                 for t in train[i:i+batch_size]:
                     inp.append(t[0][:,1:])
                     current1_true.append(t[1][0])
                     current2_true.append(t[1][1])
                     torque_true.append(t[1][2])
-                
+
                 inp = np.asarray(inp)
                 current1_true = np.asarray(current1_true)
                 current2_true = np.asarray(current2_true)
@@ -151,13 +158,13 @@ for w in [500]:
                 current1_true = []
                 current2_true = []
                 torque_true = []
-                
+
                 for t in test[i:i+batch_size]:
                     inp.append(t[0][:,1:])
                     current1_true.append(t[1][0])
                     current2_true.append(t[1][1])
                     torque_true.append(t[1][2])
-                
+
                 inp = np.asarray(inp)
                 current1_true = np.asarray(current1_true)
                 current2_true = np.asarray(current2_true)
@@ -193,7 +200,7 @@ for w in [500]:
         model_current1 = torch.load('../weights/SE_data_current1_ann' + str(window) + '.pt')
         model_current2 = torch.load('../weights/SE_data_current2_ann' + str(window) + '.pt')
         model_torque = torch.load('../weights/SE_data_torque_ann' + str(window) + '.pt')
-        
+
         model_current1.eval()
         model_current2.eval()
         model_torque.eval()
@@ -201,7 +208,7 @@ for w in [500]:
         out_current1 = []
         out_current2 = []
         out_torque = []
-        
+
         true_current1 = []
         true_current2 = []
         true_torque = []
@@ -219,13 +226,12 @@ for w in [500]:
                 out_current1.append(current1_pred.data.cpu().numpy()[0])
                 out_current2.append(current2_pred.data.cpu().numpy()[0])
                 out_torque.append(torque_pred.data.cpu().numpy()[0])
-            
+
                 true_current1.append(dataset[i+window//2,4])
                 true_current2.append(dataset[i+window//2,5])
                 true_torque.append(dataset[i+window//2,6])
-        
+
         print (len(out_current1), len(true_current1))
         out = np.stack([out_current1, true_current1, out_current2, true_current2, out_torque, true_torque])
-        
-        np.save('../datasets/results_npy/SE_data_ann' + str(window) + '_out.npy', out)
 
+        np.save('../datasets/results_npy/SE_data_ann' + str(window) + '_out.npy', out)

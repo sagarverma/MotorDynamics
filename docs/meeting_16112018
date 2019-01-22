@@ -1,6 +1,0 @@
-1. More realistic dataset.
-2. Change network structure to account for variable dependence.
-3. Add stator pulse input.
-4. Use predicted torque as input.
-5. Two kinds of system, highly dynamic and slowly evolving.
-6. Use raw data as input.

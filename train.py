@@ -65,12 +65,17 @@ if 'ffnn' in opt.model:
     flatten = True
 else:
     flatten = False
+    
+if 'encdec' in opt.model:
+    enc_dec = True
+else:
+    enc_dec = False
 
-train_dataset = SignalPreloader(dataset, index_quant_map, train_samples, opt.inp_quants.split(','), opt.out_quants.split(','), flatten)
-test_dataset = SignalPreloader(dataset, index_quant_map, test_samples, opt.inp_quants.split(','), opt.out_quants.split(','), flatten)
+train_dataset = SignalPreloader(dataset, index_quant_map, train_samples, opt.inp_quants.split(','), opt.out_quants.split(','), flatten, enc_dec)
+test_dataset = SignalPreloader(dataset, index_quant_map, test_samples, opt.inp_quants.split(','), opt.out_quants.split(','), flatten, enc_dec)
 
-train_loader = torch.utils.data.DataLoader(train_dataset, batch_size=opt.batch_size, shuffle=True, num_workers=1)
-test_loader = torch.utils.data.DataLoader(test_dataset, batch_size=opt.batch_size, shuffle=True, num_workers=1)
+train_loader = torch.utils.data.DataLoader(train_dataset, batch_size=opt.batch_size, shuffle=True, num_workers=8)
+test_loader = torch.utils.data.DataLoader(test_dataset, batch_size=opt.batch_size, shuffle=False, num_workers=8)
 
 if opt.model == 'ffnn1':
     model = FFNet1(len(opt.inp_quants.split(',')) * opt.window, len(opt.out_quants.split(',')), act=opt.act).cuda()
@@ -89,11 +94,13 @@ if opt.model == 'cnn':
 if opt.model == 'encdec':
     model = EncDecNet1(len(opt.inp_quants.split(',')), len(opt.out_quants.split(',')), act=opt.act).cuda()
 
+print ('Parameters :', sum(p.numel() for p in model.parameters()))
+
 fout.write(str(model))
 fout.write('\n')
 
 criterion = nn.MSELoss()
-optimizer = optim.SGD(model.parameters(), lr=opt.lr)
+optimizer = optim.Adam(model.parameters(), lr=opt.lr)
 
 for epoch in range(opt.epochs):
     train_losses = []
@@ -107,12 +114,14 @@ for epoch in range(opt.epochs):
         preds = model(inp)
         loss = criterion(preds, out)
         loss.backward()
+        optimizer.step()
+
         train_losses.append(loss.item())
 
     train_loss = np.mean(train_losses)
     print ('train loss : ', train_loss)
 
-    optimizer.zero_grad()
+
     test_losses = []
     model.eval()
 

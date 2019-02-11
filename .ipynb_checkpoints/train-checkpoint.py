@@ -32,7 +32,7 @@ parser.add_argument('--inp_quants', default='Voltage1,Voltage2,StatorPuls,Speed'
 parser.add_argument('--out_quants', default='Current1,Current2,Torque', required=False)
 parser.add_argument('--stride', type=int, default=1)
 parser.add_argument('--window', type=int, default=100)
-parser.add_argument('--model', default='ffnn1', help='ffnn1,ffnn2,cnn,encdec,lstm1,lstm2,rnn1,rnn2,gru')
+parser.add_argument('--model', default='ffnn1', help='ffnn1,ffnn2,cnn,encdec1,encdec_skip,encdec_bilstm_skip,lstm1,lstm2,rnn1,rnn2,gru')
 parser.add_argument('--act', default='relu', help='relu/tanh')
 parser.add_argument('--hidden', type=int, default=32, help='rnn/lstm hidden size')
 
@@ -91,8 +91,12 @@ if opt.model == 'lstm2':
     model = LSTMNet2(len(opt.inp_quants.split(',')), len(opt.out_quants.split(',')), opt.hidden, act=opt.act).cuda()
 if opt.model == 'cnn':
     model = CNNNet100w(len(opt.inp_quants.split(',')), len(opt.out_quants.split(',')), act=opt.act).cuda()
-if opt.model == 'encdec':
+if opt.model == 'encdec1':
     model = EncDecNet1(len(opt.inp_quants.split(',')), len(opt.out_quants.split(',')), act=opt.act).cuda()
+if opt.model == 'encdec_skip':
+    model = EncDecSkipNet(len(opt.inp_quants.split(',')), len(opt.out_quants.split(',')), act=opt.act).cuda()
+if opt.model == 'encdec_bilstm_skip':
+    model = EncDecBiLSTMSkipNet(len(opt.inp_quants.split(',')), len(opt.out_quants.split(',')), act=opt.act).cuda()
 
 print ('Parameters :', sum(p.numel() for p in model.parameters()))
 

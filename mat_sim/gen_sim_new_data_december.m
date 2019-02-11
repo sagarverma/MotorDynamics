@@ -18,15 +18,15 @@ wn = 2*pi*50;
 Tn = 25;
 
 
-load_system('ModelMotS_dq_V2bis');
+load_system('ModelMotS_dq');
 data = load('../../datasets/DATACSdet.mat');
 
-t = strcat('[',num2str(data.t(1:12000)'),']');
-speed = strcat('[',num2str(data.Speed(1:12000)'),']');
-torque= strcat('[',num2str(data.TorqueLoad(1:12000)'),']');
+t = strcat('[',num2str(data.t'),']');
+speed = strcat('[',num2str(data.Speed'),']');
+torque= strcat('[',num2str(data.TorqueLoad'),']');
 
-set_param('ModelMotS_dq_V2bis/Reference Speed (rad//s)','rep_seq_t',t,'rep_seq_y',speed);
-set_param('ModelMotS_dq_V2bis/Load value p.u.','rep_seq_t',t,'rep_seq_y',torque);
+set_param('ModelMotS_dq/Reference Speed (rad//s)','rep_seq_t',t,'rep_seq_y',speed);
+set_param('ModelMotS_dq/Load value p.u.','rep_seq_t',t,'rep_seq_y',torque);
 
 % simOut = sim('ModelMotS_dq_V2', 'SimulationMode', 'rapid',... 
 %         'StopTime', '1200', 'SaveOutput','on',...

@@ -32,7 +32,7 @@ parser.add_argument('--inp_quants', default='Voltage1,Voltage2,StatorPuls,Speed'
 parser.add_argument('--out_quants', default='Current1,Current2,Torque', required=False)
 parser.add_argument('--stride', type=int, default=1)
 parser.add_argument('--window', type=int, default=100)
-parser.add_argument('--model', default='ffnn1', help='ffnn1,ffnn2,cnn,encdec1,encdec_skip,encdec_bilstm_skip,lstm1,lstm2,rnn1,rnn2,gru')
+parser.add_argument('--model', default='ffnn1', help='ffnn1,ffnn2,cnn,encdec1,encdecSkip,encdecBilstmSkip,lstm1,lstm2,rnn1,rnn2,gru')
 parser.add_argument('--act', default='relu', help='relu/tanh')
 parser.add_argument('--hidden', type=int, default=32, help='rnn/lstm hidden size')
 
@@ -40,16 +40,16 @@ opt = parser.parse_args()
 
 if 'ffnn' in opt.model:
     path = 'model_' + opt.model + '_act_' + opt.act + '_stride_' + str(opt.stride) + '_window_' + str(opt.window) + \
-        '_inp_quants_'  + opt.inp_quants + '_out_quants_' + opt.out_quants + '_lr_' + str(opt.lr) + \
-        '_batch_size_' + str(opt.batch_size) + '_epochs_' + str(opt.epochs)
+        '_inpQuants_'  + opt.inp_quants + '_outQuants_' + opt.out_quants + '_lr_' + str(opt.lr) + \
+        '_batchSize_' + str(opt.batch_size) + '_epochs_' + str(opt.epochs)
 if 'rnn' in opt.model or 'lstm' in opt.model:
-    path = 'model_' + opt.model + '_act_' + opt.act + '_hidden_size_' + str(opt.hidden) + '_stride_' + str(opt.stride) + '_window_' + \
-    str(opt.window) + '_inp_quants_'  + opt.inp_quants + '_out_quants_' + opt.out_quants + '_lr_' + str(opt.lr) + \
-        '_batch_size_' + str(opt.batch_size) + '_epochs_' + str(opt.epochs)
+    path = 'model_' + opt.model + '_act_' + opt.act + '_hiddenSize_' + str(opt.hidden) + '_stride_' + str(opt.stride) + '_window_' + \
+    str(opt.window) + '_inpQuants_'  + opt.inp_quants + '_outQuants_' + opt.out_quants + '_lr_' + str(opt.lr) + \
+        '_batchSize_' + str(opt.batch_size) + '_epochs_' + str(opt.epochs)
 if 'cnn' in opt.model or 'encdec' in opt.model:
     path = 'model_' + opt.model + '_act_' + opt.act + '_stride_' + str(opt.stride) + '_window_' + \
-    str(opt.window) + '_inp_quants_'  + opt.inp_quants + '_out_quants_' + opt.out_quants + '_lr_' + str(opt.lr) + \
-        '_batch_size_' + str(opt.batch_size) + '_epochs_' + str(opt.epochs)
+    str(opt.window) + '_inpQuants_'  + opt.inp_quants + '_outQuants_' + opt.out_quants + '_lr_' + str(opt.lr) + \
+        '_batchSize_' + str(opt.batch_size) + '_epochs_' + str(opt.epochs)
     
 weight_path = opt.weight_dir + path + '.pt'
 log_path = opt.log_dir + path + '.log'
@@ -93,9 +93,9 @@ if opt.model == 'cnn':
     model = CNNNet100w(len(opt.inp_quants.split(',')), len(opt.out_quants.split(',')), act=opt.act).cuda()
 if opt.model == 'encdec1':
     model = EncDecNet1(len(opt.inp_quants.split(',')), len(opt.out_quants.split(',')), act=opt.act).cuda()
-if opt.model == 'encdec_skip':
+if opt.model == 'encdecSkip':
     model = EncDecSkipNet(len(opt.inp_quants.split(',')), len(opt.out_quants.split(',')), act=opt.act).cuda()
-if opt.model == 'encdec_bilstm_skip':
+if opt.model == 'encdecBilstmSkip':
     model = EncDecBiLSTMSkipNet(len(opt.inp_quants.split(',')), len(opt.out_quants.split(',')), act=opt.act).cuda()
 
 print ('Parameters :', sum(p.numel() for p in model.parameters()))

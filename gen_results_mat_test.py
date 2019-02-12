@@ -25,6 +25,7 @@ parser.add_argument('--data_dir', required=True)
 parser.add_argument('--weight_file', required=True)
 parser.add_argument('--result_dir', required=True)
 parser.add_argument('--gpu_id', default=0, type=int, required=False)
+parser.add_argument('--batch_size', default=2048, type=int, required=False)
 
 opt = parser.parse_args()
 
@@ -46,31 +47,41 @@ print (opt.result_dir + opt.weight_file[:-3].split('/')[-1] + '.npy')
 model = torch.load(opt.weight_file)
 model.eval()
 
-dataset, index_quant_map = load_data(opt.data_dir)
-samples = get_sample_metadata(dataset.shape[0], hp_map['stride'], hp_map['window'])
-train_samples = samples[:int(len(samples)*0.7)]
-test_samples = samples[int(len(samples)*0.7):]
+dataset, index_quant_map = load_data_test(opt.data_dir)
+test_samples = get_sample_metadata(dataset.shape[0], hp_map['stride'], hp_map['window'])
 
-inp_quant_ids = [index_quant_map[x] for x in hp_map['inpQuants'].split(',')]
-out_quant_ids = [index_quant_map[x] for x in hp_map['outQuants'].split(',')]
+# inp_quant_ids = [index_quant_map[x] for x in hp_map['inpQuants'].split(',')]
 
-out = []
-true = []
+# out = []
+# true = []
 
-for i in range(len(test_samples)):
-    s = test_samples[i][0]
-    e = test_samples[i][1]
-    m = test_samples[i][2]
+# for i in range(0, len(test_samples), opt.batch_size):
+#     batch = []
+#     for j in range(i,min(i + opt.batch_size,len(test_samples))):
+#         s = test_samples[j][0]
+#         e = test_samples[j][1]
+#         m = test_samples[j][2]
+        
+#         batch.append(dataset[s:e, inp_quant_ids])
     
-    inp = np.asarray([dataset[s:e, inp_quant_ids]])
-    inp = Variable(torch.from_numpy(inp).type(torch.FloatTensor).cuda())
+#     batch = np.asarray(batch)
+#     batch = Variable(torch.from_numpy(batch).type(torch.FloatTensor).cuda())
 
-    pred = model(inp)
+#     pred = model(batch)
+    
+#     out += list(pred.data.cpu().numpy()[:, hp_map['window']//2].flatten())
 
-    out.append(pred.data.cpu().numpy()[0][hp_map['window']//2])
-    true.append(dataset[m,out_quant_ids])
+# print (len(out))
+# res_out = np.asarray(out)
 
-print (len(out), len(true))
-res_out = np.stack([out, true])
+# np.save(opt.result_dir + opt.weight_file[:-3].split('/')[-1] + '.npy', res_out)
 
-np.save(opt.result_dir + opt.weight_file[:-3].split('/')[-1] + '.npy', res_out)
+time = sio.loadmat('../datasets/CS2019_02_08/t.mat')['time']
+
+time_out = []
+for ts in test_samples:
+    time_out.append(time[ts[-1]])
+    
+time_out = np.asarray(time_out)
+
+np.save(opt.result_dir + 'time.npy', time_out)

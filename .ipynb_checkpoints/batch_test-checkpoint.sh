@@ -1,0 +1,11 @@
+# python3 gen_results_mat.py --data_dir='../datasets/CS2018_12_14/' --weight_file='../weights/model_encdec1_act_tanh_stride_1_window_100_inp_quants_StatorPuls,Speed_out_quants_Torque_lr_0.001_batch_size_128_epochs_2000.pt' --result_dir='../results/' 
+# python3 gen_results_mat.py --data_dir='../datasets/CS2018_12_14/' --weight_file='../weights/model_encdec1_act_tanh_stride_1_window_100_inp_quants_StatorPuls,Speed_out_quants_Current2_lr_0.001_batch_size_128_epochs_2000.pt' --result_dir='../results/' 
+# python3 gen_results_mat.py --data_dir='../datasets/CS2018_12_14/' --weight_file='../weights/model_encdec_act_tanh_stride_1_window_100_inp_quants_StatorPuls,Speed_out_quants_Current1_lr_0.001_batch_size_128_epochs_2000.pt' --result_dir='../results/' 
+
+# python3 gen_results_mat.py --data_dir='../datasets/CS2018_12_14/' --weight_file='../weights/model_encdec_skip_act_tanh_stride_1_window_100_inp_quants_StatorPuls,Speed_out_quants_Current2_lr_0.001_batch_size_128_epochs_200.pt' --result_dir='../results/' 
+# python3 gen_results_mat.py --data_dir='../datasets/CS2018_12_14/' --weight_file='../weights/model_encdec_skip_act_tanh_stride_1_window_100_inp_quants_StatorPuls,Speed_out_quants_Torque_lr_0.001_batch_size_128_epochs_200.pt' --result_dir='../results/' 
+# python3 gen_results_mat.py --data_dir='../datasets/CS2018_12_14/' --weight_file='../weights/model_encdec_skip_act_tanh_stride_1_window_100_inp_quants_StatorPuls,Speed_out_quants_Current1_lr_0.001_batch_size_128_epochs_200.pt' --result_dir='../results/' 
+
+python3 gen_results_mat_test.py --data_dir='../datasets/CS2019_02_08/' --weight_file='../weights/model_encdec_bilstm_skip_act_tanh_stride_1_window_100_inp_quants_StatorPuls,Speed_out_quants_Current2_lr_0.001_batch_size_128_epochs_200.pt' --result_dir='../results/CS2019_02_08/' 
+python3 gen_results_mat_test.py --data_dir='../datasets/CS2019_02_08/' --weight_file='../weights/model_encdec_bilstm_skip_act_tanh_stride_1_window_100_inp_quants_StatorPuls,Speed_out_quants_Current1_lr_0.001_batch_size_128_epochs_200.pt' --result_dir='../results/CS2019_02_08/' 
+python3 gen_results_mat_test.py --data_dir='../datasets/CS2019_02_08/' --weight_file='../weights/model_encdec_bilstm_skip_act_tanh_stride_1_window_100_inp_quants_StatorPuls,Speed_out_quants_Torque_lr_0.001_batch_size_128_epochs_200.pt' --result_dir='../results/CS2019_02_08/' 

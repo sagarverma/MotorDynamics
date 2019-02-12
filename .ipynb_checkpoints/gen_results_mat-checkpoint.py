@@ -1,39 +1,76 @@
-else:
-    model_current1 = torch.load('../weights/SE_data_current1_ann' + str(window) + '.pt')
-    model_current2 = torch.load('../weights/SE_data_current2_ann' + str(window) + '.pt')
-    model_torque = torch.load('../weights/SE_data_torque_ann' + str(window) + '.pt')
+import sys, glob, cv2, random, math, argparse
+import numpy as np
+import pandas as pd
+from tqdm import tqdm_notebook as tqdm
+from sklearn.metrics import classification_report
 
-    model_current1.eval()
-    model_current2.eval()
-    model_torque.eval()
+import torch
+import torch.utils.data
+import torch.nn as nn
+import torch.nn.functional as F
+import torch.optim as optim
+import torch.autograd as autograd
+from torch.autograd import Variable
 
-    out_current1 = []
-    out_current2 = []
-    out_torque = []
+from utils.dataloader import *
+from models.FFNN import *
+from models.RNN import *
+from models.LSTM import *
+from models.CNN import *
+from models.EncDec import *
 
-    true_current1 = []
-    true_current2 = []
-    true_torque = []
+parser = argparse.ArgumentParser(description='Train a model on electric motor simulink data')
 
-    for i in range(dataset.shape[0]):
-        if i + window < dataset.shape[0]:
-            inp = np.asarray([dataset[i:i+window, 1:4]])
-            inp = Variable(torch.from_numpy(inp).type(torch.FloatTensor).cuda())
+parser.add_argument('--data_dir', required=True)
+parser.add_argument('--weight_file', required=True)
+parser.add_argument('--result_dir', required=True)
+parser.add_argument('--gpu_id', default=0, type=int, required=False)
 
-            current1_pred = model_current1(inp)
-            current2_pred = model_current2(inp)
-            torque_pred = model_torque(inp)
+opt = parser.parse_args()
 
-#                 print (current1_pred.size())
-            out_current1.append(current1_pred.data.cpu().numpy()[0])
-            out_current2.append(current2_pred.data.cpu().numpy()[0])
-            out_torque.append(torque_pred.data.cpu().numpy()[0])
+wf = opt.weight_file[:-3].replace('_quants','Quants').replace('batch_size','batchSize').replace('_skip','Skip').replace('_bilstm','Bilstm')
+hpstrings = wf.split('/')[-1].split('_')
 
-            true_current1.append(dataset[i+window//2,4])
-            true_current2.append(dataset[i+window//2,5])
-            true_torque.append(dataset[i+window//2,6])
+hp_map = {}
+for i in range(0,len(hpstrings),2):
+    if hpstrings[i+1].isdigit():
+        hp_map[hpstrings[i]] = int(hpstrings[i+1])
+    elif '.' in hpstrings[i+1]:
+        hp_map[hpstrings[i]] = float(hpstrings[i+1])
+    else:
+        hp_map[hpstrings[i]] = hpstrings[i+1]
 
-    print (len(out_current1), len(true_current1))
-    out = np.stack([out_current1, true_current1, out_current2, true_current2, out_torque, true_torque])
+print (hp_map)
 
-    np.save('../datasets/results_npy/SE_data_ann' + str(window) + '_out.npy', out)
+print (opt.result_dir + opt.weight_file[:-3].split('/')[-1] + '.npy')
+model = torch.load(opt.weight_file)
+model.eval()
+
+dataset, index_quant_map = load_data(opt.data_dir)
+samples = get_sample_metadata(dataset.shape[0], hp_map['stride'], hp_map['window'])
+train_samples = samples[:int(len(samples)*0.7)]
+test_samples = samples[int(len(samples)*0.7):]
+
+inp_quant_ids = [index_quant_map[x] for x in hp_map['inpQuants'].split(',')]
+out_quant_ids = [index_quant_map[x] for x in hp_map['outQuants'].split(',')]
+
+out = []
+true = []
+
+for i in range(len(test_samples)):
+    s = test_samples[i][0]
+    e = test_samples[i][1]
+    m = test_samples[i][2]
+    
+    inp = np.asarray([dataset[s:e, inp_quant_ids]])
+    inp = Variable(torch.from_numpy(inp).type(torch.FloatTensor).cuda())
+
+    pred = model(inp)
+
+    out.append(pred.data.cpu().numpy()[0][hp_map['window']//2])
+    true.append(dataset[m,out_quant_ids])
+
+print (len(out), len(true))
+res_out = np.stack([out, true])
+
+np.save(opt.result_dir + opt.weight_file[:-3].split('/')[-1] + '.npy', res_out)

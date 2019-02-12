@@ -25,6 +25,18 @@ def load_data(root):
     index_quant_map = {'Voltage1':0,'Voltage2':1,'StatorPuls':2,'Speed':3,'Current1':4,'Current2':5,'Torque':6}
     return dataset.astype(np.float32), index_quant_map
 
+def load_data_test(root):
+    voltage = sio.loadmat(root + 'Voltage.mat')
+    stator_puls = sio.loadmat(root + 'StatorPuls.mat')
+    speed = sio.loadmat(root + 'Speed.mat')
+    
+    dataset = np.hstack((voltage['voltage'], stator_puls['statorPuls'], speed['speed']))
+
+    scaler = preprocessing.MinMaxScaler(feature_range=[0,1])
+    scaler.fit(dataset)
+    dataset = scaler.transform(dataset)
+    index_quant_map = {'Voltage1':0,'Voltage2':1,'StatorPuls':2,'Speed':3}
+    return dataset.astype(np.float32), index_quant_map
 
 def get_sample_metadata(data_len, stride, window):
     samples = []

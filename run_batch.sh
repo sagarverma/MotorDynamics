@@ -1,0 +1,3 @@
+python3 train_synth.py --epochs=1000 --stride=1 --lr=0.0001 --inp_quants='Voltage1,Voltage2,Speed' --out_quants='Torque' --batch_size=8000 --data_dir='../datasets/SimSynthData'
+python3 train_synth.py --epochs=1000 --stride=1 --lr=0.0001 --inp_quants='Voltage1,Voltage2,Speed' --out_quants='Current1' --batch_size=8000 --data_dir='../datasets/SimSynthData'
+python3 train_synth.py --epochs=1000 --stride=1 --lr=0.0001 --inp_quants='Voltage1,Voltage2,Speed' --out_quants='Current2' --batch_size=8000 --data_dir='../datasets/SimSynthData'

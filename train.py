@@ -1,7 +1,6 @@
 import sys, glob, cv2, random, math, argparse
 import numpy as np
 import pandas as pd
-from tqdm import tqdm_notebook as tqdm
 from sklearn.metrics import classification_report
 
 import torch
@@ -58,6 +57,7 @@ fout = open(log_path, 'w')
 
 dataset, index_quant_map = load_data(opt.data_dir)
 samples = get_sample_metadata(dataset.shape[0], opt.stride, opt.window)
+random.shuffle(samples)
 train_samples = samples[:int(len(samples)*0.7)]
 test_samples = samples[int(len(samples)*0.7):]
 
@@ -97,6 +97,7 @@ if opt.model == 'encdecSkip':
     model = EncDecSkipNet(len(opt.inp_quants.split(',')), len(opt.out_quants.split(',')), act=opt.act).cuda()
 if opt.model == 'encdecBilstmSkip':
     model = EncDecBiLSTMSkipNet(len(opt.inp_quants.split(',')), len(opt.out_quants.split(',')), act=opt.act).cuda()
+    model = torch.load('../weighta/modelNewLawDQSynthData_encdecBilstmSkip_act_relu_stride_100_window_100_inpQuants_Voltage1,Voltage2,Speed_outQuants_Torque_lr_0.01_batchSize_8000_epochs_2000.pt')
 
 print ('Parameters :', sum(p.numel() for p in model.parameters()))
 

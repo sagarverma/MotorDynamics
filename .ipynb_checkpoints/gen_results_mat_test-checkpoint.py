@@ -21,67 +21,120 @@ from models.EncDec import *
 
 parser = argparse.ArgumentParser(description='Train a model on electric motor simulink data')
 
-parser.add_argument('--data_dir', required=True)
-parser.add_argument('--weight_file', required=True)
-parser.add_argument('--result_dir', required=True)
+parser.add_argument('--data_dir', default='../datasets/test_simulink/', required=False)
+parser.add_argument('--result_dir', default='../results/', required=False)
 parser.add_argument('--gpu_id', default=0, type=int, required=False)
 parser.add_argument('--batch_size', default=2048, type=int, required=False)
-
+parser.add_argument('--stride', default=1, type=int, required=False)
 opt = parser.parse_args()
 
-wf = opt.weight_file[:-3].replace('_quants','Quants').replace('batch_size','batchSize').replace('_skip','Skip').replace('_bilstm','Bilstm')
-hpstrings = wf.split('/')[-1].split('_')
+# torque_model = torch.load('../weights/modelNewLawDQRawData_encdecBilstmSkip_act_relu_stride_1_window_100_inpQuants_Voltage1,Voltage2,Speed_outQuants_Torque_lr_0.0001_batchSize_8000_epochs_2000.pt')
+# torque_model.eval()
 
-hp_map = {}
-for i in range(0,len(hpstrings),2):
-    if hpstrings[i+1].isdigit():
-        hp_map[hpstrings[i]] = int(hpstrings[i+1])
-    elif '.' in hpstrings[i+1]:
-        hp_map[hpstrings[i]] = float(hpstrings[i+1])
-    else:
-        hp_map[hpstrings[i]] = hpstrings[i+1]
+# current2_model = torch.load('../weights/modelNewLawDQRawData_encdecBilstmSkip_act_relu_stride_1_window_100_inpQuants_Voltage1,Voltage2,Speed_outQuants_Current2_lr_0.0001_batchSize_8000_epochs_2000.pt')
+# current2_model.eval()
 
-print (hp_map)
+# current1_model = torch.load('../weights/modelNewLawDQRawData_encdecBilstmSkip_act_relu_stride_1_window_100_inpQuants_Voltage1,Voltage2,Speed_outQuants_Current1_lr_0.0001_batchSize_4096_epochs_2000.pt')
+# current1_model.eval()
 
-print (opt.result_dir + opt.weight_file[:-3].split('/')[-1] + '.npy')
-model = torch.load(opt.weight_file)
-model.eval()
+# torque_model = torch.load('../weights/modelNewLawDQSynthData_encdecBilstmSkip_act_relu_stride_1_window_100_inpQuants_Voltage1,Voltage2,Speed_outQuants_Torque_lr_0.0001_batchSize_8000_epochs_2000.pt')
+# torque_model.eval()
 
-dataset, index_quant_map = load_data_test(opt.data_dir)
-test_samples = get_sample_metadata(dataset.shape[0], hp_map['stride'], hp_map['window'])
+# current2_model = torch.load('../weights/modelNewLawDQSynthData_encdecBilstmSkip_act_relu_stride_1_window_100_inpQuants_Voltage1,Voltage2,Speed_outQuants_Current2_lr_0.0001_batchSize_8000_epochs_2000.pt')
+# current2_model.eval()
 
-# inp_quant_ids = [index_quant_map[x] for x in hp_map['inpQuants'].split(',')]
+# current1_model = torch.load('../weights/modelNewLawDQSynthData_encdecBilstmSkip_act_relu_stride_1_window_100_inpQuants_Voltage1,Voltage2,Speed_outQuants_Current1_lr_0.0001_batchSize_8000_epochs_2000.pt')
+# current1_model.eval()
 
-# out = []
-# true = []
+torque_model = torch.load('../weights/modelNewLawDQSynthDataCompact_encdec3_act_relu_stride_1_window_1000_inpQuants_Voltage1,Voltage2,Speed_outQuants_Torque_lr_0.01_batchSize_800_epochs_2000.pt')
+torque_model.eval()
 
-# for i in range(0, len(test_samples), opt.batch_size):
-#     batch = []
-#     for j in range(i,min(i + opt.batch_size,len(test_samples))):
-#         s = test_samples[j][0]
-#         e = test_samples[j][1]
-#         m = test_samples[j][2]
+current2_model = torch.load('../weights/modelNewLawDQSynthDataCompact_encdec3_act_relu_stride_1_window_1000_inpQuants_Voltage1,Voltage2,Speed_outQuants_Current2_lr_0.01_batchSize_800_epochs_2000.pt')
+current2_model.eval()
+
+current1_model = torch.load('../weights/modelNewLawDQSynthDataCompact_encdec3_act_relu_stride_1_window_1000_inpQuants_Voltage1,Voltage2,Speed_outQuants_Current1_lr_0.01_batchSize_800_epochs_2000.pt')
+current1_model.eval()
+
+dates = os.listdir(opt.data_dir)
+
+for date in dates:
+    print (date)
+#     dataset, index_quant_map = load_data_test(opt.data_dir + date + '/')
+    dataset, index_quant_map = load_raw_data(opt.data_dir + date)
+    print (dataset.shape)
+    
+    torque_true_out = []
+    current2_true_out = []
+    current1_true_out = []
+    
+    time_out = []
+    voltage1_out = []
+    voltage2_out = []
+#     statorPuls_out = []
+    speed_out = []
+    
+    torque_pred_out = []
+    current2_pred_out = []
+    current1_pred_out = []
+    
+    samples = get_test_sample_metadata([dataset], 1, 1000)
+
+    for i in range(0,len(samples),5000):
+        batch_inp = []
+        batch_out = []
+        for j in range(i,i+5000):
+            if j < len(samples):
+                batch_inp.append(dataset[:3,samples[j][1]:samples[j][2]])
+                batch_out.append(dataset[3:,samples[j][1]:samples[j][2]])
         
-#         batch.append(dataset[s:e, inp_quant_ids])
+        batch_inp = np.asarray(batch_inp)
+        batch_out = np.asarray(batch_out)
+        batch = torch.from_numpy(batch_inp.transpose(0,2,1)).cuda()
+        
+        torque_preds = torque_model(batch)
+        current2_preds = current2_model(batch)
+        current1_preds = current1_model(batch)
+        
+        torque_pred_out += list(torque_preds.data.cpu().numpy()[:,500,0])
+        current2_pred_out += list(current2_preds.data.cpu().numpy()[:,500,0])
+        current1_pred_out += list(current1_preds.data.cpu().numpy()[:,500,0])
+        
+        torque_true_out += list(batch_out[:,2,500])
+        current2_true_out += list(batch_out[:,1,500])
+        current1_true_out += list(batch_out[:,0,500])
+        
+        voltage1_out += list(batch_inp[:,0,500])
+        voltage2_out += list(batch_inp[:,1,500])
+#         statorPuls_out += list(batch_inp[:,2,50])
+        speed_out += list(batch_inp[:,2,500])
+        time_out += list(batch_out[:,3,500])
+        
+        del batch
+        del torque_preds
+        del current1_preds
+        del current2_preds
+        
     
-#     batch = np.asarray(batch)
-#     batch = Variable(torch.from_numpy(batch).type(torch.FloatTensor).cuda())
-
-#     pred = model(batch)
+    torque_pred_out = np.asarray(torque_pred_out)
+    toreuq_true_out = np.asarray(torque_true_out)
     
-#     out += list(pred.data.cpu().numpy()[:, hp_map['window']//2].flatten())
-
-# print (len(out))
-# res_out = np.asarray(out)
-
-# np.save(opt.result_dir + opt.weight_file[:-3].split('/')[-1] + '.npy', res_out)
-
-time = sio.loadmat('../datasets/CS2019_02_08/t.mat')['time']
-
-time_out = []
-for ts in test_samples:
-    time_out.append(time[ts[-1]])
+    current2_pred_out = np.asarray(current2_pred_out)
+    current2_true_out = np.asarray(current2_true_out)
     
-time_out = np.asarray(time_out)
-
-np.save(opt.result_dir + 'time.npy', time_out)
+    current1_pred_out = np.asarray(current1_pred_out)
+    current1_ture_out = np.asarray(current1_true_out)
+    
+    time_out = np.asarray(time_out)
+    speed_out = np.asarray(speed_out)
+#     statorPuls_out = np.asarray(statorPuls_out)
+    voltage2_out = np.asarray(voltage2_out)
+    voltage1_out = np.asarray(voltage1_out)
+    
+    quants = np.vstack((time_out, voltage1_out, voltage2_out, speed_out, current1_true_out, current1_pred_out, current2_true_out, current2_pred_out, torque_true_out, torque_pred_out))
+    
+    print (quants.shape)
+    
+    quants = rev_test_output(quants)
+    
+    sio.savemat(opt.result_dir + date, quants)
+    

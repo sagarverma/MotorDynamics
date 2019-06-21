@@ -3,3 +3,4 @@ datasets/*
 .ipynb_checkpoints
 *.slxc
 *.slx.autosave
+slprj

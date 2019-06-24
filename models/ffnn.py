@@ -5,9 +5,9 @@ import torch.nn.functional as F
 import torch.optim as optim
 from torch.autograd import Variable
 
-class FFNet1(nn.Module):
+class ShallowFNN(nn.Module):
     def __init__(self, input_dim, output_dim, act='relu'):
-        super(FFNet1, self).__init__()
+        super(ShallowFNN, self).__init__()
         self.linear1 = nn.Linear(input_dim, 1024)
         self.linear2 = nn.Linear(1024, 512)
         self.linear3 = nn.Linear(512, 256)
@@ -26,9 +26,9 @@ class FFNet1(nn.Module):
         return out
 
 
-class FFNet2(nn.Module):
+class DeepFNN(nn.Module):
     def __init__(self, input_dim, output_dim, act='relu'):
-        super(FFNet2, self).__init__()
+        super(DeepFNN, self).__init__()
         self.linear1 = nn.Linear(input_dim, 1024)
         self.linear2 = nn.Linear(1024, 512)
         self.linear3 = nn.Linear(512, 256)
@@ -48,7 +48,7 @@ class FFNet2(nn.Module):
         out = self.linear5(out)
         return out
 
-    
+
 class FFIntNet(nn.Module):
     def __init__(self, input_dim=15, output_dim=5, act='relu'):
         super(FFNet2, self).__init__()

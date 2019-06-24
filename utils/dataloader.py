@@ -13,241 +13,249 @@ import scipy.io as sio
 from scipy.signal import resample
 from scipy.interpolate import interp1d
 
+
 def normalize(quant, minn, maxx):
+    """Normalize a quantity using global minima and maxima.
+
+    Args:
+        quant (np.array): Electrical motor quantity as np.array.
+        minn (float): Global minimum value of the input quantity.
+        maxx (float): Global maximum value of the input quantity.
+
+    Returns:
+        np.array: Normalized electrical motor quantity.
+
+    Raises:        ExceptionName: Why the exception is raised.
+
+    Examples
+        Examples should be written in doctest format, and
+        should illustrate how to use the function/class.
+        >>>
+
+    """
     a = -1
     b = 1
-    t = a + ( quant - minn) * ((b - a) / (maxx - minn))
+    t = a + (quant - minn) * ((b - a) / (maxx - minn))
     return t.astype(np.float32)
 
-def rev_normalize(quant, minn, maxx):
+
+def denormalize(quant, minn, maxx):
+    """Denormalize a quantity using global minima and maxima.
+
+    Args:
+        quant (np.array): Normalized electrical motor quantity as np.array.
+        minn (float): Global minimum value of the input quantity.
+        maxx (float): Global maximum value of the input quantity.
+
+    Returns:
+        np.array: Denormalized electrical motor quantity.
+
+    Raises:        ExceptionName: Why the exception is raised.
+
+    Examples
+        Examples should be written in doctest format, and
+        should illustrate how to use the function/class.
+        >>>
+
+    """
     a = minn
     b = maxx
     t = a + (quant - (-1)) * ((b-a) / (1-(-1)))
     return t.astype(np.float32)
 
-def load_synth_data(root):
-#     exps = glob.glob(root + 'simulink_output/OldLaw*')
-#     exps = [root + 'simulink_output/NewLaw_Exp' + str(x) for x in range(299)]
-#     exps = glob.glob(root + 'simulink_output/AlphaBeta*')
+
+def load_data(root):
+    """Load synthetic dataset.
+
+    Args:
+        root (type): Dataset directory to load the dataset.
+
+    Returns:
+        tuple: dataset, index_quant_map.
+
+    Raises:        ExceptionName: Why the exception is raised.
+
+    Examples
+        Examples should be written in doctest format, and
+        should illustrate how to use the function/class.
+        >>>
+
+    """
     exps = os.listdir(root)
-    print (len(exps))
-    
+
     dataset = []
     for exp in exps:
-        d = _load_exp_data2(root + '/' + exp)
-        dataset.append(d)
-        
-#     index_quant_map = {'Voltage1':0,'Voltage2':1,'StatorPuls':2,'Speed':3,'Current1':4,'Current2':5,'Torque':6}
-    index_quant_map = {'Voltage1':0,'Voltage2':1,'Speed':2,'Current1':3,'Current2':4,'Torque':5}
-    
+        mat_data = _load_exp_data(root + '/' + exp)[0]
+        dataset.append(mat_data)
+
+    index_quant_map = {'Voltage1': 0,
+                       'Voltage2': 1,
+                       'Speed': 2,
+                       'Current1': 3,
+                       'Current2': 4,
+                       'Torque': 5}
+
     return dataset, index_quant_map
 
+
 def _load_exp_data(root):
-    current = sio.loadmat(root + 'Current.mat')
-    voltage = sio.loadmat(root + 'Voltage.mat')
-#     stator_puls = sio.loadmat(root + 'StatorPuls.mat')
-    speed = sio.loadmat(root + 'Speed.mat')
-    em_torque = sio.loadmat(root + 'Torque.mat')
-
-#     print (voltage['voltage'][:, 0].max(), voltage['voltage'][:, 1].max())
-#     print (current['current'][:, 0].max(), current['current'][:, 1].max())
-#     print (speed['speed'][:, 0].max())
-#     print (em_torque['torque'][:, 0].max())
-    
-    voltage1 = normalize(voltage['voltage'][:, 0], -200, 200)
-    voltage2 = normalize(voltage['voltage'][: ,1], -500, 500)
-#     statorPuls = normalize(stator_puls['statorPuls'][:, 0], -350, 350)
-    current1 = normalize(current['current'][:, 0], -20, 20)
-    current2 = normalize(current['current'][:, 1], -30, 30)
-    speed = normalize(speed['speed'][:, 0], -700, 700)
-    torque = normalize(em_torque['torque'][:, 0], -70, 70)
-    
-#     dataset = np.vstack((voltage1, voltage2, statorPuls, speed,
-#                         current1, current2, torque))
-    dataset = np.vstack((voltage1, voltage2,  speed,
-                        current1, current2, torque))
-    
-    return dataset
-
-
-def _load_exp_data2(root):
     data = sio.loadmat(root)
-#     print (data.keys())
-    
+
     voltage1 = normalize(data['vd'][:, 0], -200, 200)
-    voltage2 = normalize(data['vq'][: ,0], -500, 500)
-#     statorPuls = normalize(stator_puls['StatorPuls'][:, 0], -350, 350)
+    voltage2 = normalize(data['vq'][:, 0], -500, 500)
     current1 = normalize(data['id'][:, 0], -20, 20)
     current2 = normalize(data['iq'][:, 0], -30, 30)
-    
+
     if 'raw' in root:
         speed = normalize(data['spd'][:, 0] * 2 * math.pi, -700, 700)
         torque = normalize(data['trq'][:, 0] / 100 * 25, -70, 70)
     else:
         speed = normalize(data['spd'][:, 0], -700, 700)
         torque = normalize(data['trq'][:, 0], -70, 70)
-        
-    it = data['it'][:, 0]
-    vt = data['vt'][:, 0]
-    
-    v1f = interp1d(vt, voltage1)
-    v2f = interp1d(vt, voltage2)
-    spdf = interp1d(vt, speed)
-    trqf = interp1d(vt, torque)
-    c1f = interp1d(it, current1)
-    c2f = interp1d(it, current2)
-    
+
+    current_time = data['it'][:, 0]
+    voltage_time = data['vt'][:, 0]
+
+    v1f = interp1d(voltage_time, voltage1)
+    v2f = interp1d(voltage_time, voltage2)
+    spdf = interp1d(voltage_time, speed)
+    trqf = interp1d(voltage_time, torque)
+    c1f = interp1d(current_time, current1)
+    c2f = interp1d(current_time, current2)
+
     if 'NoLM_SpeedVariations2.mat' not in root:
-        nvoltage1 = v1f(it[1:])
-        nvoltage2 = v2f(it[1:])
-        nspeed = spdf(it[1:])
-        ntorque = trqf(it[1:])
-        ncurrent1 = c1f(it[1:])
-        ncurrent2 = c2f(it[1:])
-        time = it[1:]
+        nvoltage1 = v1f(current_time[1:])
+        nvoltage2 = v2f(current_time[1:])
+        nspeed = spdf(current_time[1:])
+        ntorque = trqf(current_time[1:])
+        ncurrent1 = c1f(current_time[1:])
+        ncurrent2 = c2f(current_time[1:])
+        time = current_time[1:]
     else:
-        it = it[:40977]
-        nvoltage1 = v1f(it)
-        nvoltage2 = v2f(it)
-        nspeed = spdf(it)
-        ntorque = trqf(it)
-        ncurrent1 = c1f(it)
-        ncurrent2 = c2f(it)
-        time = it
-        
-    if nvoltage1.min() < -1 or nvoltage1.max() > 1 or nvoltage2.min() < -1 or nvoltage2.max() > 1 or nspeed.min() < -1 or nspeed.max() > 1 or ncurrent1.min() < -1 or ncurrent1.max() >1 or ncurrent1.min() < -1 or ncurrent1.max() > 1 or ntorque.min() < -1 or ntorque.max() > 1:
-        print (root)
-    dataset = np.vstack((nvoltage1, nvoltage2, nspeed, ncurrent1, ncurrent2, ntorque, time))
-    
-    return dataset.astype(np.float32)
+        current_time = current_time[:40977]
+        nvoltage1 = v1f(current_time)
+        nvoltage2 = v2f(current_time)
+        nspeed = spdf(current_time)
+        ntorque = trqf(current_time)
+        ncurrent1 = c1f(current_time)
+        ncurrent2 = c2f(current_time)
+        time = current_time
 
-def load_data(root):
-    current = sio.loadmat(root + 'Current.mat')
-    voltage = sio.loadmat(root + 'Voltage.mat')
-    stator_puls = sio.loadmat(root + 'StatorPuls.mat')
-    speed = sio.loadmat(root + 'Speed.mat')
-    em_torque = sio.loadmat(root + 'Torque.mat')
+    dataset = (nvoltage1, nvoltage2, nspeed,
+               ncurrent1, ncurrent2, ntorque, time)
+    dataset = np.vstack(dataset)
 
-    dataset = np.hstack((voltage['Voltage'], stator_puls['StatorPuls'], speed['Speed'],
-                        current['Current'], em_torque['Torque']))
-
-    scaler = preprocessing.MinMaxScaler(feature_range=[0,1])
-    scaler.fit(dataset)
-    dataset = scaler.transform(dataset)
-    index_quant_map = {'Voltage1':0,'Voltage2':1,'StatorPuls':2,'Speed':3,'Current1':4,'Current2':5,'Torque':6}
-    return dataset.astype(np.float32), index_quant_map
-
-def load_data_test(root):
-    voltage = sio.loadmat(root + 'Voltage.mat')
-#     stator_puls = sio.loadmat(root + 'StatorPuls.mat')
-    speed = sio.loadmat(root + 'Speed.mat')
-    current = sio.loadmat(root + 'Current.mat')
-    voltage = sio.loadmat(root + 'Voltage.mat')
-    em_torque = sio.loadmat(root + 'Torque.mat')
-    time = sio.loadmat(root + 'Time.mat')
-
-    voltage1 = normalize(voltage['Voltage'][:, 0], -200, 200)
-    voltage2 = normalize(voltage['Voltage'][: ,1], -500, 500)
-#     statorPuls = normalize(stator_puls['StatorPuls'][:, 0], -350, 350)
-    speed = normalize(speed['Speed'][:, 0], -700, 700)
-    current1 = normalize(current['Current'][:, 0], -20, 20)
-    current2 = normalize(current['Current'][:, 1], -30, 30)
-    torque = normalize(em_torque['Torque'][:, 0], -70, 70)
-    time = time['t'][:,0]
-    
-#     dataset = np.vstack((voltage1, voltage2, statorPuls, speed, current1, current2, torque, time))
-    dataset = np.vstack((voltage1, voltage2, speed, current1, current2, torque, time))
-
-#     index_quant_map = {'Voltage1':0,'Voltage2':1,'StatorPuls':2,'Speed':3,'Current1':4,'Current2':5,'Torque':6,'Time':7}
-    index_quant_map = {'Voltage1':0,'Voltage2':1,'Speed':2,'Current1':3,'Current2':4,'Torque':5,'Time':6}
+    index_quant_map = {'Voltage1': 0,
+                       'Voltage2': 1,
+                       'Speed': 2,
+                       'Current1': 3,
+                       'Current2': 4,
+                       'Torque': 5,
+                       'Time': 6}
 
     return dataset.astype(np.float32), index_quant_map
 
-def load_raw_data(root):
-    data = sio.loadmat(root)
-#     print (data.keys())
-    
-    voltage1 = normalize(data['vd'][:, 0], -200, 200)
-    voltage2 = normalize(data['vq'][: ,0], -500, 500)
-#     statorPuls = normalize(stator_puls['StatorPuls'][:, 0], -350, 350)
-    speed = normalize(data['spd'][:, 0] * 2 * math.pi, -700, 700)
-    current1 = normalize(data['id'][:, 0], -20, 20)
-    current2 = normalize(data['iq'][:, 0], -30, 30)
-    torque = normalize(data['trq'][:, 0] / 100 * 25, -70, 70)
-    it = data['it'][:, 0]
-    vt = data['vt'][:, 0]
-    
-    v1f = interp1d(vt, voltage1)
-    v2f = interp1d(vt, voltage2)
-    spdf = interp1d(vt, speed)
-    trqf = interp1d(vt, torque)
-    c1f = interp1d(it, current1)
-    c2f = interp1d(it, current2)
-    
-    if 'NoLM_SpeedVariations2.mat' not in root:
-        nvoltage1 = v1f(it[1:])
-        nvoltage2 = v2f(it[1:])
-        nspeed = spdf(it[1:])
-        ntorque = trqf(it[1:])
-        ncurrent1 = c1f(it[1:])
-        ncurrent2 = c2f(it[1:])
-        time = it[1:]
-    else:
-        it = it[:40977]
-        nvoltage1 = v1f(it)
-        nvoltage2 = v2f(it)
-        nspeed = spdf(it)
-        ntorque = trqf(it)
-        ncurrent1 = c1f(it)
-        ncurrent2 = c2f(it)
-        time = it
-        
-    dataset = np.vstack((nvoltage1, nvoltage2, nspeed, ncurrent1, ncurrent2, ntorque, time))
 
-    index_quant_map = {'Voltage1':0,'Voltage2':1,'Speed':2,'Current1':3,'Current2':4,'Torque':5,'Time':6}
-
-    return dataset.astype(np.float32), index_quant_map
-
-    
 def rev_test_output(dataset):
-    time = dataset[0,:]
-    voltage1 = rev_normalize(dataset[1,:], -200, 200)
-    voltage2 = rev_normalize(dataset[2,:], -500, 500)
-#     statorPuls = rev_normalize(dataset[3,:], -350, 350)
-    speed = rev_normalize(dataset[3,:], -700, 700)
-    current1_true = rev_normalize(dataset[4,:], -20, 20)
-    current1_pred = rev_normalize(dataset[5,:], -20, 20)
-    current2_true = rev_normalize(dataset[6,:], -30, 30)
-    current2_pred = rev_normalize(dataset[7,:], -30, 30)
-    torque_true = rev_normalize(dataset[8,:], -70, 70)
-    torque_pred = rev_normalize(dataset[9,:], -70, 70)
-    
-    dataset = {'time':time, 'voltage1':voltage1, 'voltage2':voltage2, 'speed':speed, 'current1_true':current1_true, 'current1_pred':current1_pred, 'current2_true':current2_true, 'current2_pred':current2_pred, 'torque_true':torque_true, 'torque_pred':torque_pred}
-    
+    """Denormalize the inference output.
+
+    Args:
+        dataset (np.asarray): Output from inference.
+
+    Returns:
+        np.asarray: Denormalized inference output.
+
+    Raises:        ExceptionName: Why the exception is raised.
+
+    Examples
+        Examples should be written in doctest format, and
+        should illustrate how to use the function/class.
+        >>>
+
+    """
+    time = dataset[0, :]
+    voltage1 = denormalize(dataset[1, :], -200, 200)
+    voltage2 = denormalize(dataset[2, :], -500, 500)
+    speed = denormalize(dataset[3, :], -700, 700)
+    current1_true = denormalize(dataset[4, :], -20, 20)
+    current1_pred = denormalize(dataset[5, :], -20, 20)
+    current2_true = denormalize(dataset[6, :], -30, 30)
+    current2_pred = denormalize(dataset[7, :], -30, 30)
+    torque_true = denormalize(dataset[8, :], -70, 70)
+    torque_pred = denormalize(dataset[9, :], -70, 70)
+
+    dataset = {'time': time,
+               'voltage1': voltage1,
+               'voltage2': voltage2,
+               'speed': speed,
+               'current1_true': current1_true,
+               'current1_pred': current1_pred,
+               'current2_true': current2_true,
+               'current2_pred': current2_pred,
+               'torque_true': torque_true,
+               'torque_pred': torque_pred}
+
     return dataset
-    
+
+
 def get_sample_metadata(dataset, stride, window):
+    """Get sample metadata from dataset based on sampling stride and window.
+
+    Args:
+        dataset (list): List of np.array extracted from different mat files.
+        stride (int): Sampling stride.
+        window (int): Sampling window length.
+
+    Returns:
+        list: List of samples where each item in list is a tuple with
+              mat no, index in mat data, index + window and index + window//2.
+
+    Raises:        ExceptionName: Why the exception is raised.
+
+    Examples
+        Examples should be written in doctest format, and
+        should illustrate how to use the function/class.
+        >>>
+
+    """
     samples = []
-    
+
     for sample_no in range(len(dataset)):
         for i in range(0, dataset[sample_no].shape[1], stride):
             if i + window < dataset[sample_no].shape[1]:
-                samples.append([sample_no,i,i+window,i+window//2])
-    
+                samples.append([sample_no, i, i+window, i+window//2])
+
     return samples
 
-def get_test_sample_metadata(dataset, stride, window):
-    samples = []
-    
-    for sample_no in range(len(dataset)):
-        for i in range(0, dataset[sample_no].shape[1], stride):
-            if i + window < dataset[sample_no].shape[1]:
-                samples.append([sample_no,i,i+window,i+window//2])
-    
-    return samples
 
 class SignalPreloader(data.Dataset):
-    def __init__(self, full_load, index_quant_map, samples, inp_quants, out_quants, flatten=False, enc_dec=False):
+    def __init__(self, full_load, index_quant_map, samples,
+                 inp_quants, out_quants, flatten=False, enc_dec=False):
+        """Dataloader class to load samples from signals loaded.
+
+        Args:
+            full_load (list): List of numpy array of loaded mat files.
+            index_quant_map (dict): Dictionary which maps signal quantity to
+                                    to index in full_load arrays.
+            samples (list): Metadata used to sample subsequences from
+                            full_load.
+            inp_quants (list): Input quantities to the model.
+            out_quants (list): Output quantities to the model.
+            flatten (bool): Should input be flattened for feedforward network.
+            enc_dec (bool): Input length equals to output length in case of
+                            encoder-decoder architecture.
+
+        Returns:
+            type: Description of returned object.
+
+        Raises:            ExceptionName: Why the exception is raised.
+
+        Examples
+            Examples should be written in doctest format, and
+            should illustrate how to use the function/class.
+            >>>
+
+        """
         random.shuffle(samples)
         self.samples = samples
         self.full_load = full_load
@@ -257,14 +265,17 @@ class SignalPreloader(data.Dataset):
         self.enc_dec = enc_dec
 
     def __getitem__(self, index):
-        sno, xi, xj, yi = self.samples[index]
+        mat_no, start, end, infer_index = self.samples[index]
 
-        inp_seq = self.full_load[sno][self.inp_quant_ids,xi:xj].transpose(1,0)
-        
+        inp_seq = self.full_load[mat_no][self.inp_quant_ids, start: end]
+        inp_seq = inp_seq.transpose(1, 0)
+
         if self.enc_dec:
-            out_seq = self.full_load[sno][self.out_quant_ids,xi:xj].transpose(1,0)
+            out_seq = self.full_load[mat_no][self.out_quant_ids, start: end]
+            out_seq = out_seq.transpose(1, 0)
         else:
-            out_seq = self.full_load[sno][self.out_quant_ids,yi].transpose(1,0)
+            out_seq = self.full_load[mat_no][self.out_quant_ids, infer_index]
+            out_seq = out_seq.transpose(1, 0)
 
         if self.flatten:
             inp_seq = inp_seq.flatten()
@@ -274,6 +285,3 @@ class SignalPreloader(data.Dataset):
 
     def __len__(self):
         return len(self.samples)
-    
-
-    

@@ -44,50 +44,7 @@ def get_file_names(opt):
 
     if 'rnn' in opt.model or 'lstm' in opt.model:
         fname = opt.model + suffix
-        fname += '_hiddeSize_' + str(opt.hidden_size)class ThinEncDec(nn.Module):
-    def __init__(self, input_dim, output_dim, act='relu'):
-        super(ThinEncDec, self).__init__()
-        self.cnn1 = nn.Conv1d(input_dim, 8, kernel_size=3, stride=1)
-        self.cnn2 = nn.Conv1d(8, 16, kernel_size=3, stride=1)
-
-        self.dcnn2 = nn.ConvTranspose1d(16, 8, kernel_size=3, stride=1)
-        self.dcnn1 = nn.ConvTranspose1d(8, output_dim, kernel_size=3, stride=1)
-
-        if act == 'relu':
-            self.act = torch.relu
-        if act == 'tanh':
-            self.act = torch.tanh
-
-    def forward(self, x):
-        x = x.permute(0,2,1)
-        x = self.act(self.cnn1(x))
-        x = self.act(self.cnn2(x))
-        x = self.act(self.dcnn2(x))
-        x = self.dcnn1(x)
-        return x.view(-1, x.size()[-1], x.size()[1])
-
-
-class UltraThinEncDec(nn.Module):
-    def __init__(self, input_dim, output_dim, act='relu'):
-        super(UltraThinEncDec, self).__init__()
-        self.cnn1 = nn.Conv1d(input_dim, 3, kernel_size=3, stride=1, bias=False)
-        self.cnn2 = nn.Conv1d(3, 3, kernel_size=3, stride=1, bias=False)
-
-        self.dcnn2 = nn.ConvTranspose1d(3, 3, kernel_size=3, stride=1, bias=False)
-        self.dcnn1 = nn.ConvTranspose1d(3, output_dim, kernel_size=3, stride=1, bias=False)
-
-        if act == 'relu':
-            self.act = torch.relu
-        if act == 'tanh':
-            self.act = torch.tanh
-
-    def forward(self, x):
-        x = x.permute(0,2,1)
-        x = self.act(self.cnn1(x))
-        x = self.act(self.cnn2(x))
-        x = self.act(self.dcnn2(x))
-        x = self.dcnn1(x)
-        return x.view(-1, x.size()[-1], x.size()[1])
+        fname += '_hiddeSize_' + str(opt.hidden_size)
 
     if 'cnn' in opt.model or 'encdec' in opt.model:
         fname = opt.model + suffix
@@ -166,6 +123,7 @@ def set_metrics(metrics_dict, loss, smape):
 
     return metrics_dict
 
+
 def get_model(opt):
     """Get model.
 
@@ -189,32 +147,40 @@ def get_model(opt):
 
     if opt.model == 'shallow_fnn':
         inp_len = inp_channels * opt.window
-        model = ShallowFNN(inp_len, out_channels)
+        model = ShallowFNN(inp_len, out_channels, act)
     if opt.model == 'deep_fnn':
         inp_len = inp_channels * opt.window
-        model = DeepFNN(inp_len, out_channels)
+        model = DeepFNN(inp_len, out_channels, act)
     if opt.model == 'shallow_cnn':
-        model = ShallowCNN(inp_channels, out_channels)
+        model = ShallowCNN(inp_channels, out_channels, act)
     if opt.model == 'deep_cnn':
-        model = DeepCNN(inp_channels, out_channels)
+        model = DeepCNN(inp_channels, out_channels, act)
     if opt.model == 'shallow_rnn':
-        model = ShallowRNN(inp_channels, out_channels)
+        model = ShallowRNN(inp_channels, out_channels, act)
     if opt.model == 'deep_rnn':
-        model = DeepRNN(inp_channels, out_channels)
+        model = DeepRNN(inp_channels, out_channels, act)
     if opt.model == 'shallow_lstm':
-        model = ShallowLSTM(inp_channels, out_channels)
+        model = ShallowLSTM(inp_channels, out_channels, act)
     if opt.model == 'deep_lstm':
-        model = DeepLSTM(inp_channels, out_channels)
+        model = DeepLSTM(inp_channels, out_channels, act)
     if opt.model == 'shallow_encdec':
-        model = ShallowEncDec(inp_channels, out_channels)
+        model = ShallowEncDec(inp_channels, out_channels, act)
     if opt.model == 'deep_encdec':
-        model = DeepEncDec(inp_channels, out_channels)
-    if opt.model == ''
-
+        model = DeepEncDec(inp_channels, out_channels, act)
+    if opt.model == 'encdec_skip':
+        model = EncDecSkip(inp_channels, out_channels, act)
+    if opt.model == 'encdec_rnn_skip':
+        model = EncDecRNNSkip(inp_channels, out_channels, act)
+    if opt.model == 'encdec_birnn_skip':
+        model = EncDecBiRNNSkip(inp_channels, out_channels, act)
+    if opt.model = 'encdec_diag_birnn_skip':
+        model = EncDecBiRNNSkip(inpt_channels, out_channels, act)
 
     print ('Parameters :', sum(p.numel() for p in model.parameters()))
 
     return model
+
+
 def get_loaders(opt):
     """Get dataloaders for training, fine tuning, validation, and testing.
 

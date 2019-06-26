@@ -8,6 +8,26 @@ from torch.autograd import Variable
 
 class ShallowRNN(nn.Module):
     def __init__(self, input_dim, output_dim, hidden_dim, act='relu'):
+        """Three layered network where first layer is RNN and last two are
+           feedforward layers.
+
+        Args:
+            input_dim (int): Number of channels in the input.
+            output_dim (int): Number of channels in the output.
+            hidden_dim (int): RNN hidden vector length.
+            act (str): Activation function to be used.
+
+        Returns:
+            nn.Module: ShallowRNN model.
+
+        Raises:            ExceptionName: Why the exception is raised.
+
+        Examples
+            Examples should be written in doctest format, and
+            should illustrate how to use the function/class.
+            >>>
+
+        """
         super(ShallowRNN, self).__init__()
 
         self.rnn = nn.RNN(input_dim, hidden_dim, 1,
@@ -28,6 +48,26 @@ class ShallowRNN(nn.Module):
 
 class DeepRNN(nn.Module):
     def __init__(self, input_dim, output_dim, hidden_dim, act='relu'):
+        """Four layered network where first two layers are RNN and last two are
+           feedforward layers.
+
+        Args:
+            input_dim (int): Number of channels in the input.
+            output_dim (int): Number of channels in the output.
+            hidden_dim (int): RNN hidden vector length.
+            act (str): Activation function to be used.
+
+        Returns:
+            nn.Module: DeepRNN model.
+
+        Raises:            ExceptionName: Why the exception is raised.
+
+        Examples
+            Examples should be written in doctest format, and
+            should illustrate how to use the function/class.
+            >>>
+
+        """
         super(DeepRNN, self).__init__()
 
         self.rnn1 = nn.RNN(input_dim, hidden_dim, 1,

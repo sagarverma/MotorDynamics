@@ -4,3 +4,6 @@ datasets/*
 *.slxc
 *.slx.autosave
 slprj
+*.pyc
+*.egg-info
+*.pytest_cache

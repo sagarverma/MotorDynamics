@@ -1,0 +1,5 @@
+setup.py
+motor_dynamics.egg-info/PKG-INFO
+motor_dynamics.egg-info/SOURCES.txt
+motor_dynamics.egg-info/dependency_links.txt
+motor_dynamics.egg-info/top_level.txt

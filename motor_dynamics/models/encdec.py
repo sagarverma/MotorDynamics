@@ -5,7 +5,8 @@ import torch.nn.functional as F
 import torch.optim as optim
 from torch.autograd import Variable
 
-from indrnn import IndRNN
+from motor_dynamics.models.indrnn import IndRNN
+
 
 class ShallowEncDec(nn.Module):
     def __init__(self, input_dim, output_dim, act='relu'):
@@ -46,7 +47,6 @@ class ShallowEncDec(nn.Module):
             self.act = nn.Tanh()
 
     def forward(self, x):
-        x = x.permute(0, 2, 1)
         x = self.act(self.cnn1(x))
         x = self.act(self.cnn2(x))
         x = self.act(self.cnn3(x))
@@ -100,7 +100,6 @@ class DeepEncDec(nn.Module):
             self.act = nn.Tanh()
 
     def forward(self, x):
-        x = x.permute(0, 2, 1)
         x = self.act(self.cnn1(x))
         x = self.act(self.cnn2(x))
         x = self.act(self.cnn3(x))
@@ -150,12 +149,11 @@ class EncDecSkip(nn.Module):
         self.dcnn1 = nn.ConvTranspose1d(64, output_dim, kernel_size=10, stride=1)
 
         if act == 'relu':
-            self.act = torch.relu
+            self.act = nn.ReLU()
         if act == 'tanh':
-            self.act = torch.tanh
+            self.act = nn.Tanh()
 
     def forward(self, x):
-        x = x.permute(0,2,1)
         x1 = self.act(self.cnn1(x))
         x2 = self.act(self.cnn2(x1))
         x3 = self.act(self.cnn3(x2))
@@ -167,6 +165,7 @@ class EncDecSkip(nn.Module):
         x8 = self.dcnn1(torch.cat((x7, x1), 1))
 
         return x8.view(-1, x8.size()[-1], x8.size()[1])
+
 
 class EncDecRNNSkip(nn.Module):
     def __init__(self, input_dim, output_dim, act='relu'):
@@ -209,12 +208,11 @@ class EncDecRNNSkip(nn.Module):
                                         kernel_size=10, stride=1)
 
         if act == 'relu':
-            self.act = torch.relu()
+            self.act = nn.ReLU()
         if act == 'tanh':
-            self.act = torch.tanh()
+            self.act = nn.Tanh()
 
     def forward(self, x):
-        x = x.permute(0,2,1)
         x1 = self.act(self.cnn1(x))
         x2 = self.act(self.cnn2(x1))
         x3 = self.act(self.cnn3(x2))
@@ -268,7 +266,7 @@ class EncDecBiRNNSkip(nn.Module):
             >>>
 
         """
-        super(EncDecBiLSTMSkipNet, self).__init__()
+        super(EncDecBiRNNSkip, self).__init__()
         self.cnn1 = nn.Conv1d(input_dim, 32, kernel_size=10, stride=1)
         self.cnn2 = nn.Conv1d(32, 64, kernel_size=7, stride=1)
         self.cnn3 = nn.Conv1d(64, 128, kernel_size=5, stride=1)
@@ -286,12 +284,11 @@ class EncDecBiRNNSkip(nn.Module):
                                         kernel_size=10, stride=1)
 
         if act == 'relu':
-            self.act = torch.relu()
+            self.act = nn.ReLU()
         if act == 'tanh':
-            self.act = torch.tanh()
+            self.act = nn.Tanh()
 
     def forward(self, x):
-        x = x.permute(0,2,1)
         x1 = self.act(self.cnn1(x))
         x2 = self.act(self.cnn2(x1))
         x3 = self.act(self.cnn3(x2))
@@ -351,10 +348,10 @@ class EncDecDiagBiRNNSkip(nn.Module):
         self.cnn3 = nn.Conv1d(64, 128, kernel_size=5, stride=1)
         self.cnn4 = nn.Conv1d(128, 256, kernel_size=3, stride=1)
 
-        self.rnn1 = IndRNN(32, 32, batch_first=True, bidirectional=True)
-        self.rnn2 = IndRNN(64, 64, batch_first=True, bidirectional=True)
-        self.rnn3 = IndRNN(128, 128, batch_first=True, bidirectional=True)
-        self.rnn4 = IndRNN(256, 256, batch_first=True, bidirectional=True)
+        self.rnn1 = IndRNN(32, batch_first=True, bidirectional=True)
+        self.rnn2 = IndRNN(64, batch_first=True, bidirectional=True)
+        self.rnn3 = IndRNN(128, batch_first=True, bidirectional=True)
+        self.rnn4 = IndRNN(256, batch_first=True, bidirectional=True)
 
         self.dcnn4 = nn.ConvTranspose1d(768, 128, kernel_size=3, stride=1)
         self.dcnn3 = nn.ConvTranspose1d(384, 64, kernel_size=5, stride=1)
@@ -363,12 +360,11 @@ class EncDecDiagBiRNNSkip(nn.Module):
                                         kernel_size=10, stride=1)
 
         if act == 'relu':
-            self.act = torch.relu
+            self.act = nn.ReLU()
         if act == 'tanh':
-            self.act = torch.tanh
+            self.act = nn.Tanh()
 
     def forward(self, x):
-        x = x.permute(0,2,1)
         x1 = self.act(self.cnn1(x))
         x2 = self.act(self.cnn2(x1))
         x3 = self.act(self.cnn3(x2))

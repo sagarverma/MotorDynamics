@@ -38,7 +38,7 @@ class IndRNNCell(nn.Module):
 
 
 class IndRNN(nn.Module):
-    def __init__(self, inp_size, hidden_sizem, batch_first=False, bidirectional=False):
+    def __init__(self, inp_size, batch_first=False, bidirectional=False):
         super(IndRNN, self).__init__()
         self.inp_size = inp_size
         self.batch_first = batch_first

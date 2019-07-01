@@ -6,19 +6,19 @@ import torch.optim as optim
 from torch.autograd import Variable
 
 
-class ShallowLSTM(nn.Module):
+class ShallowRNN(nn.Module):
     def __init__(self, input_dim, output_dim, hidden_dim, act='relu'):
-        """Three layered network with frist layer as LSTM and last two layers
-           are feedforward layers.
+        """Three layered network where first layer is RNN and last two are
+           feedforward layers.
 
         Args:
-            input_dim (int): Number of input channels.
-            output_dim (int): Number of output channels.
-            hidden_dim (int): LSTM hidden vector length.
-            act (str): Activation function to be used for feedforward layers.
+            input_dim (int): Number of channels in the input.
+            output_dim (int): Number of channels in the output.
+            hidden_dim (int): RNN hidden vector length.
+            act (str): Activation function to be used.
 
         Returns:
-            nn.Module: ShallowLSTM model.
+            nn.Module: ShallowRNN model.
 
         Raises:            ExceptionName: Why the exception is raised.
 
@@ -28,9 +28,10 @@ class ShallowLSTM(nn.Module):
             >>>
 
         """
-        super(ShallowLSTM, self).__init__()
+        super(ShallowRNN, self).__init__()
 
-        self.lstm = nn.LSTM(input_dim, hidden_dim, batch_first=True)
+        self.rnn = nn.RNN(input_dim, hidden_dim, 1,
+                          batch_first=True, nonlinearity=act)
         self.linear1 = nn.Linear(hidden_dim, 256)
         self.linear2 = nn.Linear(256, output_dim)
         if act == 'relu':
@@ -39,25 +40,26 @@ class ShallowLSTM(nn.Module):
             self.act = nn.Tanh()
 
     def forward(self, seq):
-        out = self.lstm(seq)[0]
+        seq = seq.permute(0, 2, 1)
+        out = self.rnn(seq)[0]
         out = self.act(self.linear1(out))
         out = self.linear2(out)
         return out
 
 
-class DeepLSTM(nn.Module):
+class DeepRNN(nn.Module):
     def __init__(self, input_dim, output_dim, hidden_dim, act='relu'):
-        """Four layered network with frist two as LSTM and last two layers
-           are feedforward layers.
+        """Four layered network where first two layers are RNN and last two are
+           feedforward layers.
 
         Args:
-            input_dim (int): Number of input channels.
-            output_dim (int): Number of output channels.
-            hidden_dim (int): LSTM hidden vector length.
-            act (str): Activation function to be used for feedforward layers.
+            input_dim (int): Number of channels in the input.
+            output_dim (int): Number of channels in the output.
+            hidden_dim (int): RNN hidden vector length.
+            act (str): Activation function to be used.
 
         Returns:
-            nn.Module: DeepLSTM model.
+            nn.Module: DeepRNN model.
 
         Raises:            ExceptionName: Why the exception is raised.
 
@@ -67,10 +69,12 @@ class DeepLSTM(nn.Module):
             >>>
 
         """
-        super(DeepLSTM, self).__init__()
+        super(DeepRNN, self).__init__()
 
-        self.lstm1 = nn.LSTM(input_dim, hidden_dim, batch_first=True)
-        self.lstm2 = nn.LSTM(hidden_dim, hidden_dim, batch_first=True)
+        self.rnn1 = nn.RNN(input_dim, hidden_dim, 1,
+                           batch_first=True, nonlinearity=act)
+        self.rnn2 = nn.RNN(hidden_dim, hidden_dim, 1,
+                           batch_first=True, nonlinearity=act)
         self.linear1 = nn.Linear(hidden_dim, 256)
         self.linear2 = nn.Linear(256, output_dim)
         if act == 'relu':
@@ -79,8 +83,9 @@ class DeepLSTM(nn.Module):
             self.act = nn.Tanh()
 
     def forward(self, seq):
-        out = self.lstm1(seq)[0]
-        out = self.lstm2(seq)[0]
+        seq = seq.permute(0, 2, 1)
+        out = self.rnn1(seq)[0]
+        out = self.rnn2(out)[0]
         out = self.act(self.linear1(out))
         out = self.linear2(out)
         return out

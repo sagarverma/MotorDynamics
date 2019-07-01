@@ -13,14 +13,19 @@ import scipy.io as sio
 from scipy.signal import resample
 from scipy.interpolate import interp1d
 
+quantities_min_max = {'voltage_d': (-200, 200),
+                      'voltage_q': (-500, 500),
+                      'speed': (-700, 700),
+                      'current_d': (-20, 20),
+                      'current_q': (-20, 20),
+                      'torque': (-70, 70)}
 
-def normalize(quant, minn, maxx):
+def normalize(data, quantity):
     """Normalize a quantity using global minima and maxima.
 
     Args:
-        quant (np.array): Electrical motor quantity as np.array.
-        minn (float): Global minimum value of the input quantity.
-        maxx (float): Global maximum value of the input quantity.
+        data (np.array): Electrical motor quantity as np.array.
+        quantity (str): Name of the quantity
 
     Returns:
         np.array: Normalized electrical motor quantity.
@@ -35,17 +40,17 @@ def normalize(quant, minn, maxx):
     """
     a = -1
     b = 1
-    t = a + (quant - minn) * ((b - a) / (maxx - minn))
+    minn, maxx = quantities_min_max[quantity]
+    t = a + (data - minn) * ((b - a) / (maxx - minn))
     return t.astype(np.float32)
 
 
-def denormalize(quant, minn, maxx):
+def denormalize(data, quantity):
     """Denormalize a quantity using global minima and maxima.
 
     Args:
-        quant (np.array): Normalized electrical motor quantity as np.array.
-        minn (float): Global minimum value of the input quantity.
-        maxx (float): Global maximum value of the input quantity.
+        data (np.array): Normalized electrical motor quantity as np.array.
+        quantity (str): Name of the quantity
 
     Returns:
         np.array: Denormalized electrical motor quantity.
@@ -58,9 +63,8 @@ def denormalize(quant, minn, maxx):
         >>>
 
     """
-    a = minn
-    b = maxx
-    t = a + (quant - (-1)) * ((b-a) / (1-(-1)))
+    a, b = quantities_min_max[quantity]
+    t = a + (data - (-1)) * ((b-a) / (1-(-1)))
     return t.astype(np.float32)
 
 
@@ -85,15 +89,8 @@ def load_data(root):
 
     dataset = []
     for exp in exps:
-        mat_data = _load_exp_data(root + '/' + exp)[0]
+        mat_data, index_quant_map = _load_exp_data(os.path.join(root, exp))
         dataset.append(mat_data)
-
-    index_quant_map = {'Voltage1': 0,
-                       'Voltage2': 1,
-                       'Speed': 2,
-                       'Current1': 3,
-                       'Current2': 4,
-                       'Torque': 5}
 
     return dataset, index_quant_map
 
@@ -101,62 +98,30 @@ def load_data(root):
 def _load_exp_data(root):
     data = sio.loadmat(root)
 
-    voltage1 = normalize(data['vd'][:, 0], -200, 200)
-    voltage2 = normalize(data['vq'][:, 0], -500, 500)
-    current1 = normalize(data['id'][:, 0], -20, 20)
-    current2 = normalize(data['iq'][:, 0], -30, 30)
+    voltage_d = normalize(data['voltage_d'][0, :], 'voltage_d')
+    voltage_q = normalize(data['voltage_q'][0, :], 'voltage_q')
+    current_d = normalize(data['current_d'][0, :], 'current_d')
+    current_q = normalize(data['current_q'][0, :], 'current_q')
+    speed = normalize(data['speed'][0, :], 'speed')
+    torque = normalize(data['torque'][0, :], 'torque')
+    time = data['time'][0, :]
 
-    if 'raw' in root:
-        speed = normalize(data['spd'][:, 0] * 2 * math.pi, -700, 700)
-        torque = normalize(data['trq'][:, 0] / 100 * 25, -70, 70)
-    else:
-        speed = normalize(data['spd'][:, 0], -700, 700)
-        torque = normalize(data['trq'][:, 0], -70, 70)
-
-    current_time = data['it'][:, 0]
-    voltage_time = data['vt'][:, 0]
-
-    v1f = interp1d(voltage_time, voltage1)
-    v2f = interp1d(voltage_time, voltage2)
-    spdf = interp1d(voltage_time, speed)
-    trqf = interp1d(voltage_time, torque)
-    c1f = interp1d(current_time, current1)
-    c2f = interp1d(current_time, current2)
-
-    if 'NoLM_SpeedVariations2.mat' not in root:
-        nvoltage1 = v1f(current_time[1:])
-        nvoltage2 = v2f(current_time[1:])
-        nspeed = spdf(current_time[1:])
-        ntorque = trqf(current_time[1:])
-        ncurrent1 = c1f(current_time[1:])
-        ncurrent2 = c2f(current_time[1:])
-        time = current_time[1:]
-    else:
-        current_time = current_time[:40977]
-        nvoltage1 = v1f(current_time)
-        nvoltage2 = v2f(current_time)
-        nspeed = spdf(current_time)
-        ntorque = trqf(current_time)
-        ncurrent1 = c1f(current_time)
-        ncurrent2 = c2f(current_time)
-        time = current_time
-
-    dataset = (nvoltage1, nvoltage2, nspeed,
-               ncurrent1, ncurrent2, ntorque, time)
+    dataset = (voltage_d, voltage_q, speed,
+               current_d, current_q, torque, time)
     dataset = np.vstack(dataset)
 
-    index_quant_map = {'Voltage1': 0,
-                       'Voltage2': 1,
-                       'Speed': 2,
-                       'Current1': 3,
-                       'Current2': 4,
-                       'Torque': 5,
-                       'Time': 6}
+    index_quant_map = {'voltage_d': 0,
+                       'voltage_q': 1,
+                       'speed': 2,
+                       'current_d': 3,
+                       'current_q': 4,
+                       'torque': 5,
+                       'time': 6}
 
     return dataset.astype(np.float32), index_quant_map
 
 
-def rev_test_output(dataset):
+def rev_test_output(data):
     """Denormalize the inference output.
 
     Args:
@@ -173,25 +138,25 @@ def rev_test_output(dataset):
         >>>
 
     """
-    time = dataset[0, :]
-    voltage1 = denormalize(dataset[1, :], -200, 200)
-    voltage2 = denormalize(dataset[2, :], -500, 500)
-    speed = denormalize(dataset[3, :], -700, 700)
-    current1_true = denormalize(dataset[4, :], -20, 20)
-    current1_pred = denormalize(dataset[5, :], -20, 20)
-    current2_true = denormalize(dataset[6, :], -30, 30)
-    current2_pred = denormalize(dataset[7, :], -30, 30)
-    torque_true = denormalize(dataset[8, :], -70, 70)
-    torque_pred = denormalize(dataset[9, :], -70, 70)
+    time = data[0, :]
+    voltage_d = denormalize(data[1, :], 'voltage_d')
+    voltage_q = denormalize(data[2, :], 'voltage_q')
+    speed = denormalize(data[3, :], 'speed')
+    current_d_true = denormalize(data[4, :], 'current_d')
+    current_d_pred = denormalize(data[5, :], 'current_d')
+    current_q_true = denormalize(data[6, :], 'current_q')
+    current_q_pred = denormalize(data[7, :], 'current_q')
+    torque_true = denormalize(data[8, :], 'torque')
+    torque_pred = denormalize(data[9, :], 'torque')
 
     dataset = {'time': time,
-               'voltage1': voltage1,
-               'voltage2': voltage2,
+               'voltage_d': voltage_d,
+               'voltage_q': voltage_q,
                'speed': speed,
-               'current1_true': current1_true,
-               'current1_pred': current1_pred,
-               'current2_true': current2_true,
-               'current2_pred': current2_pred,
+               'current_d_true': current_d_true,
+               'current_d_pred': current_d_pred,
+               'current_q_true': current_q_true,
+               'current_q_pred': current_q_pred,
                'torque_true': torque_true,
                'torque_pred': torque_pred}
 
@@ -228,9 +193,9 @@ def get_sample_metadata(dataset, stride, window):
     return samples
 
 
-class SignalPreloader(data.Dataset):
+class FNNSignalPreloader(data.Dataset):
     def __init__(self, full_load, index_quant_map, samples,
-                 inp_quants, out_quants, flatten=False, enc_dec=False):
+                 inp_quants, out_quants):
         """Dataloader class to load samples from signals loaded.
 
         Args:
@@ -241,9 +206,6 @@ class SignalPreloader(data.Dataset):
                             full_load.
             inp_quants (list): Input quantities to the model.
             out_quants (list): Output quantities to the model.
-            flatten (bool): Should input be flattened for feedforward network.
-            enc_dec (bool): Input length equals to output length in case of
-                            encoder-decoder architecture.
 
         Returns:
             type: Description of returned object.
@@ -261,8 +223,6 @@ class SignalPreloader(data.Dataset):
         self.full_load = full_load
         self.inp_quant_ids = [index_quant_map[x] for x in inp_quants]
         self.out_quant_ids = [index_quant_map[x] for x in out_quants]
-        self.flatten = flatten
-        self.enc_dec = enc_dec
 
     def __getitem__(self, index):
         mat_no, start, end, infer_index = self.samples[index]
@@ -272,10 +232,8 @@ class SignalPreloader(data.Dataset):
 
         if self.enc_dec:
             out_seq = self.full_load[mat_no][self.out_quant_ids, start: end]
-            out_seq = out_seq.transpose(1, 0)
         else:
             out_seq = self.full_load[mat_no][self.out_quant_ids, infer_index]
-            out_seq = out_seq.transpose(1, 0)
 
         if self.flatten:
             inp_seq = inp_seq.flatten()

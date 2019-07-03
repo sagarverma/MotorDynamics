@@ -1,13 +1,17 @@
+import os
+
 import numpy as np
 
 from torch.utils.data import DataLoader
 
-from utils.dataloader import (load_data, get_sample_metadata, SignalPreloader)
-from models.cnn import ShallowCNN, DeepCNN
-from models.fnn import ShallowFNN, DeepFNN
-from model.rnn import ShallowRNN, DeepRNN
-from model.lstm import ShallowLSTM, DeepLSTM
-from model.encdec import (ShallowEncDec, DeepEncDec, EncDecSkip,
+from motor_dynamics.utils.dataloader import (load_data, get_sample_metadata, FlatInFlatOut,
+                              SeqInFlatOut, SeqInSeqOut)
+
+from motor_dynamics.models.cnn import ShallowCNN, DeepCNN
+from motor_dynamics.models.ffnn import ShallowFNN, DeepFNN
+from motor_dynamics.models.rnn import ShallowRNN, DeepRNN
+from motor_dynamics.models.lstm import ShallowLSTM, DeepLSTM
+from motor_dynamics.models.encdec import (ShallowEncDec, DeepEncDec, EncDecSkip,
                           EncDecRNNSkip, EncDecBiRNNSkip,
                           EncDecDiagBiRNNSkip)
 
@@ -44,13 +48,13 @@ def get_file_names(opt):
 
     if 'rnn' in opt.model or 'lstm' in opt.model:
         fname = opt.model + suffix
-        fname += '_hiddeSize_' + str(opt.hidden_size)
+        fname += '_hiddenSize_' + str(opt.hidden_size)
 
     if 'cnn' in opt.model or 'encdec' in opt.model:
         fname = opt.model + suffix
 
-    weight_path = opt.weight_dir + fname + '.pt'
-    log_path = opt.log_dir + fname + '.log'
+    weight_path = os.path.join(opt.weights_dir, fname + '.pt')
+    log_path = os.path.join(opt.logs_dir, fname + '.log')
 
     return weight_path, log_path
 
@@ -156,13 +160,13 @@ def get_model(opt):
     if opt.model == 'deep_cnn':
         model = DeepCNN(inp_channels, out_channels, act)
     if opt.model == 'shallow_rnn':
-        model = ShallowRNN(inp_channels, out_channels, act)
+        model = ShallowRNN(inp_channels, out_channels, opt.hidden_size, act)
     if opt.model == 'deep_rnn':
-        model = DeepRNN(inp_channels, out_channels, act)
+        model = DeepRNN(inp_channels, out_channels, opt.hidden_size, act)
     if opt.model == 'shallow_lstm':
-        model = ShallowLSTM(inp_channels, out_channels, act)
+        model = ShallowLSTM(inp_channels, out_channels, opt.hidden_size, act)
     if opt.model == 'deep_lstm':
-        model = DeepLSTM(inp_channels, out_channels, act)
+        model = DeepLSTM(inp_channels, out_channels, opt.hidden_size, act)
     if opt.model == 'shallow_encdec':
         model = ShallowEncDec(inp_channels, out_channels, act)
     if opt.model == 'deep_encdec':
@@ -173,23 +177,43 @@ def get_model(opt):
         model = EncDecRNNSkip(inp_channels, out_channels, act)
     if opt.model == 'encdec_birnn_skip':
         model = EncDecBiRNNSkip(inp_channels, out_channels, act)
-    if opt.model = 'encdec_diag_birnn_skip':
-        model = EncDecBiRNNSkip(inpt_channels, out_channels, act)
+    if opt.model == 'encdec_diag_birnn_skip':
+        model = EncDecDiagBiRNNSkip(inp_channels, out_channels, act)
 
     print ('Parameters :', sum(p.numel() for p in model.parameters()))
 
     return model
 
 
-def get_loaders(opt):
-    """Get dataloaders for training, fine tuning, validation, and testing.
+def _get_prelaoder_class(opt):
+    if 'fnn' in opt.model:
+        return FlatInFlatOut
+    if 'cnn' in opt.model:
+        return SeqInFlatOut
+    if 'rnn' in opt.model or 'lstm' in opt.model or 'encdec' in opt.model:
+        return SeqInSeqOut
+
+
+def _get_loader(dir, opt, shuffle):
+    dataset, index_quant_map = load_data(dir)
+    samples = get_sample_metadata(dataset, opt.stride, opt.window)
+    preloader_class = _get_prelaoder_class(opt)
+    preloader = preloader_class(dataset, index_quant_map, samples,
+                          opt.inp_quants.split(','),
+                          opt.out_quants.split(','))
+    dataloader = DataLoader(preloader, batch_size=opt.batch_size,
+                            shuffle=shuffle, num_workers=opt.num_workers)
+    return dataloader
+
+
+def get_train_loaders(opt):
+    """Get dataloaders for training, and validation.
 
     Args:
         opt (argparse.ArgumentParser): Parsed arguments.
 
     Returns:
-        tuple: train sim dataloader, val sim dataloader, train raw dataloader, and
-               test dataloader.
+        tuple: train sim dataloader and val sim dataloader
 
     Raises:        ExceptionName: Why the exception is raised.
 
@@ -199,63 +223,65 @@ def get_loaders(opt):
         >>>
 
     """
-    if 'ffnn' in opt.model:
-        flatten = True
-    else:
-        flatten = False
 
-    if 'encdec' in opt.model:
-        enc_dec = True
-    else:
-        enc_dec = False
+    train_sim_loader = _get_loader(opt.train_sim_dir, opt, True)
+    val_sim_loader = _get_loader(opt.val_sim_dir, opt, False)
 
-    train_sim_dataset, index_quant_map = load_data(opt.train_sim_dir)
-    train_raw_dataset, index_quant_map = load_data(opt.train_raw_dir)
-    val_sim_dataset, index_quant_map = load_data(opt.val_sim_dir)
-    test_raw_dataset, index_quant_map = load_data(opt.test_raw_dir)
+    print('train sim samples : ', len(train_sim_loader))
+    print('val sim samples : ', len(val_sim_loader))
 
-    train_sim_samples = get_sample_metadata(train_sim_dataset,
-                                            opt.stride, opt.window)
-    train_raw_samples = get_sample_metadata(train_raw_dataset,
-                                            opt.stride, opt.window)
-    val_sim_samples = get_sample_metadata(val_sim_dataset,
-                                          opt.stride, opt.window)
-    test_raw_samples = get_sample_metadata(test_raw_dataset,
-                                           opt.stride, opt.window)
+    return train_sim_loader, val_sim_loader
 
-    print('train sim samples : ', len(train_sim_samples))
-    print('train raw samples : ', len(train_raw_samples))
-    print('val sim samples : ', len(val_sim_samples))
-    print('test raw samples : ', len(test_raw_samples))
 
-    train_sim_loader = SignalPreloader(train_sim_dataset,
-                                       index_quant_map, train_sim_samples,
-                                       opt.inp_quants.split(','),
-                                       opt.out_quants.split(','),
-                                       flatten, enc_dec)
-    train_raw_loader = SignalPreloader(train_raw_dataset,
-                                       index_quant_map, train_raw_samples,
-                                       opt.inp_quants.split(','),
-                                       opt.out_quants.split(','),
-                                       flatten, enc_dec)
-    val_sim_loader = SignalPreloader(val_sim_dataset,
-                                     index_quant_map, val_sim_samples,
-                                     opt.inp_quants.split(','),
-                                     opt.out_quants.split(','),
-                                     flatten, enc_dec)
-    test_raw_loader = SignalPreloader(test_raw_dataset,
-                                      index_quant_map, test_raw_samples,
-                                      opt.inp_quants.split(','),
-                                      opt.out_quants.split(','),
-                                      flatten, enc_dec)
+def get_finetune_loaders(opt):
+    """Get dataloaders for finetuning, and validation.
 
-    train_sim_loader = DataLoader(train_sim_loader, batch_size=opt.batch_size,
-                                  shuffle=True, num_workers=32)
-    train_raw_loader = DataLoader(train_raw_loader, batch_size=opt.batch_size,
-                                  shuffle=False, num_workers=32)
-    val_sim_loader = DataLoader(val_sim_loader, batch_size=opt.batch_size,
-                                shuffle=False, num_workers=32)
-    test_raw_loader = DataLoader(test_raw_loader, batch_size=opt.batch_size,
-                                 shuffle=False, num_workers=32)
+    Args:
+        opt (argparse.ArgumentParser): Parsed arguments.
 
-    return train_sim_loader, train_raw_loader, val_sim_loader, test_raw_loader
+    Returns:
+        tuple:  train raw dataloader and val sim dataloader.
+
+    Raises:        ExceptionName: Why the exception is raised.
+
+    Examples
+        Examples should be written in doctest format, and
+        should illustrate how to use the function/class.
+        >>>
+
+    """
+
+    train_raw_loader = _get_loader(opt.train_raw_dir, opt, True)
+    val_sim_loader = _get_loader(opt.val_sim_dir, opt, False)
+
+    print('train raw samples : ', len(train_raw_loader))
+    print('val sim samples : ', len(val_sim_loader))
+
+
+    return train_raw_loader, val_sim_loader
+
+
+
+def get_test_loaders(opt):
+    """Get dataloader for testing.
+
+    Args:
+        opt (argparse.ArgumentParser): Parsed arguments.
+
+    Returns:
+        tuple: test dataloader.
+
+    Raises:        ExceptionName: Why the exception is raised.
+
+    Examples
+        Examples should be written in doctest format, and
+        should illustrate how to use the function/class.
+        >>>
+
+    """
+
+    test_raw_loader = _get_loader(opt.test_raw_dir, opt, False)
+
+    print('test raw samples : ', len(test_raw_loader))
+
+    return test_raw_loader

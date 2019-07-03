@@ -48,13 +48,13 @@ def get_parser_with_args():
                         required=False,
                         help='Raw dataset directory for testing.')
 
-    parser.add_argument('--weight_dir',
+    parser.add_argument('--weights_dir',
                         type=str,
                         default='../weights/',
                         required=False,
                         help='Directory to save model weights.')
 
-    parser.add_argument('--log_dir',
+    parser.add_argument('--logs_dir',
                         type=str,
                         default='../logs/',
                         required=False,
@@ -91,16 +91,16 @@ def get_parser_with_args():
                         required=False,
                         help='Learning rate.')
 
-    parser.add_argument('--inp_quant',
+    parser.add_argument('--inp_quants',
                         type=str,
-                        default='Voltage1,Voltage2,Speed',
+                        default='voltage_d,voltage_q,speed',
                         required=False,
                         help='Input quantites to the model.')
 
-    parser.add_argument('--out_quant',
+    parser.add_argument('--out_quants',
                         type=str,
-                        default='Current1,Current2,Torque',
-                        requried=False,
+                        default='current_d,current_q,torque',
+                        required=False,
                         help='Output quantities from the model.')
 
     parser.add_argument('--stride',
@@ -128,4 +128,9 @@ def get_parser_with_args():
                         help='''Hidden vector size in models where RNN and
                         LSTM can be varied.''')
 
+    parser.add_argument('--num_workers',
+                        type=int,
+                        default=8,
+                        required=False,
+                        help='Number of cpu cores to use')
     return parser

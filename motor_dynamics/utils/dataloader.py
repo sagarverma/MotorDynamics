@@ -193,7 +193,7 @@ def get_sample_metadata(dataset, stride, window):
     return samples
 
 
-class FNNSignalPreloader(data.Dataset):
+class FlatInFlatOut(data.Dataset):
     def __init__(self, full_load, index_quant_map, samples,
                  inp_quants, out_quants):
         """Dataloader class to load samples from signals loaded.
@@ -229,15 +229,99 @@ class FNNSignalPreloader(data.Dataset):
 
         inp_seq = self.full_load[mat_no][self.inp_quant_ids, start: end]
         inp_seq = inp_seq.transpose(1, 0)
+        out_seq = self.full_load[mat_no][self.out_quant_ids, infer_index]
+        inp_seq = inp_seq.flatten()
+        out_seq = out_seq.flatten()
 
-        if self.enc_dec:
-            out_seq = self.full_load[mat_no][self.out_quant_ids, start: end]
-        else:
-            out_seq = self.full_load[mat_no][self.out_quant_ids, infer_index]
+        return inp_seq, out_seq
 
-        if self.flatten:
-            inp_seq = inp_seq.flatten()
-            out_seq = out_seq.flatten()
+    def __len__(self):
+        return len(self.samples)
+
+
+class SeqInFlatOut(data.Dataset):
+    def __init__(self, full_load, index_quant_map, samples,
+                 inp_quants, out_quants):
+        """Dataloader class to load samples from signals loaded.
+
+        Args:
+            full_load (list): List of numpy array of loaded mat files.
+            index_quant_map (dict): Dictionary which maps signal quantity to
+                                    to index in full_load arrays.
+            samples (list): Metadata used to sample subsequences from
+                            full_load.
+            inp_quants (list): Input quantities to the model.
+            out_quants (list): Output quantities to the model.
+
+        Returns:
+            type: Description of returned object.
+
+        Raises:            ExceptionName: Why the exception is raised.
+
+        Examples
+            Examples should be written in doctest format, and
+            should illustrate how to use the function/class.
+            >>>
+
+        """
+        random.shuffle(samples)
+        self.samples = samples
+        self.full_load = full_load
+        self.inp_quant_ids = [index_quant_map[x] for x in inp_quants]
+        self.out_quant_ids = [index_quant_map[x] for x in out_quants]
+
+    def __getitem__(self, index):
+        mat_no, start, end, infer_index = self.samples[index]
+
+        inp_seq = self.full_load[mat_no][self.inp_quant_ids, start: end]
+        inp_seq = inp_seq.transpose(1, 0)
+        out_seq = self.full_load[mat_no][self.out_quant_ids, infer_index]
+        out_seq = out_seq.flatten()
+
+        return inp_seq, out_seq
+
+    def __len__(self):
+        return len(self.samples)
+
+
+class SeqInSeqOut(data.Dataset):
+    def __init__(self, full_load, index_quant_map, samples,
+                 inp_quants, out_quants):
+        """Dataloader class to load samples from signals loaded.
+
+        Args:
+            full_load (list): List of numpy array of loaded mat files.
+            index_quant_map (dict): Dictionary which maps signal quantity to
+                                    to index in full_load arrays.
+            samples (list): Metadata used to sample subsequences from
+                            full_load.
+            inp_quants (list): Input quantities to the model.
+            out_quants (list): Output quantities to the model.
+
+        Returns:
+            type: Description of returned object.
+
+        Raises:            ExceptionName: Why the exception is raised.
+
+        Examples
+            Examples should be written in doctest format, and
+            should illustrate how to use the function/class.
+            >>>
+
+        """
+        random.shuffle(samples)
+        self.samples = samples
+        self.full_load = full_load
+        self.inp_quant_ids = [index_quant_map[x] for x in inp_quants]
+        self.out_quant_ids = [index_quant_map[x] for x in out_quants]
+
+    def __getitem__(self, index):
+        mat_no, start, end, _ = self.samples[index]
+
+        inp_seq = self.full_load[mat_no][self.inp_quant_ids, start: end]
+        inp_seq = inp_seq.transpose(1, 0)
+        out_seq = self.full_load[mat_no][self.out_quant_ids, start: end]
+        out_seq = out_seq.transpose(1, 0)
 
         return inp_seq, out_seq
 

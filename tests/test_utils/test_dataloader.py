@@ -6,7 +6,8 @@ from motor_dynamics.utils.dataloader import (normalize, denormalize,
                                              load_data, _load_exp_data,
                                              rev_test_output,
                                              get_sample_metadata,
-                                             SignalPreloader)
+                                             FlatInFlatOut, SeqInFlatOut,
+                                             SeqInSeqOut)
 
 
 def test__normalize():
@@ -103,7 +104,7 @@ def test__get_sample_metadata():
         assert sample[2] == sample[3] + 50
 
 
-class Test_SignalPreloader(object):
+class Test_FlatInFlatOut(object):
     def test__init(self):
         data_dir = "/tmp/data/train_raw/"
         dataset, index_quant_map = load_data(data_dir)
@@ -111,7 +112,7 @@ class Test_SignalPreloader(object):
         inp_quants = ['voltage_d', 'voltage_q', 'speed']
         out_quants = ['current_d', 'current_q', 'torque']
 
-        dataloader = SignalPreloader(dataset, index_quant_map,
+        dataloader = FlatInFlatOut(dataset, index_quant_map,
                                      samples, inp_quants,
                                      out_quants)
 
@@ -126,13 +127,92 @@ class Test_SignalPreloader(object):
         inp_quants = ['voltage_d', 'voltage_q', 'speed']
         out_quants = ['current_d', 'current_q', 'torque']
 
-        dataloader = SignalPreloader(dataset, index_quant_map,
+        dataloader = FlatInFlatOut(dataset, index_quant_map,
                                      samples, inp_quants,
                                      out_quants)
 
         inp_seq, out_seq = dataloader.__getitem__(0)
 
-        assert isinstance(inp_seq, np.array)
-        assert isinstance(out_seq, np.array)
-        assert inp_seq.shape[0] == 3
-        assert inp_seq.shape[1] == 100
+        assert isinstance(inp_seq, np.ndarray)
+        assert isinstance(out_seq, np.ndarray)
+        assert len(inp_seq.shape) == 1
+        assert inp_seq.shape[0] == 300
+        assert len(out_seq.shape) == 1
+        assert out_seq.shape[0] == 3
+
+
+class Test_SeqInFlatOut(object):
+    def test__init(self):
+        data_dir = "/tmp/data/train_raw/"
+        dataset, index_quant_map = load_data(data_dir)
+        samples = get_sample_metadata(dataset, 1, 100)
+        inp_quants = ['voltage_d', 'voltage_q', 'speed']
+        out_quants = ['current_d', 'current_q', 'torque']
+
+        dataloader = SeqInFlatOut(dataset, index_quant_map,
+                                     samples, inp_quants,
+                                     out_quants)
+
+        assert isinstance(dataloader.samples, list)
+        assert isinstance(dataloader.inp_quant_ids, list)
+        assert isinstance(dataloader.out_quant_ids, list)
+
+    def test__getitem__(self):
+        data_dir = "/tmp/data/train_raw/"
+        dataset, index_quant_map = load_data(data_dir)
+        samples = get_sample_metadata(dataset, 1, 100)
+        inp_quants = ['voltage_d', 'voltage_q', 'speed']
+        out_quants = ['current_d', 'current_q', 'torque']
+
+        dataloader = SeqInFlatOut(dataset, index_quant_map,
+                                     samples, inp_quants,
+                                     out_quants)
+
+        inp_seq, out_seq = dataloader.__getitem__(0)
+
+        assert isinstance(inp_seq, np.ndarray)
+        assert isinstance(out_seq, np.ndarray)
+        assert len(inp_seq.shape) == 2
+        assert inp_seq.shape[0] == 100
+        assert inp_seq.shape[1] == 3
+        assert len(out_seq.shape) == 1
+        assert out_seq.shape[0] == 3
+
+
+class Test_SeqInSeqOut(object):
+    def test__init(self):
+        data_dir = "/tmp/data/train_raw/"
+        dataset, index_quant_map = load_data(data_dir)
+        samples = get_sample_metadata(dataset, 1, 100)
+        inp_quants = ['voltage_d', 'voltage_q', 'speed']
+        out_quants = ['current_d', 'current_q', 'torque']
+
+        dataloader = SeqInSeqOut(dataset, index_quant_map,
+                                     samples, inp_quants,
+                                     out_quants)
+
+        assert isinstance(dataloader.samples, list)
+        assert isinstance(dataloader.inp_quant_ids, list)
+        assert isinstance(dataloader.out_quant_ids, list)
+
+    def test__getitem__(self):
+        data_dir = "/tmp/data/train_raw/"
+        dataset, index_quant_map = load_data(data_dir)
+        samples = get_sample_metadata(dataset, 1, 100)
+        inp_quants = ['voltage_d', 'voltage_q', 'speed']
+        out_quants = ['current_d', 'current_q', 'torque']
+
+        dataloader = SeqInSeqOut(dataset, index_quant_map,
+                                     samples, inp_quants,
+                                     out_quants)
+
+        inp_seq, out_seq = dataloader.__getitem__(0)
+
+        assert isinstance(inp_seq, np.ndarray)
+        assert isinstance(out_seq, np.ndarray)
+        assert len(inp_seq.shape) == 2
+        assert inp_seq.shape[0] == 100
+        assert inp_seq.shape[1] == 3
+        assert len(out_seq.shape) == 2
+        assert out_seq.shape[0] == 100
+        assert out_seq.shape[1] == 3

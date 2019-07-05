@@ -44,6 +44,7 @@ class ShallowRNN(nn.Module):
         out = self.rnn(seq)[0]
         out = self.act(self.linear1(out))
         out = self.linear2(out)
+        out = out.permute(0, 2, 1)
         return out
 
 
@@ -88,4 +89,5 @@ class DeepRNN(nn.Module):
         out = self.rnn2(out)[0]
         out = self.act(self.linear1(out))
         out = self.linear2(out)
+        out = out.permute(0, 2, 1)
         return out

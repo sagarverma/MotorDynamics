@@ -2,6 +2,7 @@ import os
 
 import numpy as np
 
+import torch
 from torch.utils.data import DataLoader
 
 from motor_dynamics.utils.dataloader import (load_data, get_sample_metadata, FlatInFlatOut,
@@ -182,9 +183,14 @@ def get_model(opt):
 
     print ('Parameters :', sum(p.numel() for p in model.parameters()))
 
+    return model.cuda()
+
+
+def get_model_from_weight(opt):
+    model = torch.load(opt.weight_file)
     return model
 
-
+    
 def _get_prelaoder_class(opt):
     if 'fnn' in opt.model:
         return FlatInFlatOut
@@ -285,3 +291,51 @@ def get_test_loaders(opt):
     print('test raw samples : ', len(test_raw_loader))
 
     return test_raw_loader
+
+
+class Log(object):
+    """Logger class to log training metadata.
+
+    Args:
+        log_file_path (type): Log file name.
+        op (type): Read or write.
+
+    Examples
+        Examples should be written in doctest format, and
+        should illustrate how to use the function/class.
+        >>>
+
+    Attributes:
+        log (type): Description of parameter `log`.
+        op
+
+    """
+    def __init__(self, log_file_path, op='r'):
+        self.log = open(log_file_path, op)
+        self.op = op
+
+    def write_model(self, model):
+        self.log.write('\n##MODEL START##\n')
+        self.log.write(model)
+        self.log.write('\n##MODEL END##\n')
+
+        self.log.write('\n##MODEL SIZE##\n')
+        self.log.write(str(sum(p.numel() for p in model.parameters())))
+        self.log.write('\n##MODEL SIZE##\n')
+
+    def log_train_metrics(self, metrics, epoch):
+        self.log.write('\n##TRAIN METRICS##\n')
+        self.log.write('@epoch:' + str(epoch) + '\n')
+        for k, v in metrics.items():
+            self.log.write(k + '=' + str(v) + '\n')
+        self.log.write('\n##TRAIN METRICS##\n')
+
+    def log_test_metrics(self, metrics, epoch):
+        self.log.write('\n##TEST METRICS##\n')
+        self.log.write('@epoch:' + str(epoch) + '\n')
+        for k, v in metrics.items():
+            self.log.write(k + '=' + str(v) + '\n')
+        self.log.write('\n##TEST METRICS##\n')
+
+    def close(self):
+        self.log.close()

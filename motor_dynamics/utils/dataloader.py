@@ -228,7 +228,6 @@ class FlatInFlatOut(data.Dataset):
         mat_no, start, end, infer_index = self.samples[index]
 
         inp_seq = self.full_load[mat_no][self.inp_quant_ids, start: end]
-        inp_seq = inp_seq.transpose(1, 0)
         out_seq = self.full_load[mat_no][self.out_quant_ids, infer_index]
         inp_seq = inp_seq.flatten()
         out_seq = out_seq.flatten()
@@ -274,7 +273,6 @@ class SeqInFlatOut(data.Dataset):
         mat_no, start, end, infer_index = self.samples[index]
 
         inp_seq = self.full_load[mat_no][self.inp_quant_ids, start: end]
-        inp_seq = inp_seq.transpose(1, 0)
         out_seq = self.full_load[mat_no][self.out_quant_ids, infer_index]
         out_seq = out_seq.flatten()
 
@@ -319,9 +317,7 @@ class SeqInSeqOut(data.Dataset):
         mat_no, start, end, _ = self.samples[index]
 
         inp_seq = self.full_load[mat_no][self.inp_quant_ids, start: end]
-        inp_seq = inp_seq.transpose(1, 0)
         out_seq = self.full_load[mat_no][self.out_quant_ids, start: end]
-        out_seq = out_seq.transpose(1, 0)
 
         return inp_seq, out_seq
 

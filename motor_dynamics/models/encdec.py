@@ -55,7 +55,7 @@ class ShallowEncDec(nn.Module):
         x = self.act(self.dcnn3(x))
         x = self.act(self.dcnn2(x))
         x = self.dcnn1(x)
-        return x.view(-1, x.size()[-1], x.size()[1])
+        return x
 
 
 class DeepEncDec(nn.Module):
@@ -112,7 +112,7 @@ class DeepEncDec(nn.Module):
         x = self.act(self.dcnn2(x))
         x = self.dcnn1(x)
 
-        return x.view(-1, x.size()[-1], x.size()[1])
+        return x
 
 
 class EncDecSkip(nn.Module):
@@ -164,7 +164,7 @@ class EncDecSkip(nn.Module):
         x7 = self.act(self.dcnn2(torch.cat((x6, x2), 1)))
         x8 = self.dcnn1(torch.cat((x7, x1), 1))
 
-        return x8.view(-1, x8.size()[-1], x8.size()[1])
+        return x8
 
 
 class EncDecRNNSkip(nn.Module):
@@ -239,7 +239,7 @@ class EncDecRNNSkip(nn.Module):
         x7 = self.act(self.dcnn2(torch.cat((x6, x2), 1)))
         x8 = self.dcnn1(torch.cat((x7, x1), 1))
 
-        return x8.view(-1, x8.size()[-1], x8.size()[1])
+        return x8
 
 
 class EncDecBiRNNSkip(nn.Module):
@@ -315,7 +315,7 @@ class EncDecBiRNNSkip(nn.Module):
         x7 = self.act(self.dcnn2(torch.cat((x6, x2), 1)))
         x8 = self.dcnn1(torch.cat((x7, x1), 1))
 
-        return x8.view(-1, x8.size()[-1], x8.size()[1])
+        return x8
 
 
 class EncDecDiagBiRNNSkip(nn.Module):
@@ -391,4 +391,4 @@ class EncDecDiagBiRNNSkip(nn.Module):
         x7 = self.act(self.dcnn2(torch.cat((x6, x2), 1)))
         x8 = self.dcnn1(torch.cat((x7, x1), 1))
 
-        return x8.view(-1, x8.size()[-1], x8.size()[1])
+        return x8

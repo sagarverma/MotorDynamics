@@ -173,8 +173,8 @@ class Test_SeqInFlatOut(object):
         assert isinstance(inp_seq, np.ndarray)
         assert isinstance(out_seq, np.ndarray)
         assert len(inp_seq.shape) == 2
-        assert inp_seq.shape[0] == 100
-        assert inp_seq.shape[1] == 3
+        assert inp_seq.shape[0] == 3
+        assert inp_seq.shape[1] == 100
         assert len(out_seq.shape) == 1
         assert out_seq.shape[0] == 3
 
@@ -211,8 +211,8 @@ class Test_SeqInSeqOut(object):
         assert isinstance(inp_seq, np.ndarray)
         assert isinstance(out_seq, np.ndarray)
         assert len(inp_seq.shape) == 2
-        assert inp_seq.shape[0] == 100
-        assert inp_seq.shape[1] == 3
+        assert inp_seq.shape[0] == 3
+        assert inp_seq.shape[1] == 100
         assert len(out_seq.shape) == 2
-        assert out_seq.shape[0] == 100
-        assert out_seq.shape[1] == 3
+        assert out_seq.shape[0] == 3
+        assert out_seq.shape[1] == 100

@@ -23,8 +23,8 @@ class Test_ShallowEncDec(object):
         out = model(inp)
         assert isinstance(out, torch.Tensor)
         assert len(out.size()) == 3
-        assert out.size()[0] == 8 and out.size()[1] == 100 and \
-               out.size()[2] == 1
+        assert out.size()[0] == 8 and out.size()[1] == 1 and \
+               out.size()[2] == 100
 
 
 class Test_DeepEncDec(object):
@@ -42,8 +42,8 @@ class Test_DeepEncDec(object):
         out = model(inp)
         assert isinstance(out, torch.Tensor)
         assert len(out.size()) == 3
-        assert out.size()[0] == 8 and out.size()[1] == 100 and \
-               out.size()[2] == 1
+        assert out.size()[0] == 8 and out.size()[1] == 1 and \
+               out.size()[2] == 100
 
 
 class Test_EncDecSkip(object):
@@ -61,8 +61,8 @@ class Test_EncDecSkip(object):
         out = model(inp)
         assert isinstance(out, torch.Tensor)
         assert len(out.size()) == 3
-        assert out.size()[0] == 8 and out.size()[1] == 100 and \
-               out.size()[2] == 1
+        assert out.size()[0] == 8 and out.size()[1] == 1 and \
+               out.size()[2] == 100
 
 
 class Test_EncDecRNNSkip(object):
@@ -80,8 +80,8 @@ class Test_EncDecRNNSkip(object):
         out = model(inp)
         assert isinstance(out, torch.Tensor)
         assert len(out.size()) == 3
-        assert out.size()[0] == 8 and out.size()[1] == 100 and \
-               out.size()[2] == 1
+        assert out.size()[0] == 8 and out.size()[1] == 1 and \
+               out.size()[2] == 100
 
 
 class Test_EncDecBiRNNSkip(object):
@@ -99,8 +99,8 @@ class Test_EncDecBiRNNSkip(object):
         out = model(inp)
         assert isinstance(out, torch.Tensor)
         assert len(out.size()) == 3
-        assert out.size()[0] == 8 and out.size()[1] == 100 and \
-               out.size()[2] == 1
+        assert out.size()[0] == 8 and out.size()[1] == 1 and \
+               out.size()[2] == 100
 
 
 class Test_EncDecDiagBiRNNSkip(object):
@@ -118,5 +118,5 @@ class Test_EncDecDiagBiRNNSkip(object):
         out = model(inp)
         assert isinstance(out, torch.Tensor)
         assert len(out.size()) == 3
-        assert out.size()[0] == 8 and out.size()[1] == 100 and \
-               out.size()[2] == 1
+        assert out.size()[0] == 8 and out.size()[1] == 1 and \
+               out.size()[2] == 100

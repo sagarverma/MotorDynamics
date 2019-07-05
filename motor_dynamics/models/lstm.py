@@ -43,6 +43,7 @@ class ShallowLSTM(nn.Module):
         out = self.lstm(seq)[0]
         out = self.act(self.linear1(out))
         out = self.linear2(out)
+        out = out.permute(0, 2, 1)
         return out
 
 
@@ -85,4 +86,5 @@ class DeepLSTM(nn.Module):
         out = self.lstm2(out)[0]
         out = self.act(self.linear1(out))
         out = self.linear2(out)
+        out = out.permute(0, 2, 1)
         return out

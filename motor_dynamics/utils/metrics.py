@@ -1,3 +1,7 @@
+import math
+
+import numpy as np
+
 from sklearn.metrics import r2_score, mean_absolute_error
 
 
@@ -22,7 +26,7 @@ def mae(y_true, y_pred):
 
 def smape(y_true, y_pred):
     return 100.0/ len(y_true) * np.sum(2.0 * np.abs(y_pred - y_true) / \
-           (np.abs(y_true) + np.abs(y_pred)))
+           (np.abs(y_true) + np.abs(y_pred) + 0.00001))
 
 
 def sc(signal):

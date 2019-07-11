@@ -6,7 +6,7 @@ from torch.autograd import Variable
 from motor_dynamics.utils.helpers import (get_file_names, initialize_metrics,
                                           get_mean_metrics, set_metrics,
                                           get_model, get_train_loaders, Log)
-from motor_dynamics.utils.metrics import smape
+from motor_dynamics.utils.metrics import smape, r2, rmsle, rmse, mae
 
 def train(opt):
     weight_file_path, log_file_path = get_file_names(opt)
@@ -19,7 +19,7 @@ def train(opt):
     optimizer = optim.Adam(model.parameters(), lr=opt.lr)
 
     best_smape = 1000000
-    
+
     for epoch in range(opt.epochs):
         train_metrics = initialize_metrics()
         model.train()

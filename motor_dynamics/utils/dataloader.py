@@ -16,9 +16,9 @@ from scipy.interpolate import interp1d
 quantities_min_max = {'voltage_d': (-200, 200),
                       'voltage_q': (-500, 500),
                       'speed': (-700, 700),
-                      'current_d': (-20, 20),
-                      'current_q': (-20, 20),
-                      'torque': (-70, 70)}
+                      'current_d': (-30, 30),
+                      'current_q': (-30, 30),
+                      'torque': (-200, 200)}
 
 def normalize(data, quantity):
     """Normalize a quantity using global minima and maxima.
@@ -38,7 +38,7 @@ def normalize(data, quantity):
         >>>
 
     """
-    a = -1
+    a = 0
     b = 1
     minn, maxx = quantities_min_max[quantity]
     t = a + (data - minn) * ((b - a) / (maxx - minn))
@@ -64,7 +64,7 @@ def denormalize(data, quantity):
 
     """
     a, b = quantities_min_max[quantity]
-    t = a + (data - (-1)) * ((b-a) / (1-(-1)))
+    t = a + (data - (0)) * ((b-a) / (1-(0)))
     return t.astype(np.float32)
 
 

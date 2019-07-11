@@ -74,8 +74,8 @@ def train(opt):
         log.log_validation_metrics(val_metrics, epoch)
         print (epoch, 'val', val_metrics)
 
-        if val_metrics['smapes'] < best_smape:
+        if val_metrics['smape'] < best_smape:
             torch.save(model, weight_file_path)
-            best_smape = val_metrics['smapes']
+            best_smape = val_metrics['smape']
 
     log.close()

@@ -16,7 +16,7 @@ def train(opt):
     train_sim_loader, val_sim_loader = get_train_loaders(opt)
 
     criterion = nn.MSELoss()
-    optimizer = optim.Adam(model.parameters(), lr=opt.lr)
+    optimizer = optim.SGD(model.parameters(), lr=opt.lr)
 
     best_smape = 1000000
 

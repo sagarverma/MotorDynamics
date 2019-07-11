@@ -77,8 +77,12 @@ def initialize_metrics():
     """
 
     metrics = {
-        'losses': [],
-        'smapes': []
+        'loss': [],
+        'smape': [],
+        'r2': [],
+        'rmsle': [],
+        'rmse': [],
+        'mae': []
     }
 
     return metrics
@@ -104,7 +108,7 @@ def get_mean_metrics(metrics_dict):
     return {k: np.mean(v) for k, v in metrics_dict.items()}
 
 
-def set_metrics(metrics_dict, loss, smape):
+def set_metrics(metrics_dict, loss, smape, r2, rmsle, rmse, mae):
     """Updates metrics dictionary with batch metrics.
 
     Args:
@@ -123,8 +127,12 @@ def set_metrics(metrics_dict, loss, smape):
         >>>
 
     """
-    metrics_dict['losses'].append(loss.item())
-    metrics_dict['smapes'].append(smape.item())
+    metrics_dict['loss'].append(loss.item())
+    metrics_dict['smape'].append(smape)
+    metrics_dict['r2'].append(r2)
+    metrics_dict['rmsle'].append(rmsle)
+    metrics_dict['rmse'].append(rmse)
+    metrics_dict['mae'].append(mae)
 
     return metrics_dict
 

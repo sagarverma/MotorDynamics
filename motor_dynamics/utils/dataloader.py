@@ -16,9 +16,9 @@ from scipy.interpolate import interp1d
 quantities_min_max = {'voltage_d': (-200, 200),
                       'voltage_q': (-500, 500),
                       'speed': (-700, 700),
-                      'current_d': (-20, 20),
-                      'current_q': (-20, 20),
-                      'torque': (-70, 70)}
+                      'current_d': (-30, 30),
+                      'current_q': (-30, 30),
+                      'torque': (-200, 200)}
 
 def normalize(data, quantity):
     """Normalize a quantity using global minima and maxima.
@@ -41,6 +41,8 @@ def normalize(data, quantity):
     a = -1
     b = 1
     minn, maxx = quantities_min_max[quantity]
+    if minn > data.min() or maxx < data.max():
+        print (quantity, data.min(), data.max())
     t = a + (data - minn) * ((b - a) / (maxx - minn))
     return t.astype(np.float32)
 
@@ -105,6 +107,7 @@ def _load_exp_data(root):
     speed = normalize(data['speed'][0, :], 'speed')
     torque = normalize(data['torque'][0, :], 'torque')
     time = data['time'][0, :]
+
 
     dataset = (voltage_d, voltage_q, speed,
                current_d, current_q, torque, time)

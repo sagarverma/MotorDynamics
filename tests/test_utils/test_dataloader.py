@@ -1,3 +1,4 @@
+import os
 import pytest
 
 import numpy as np
@@ -11,7 +12,7 @@ from motor_dynamics.utils.dataloader import (normalize, denormalize,
 
 
 def test__normalize():
-    quantity = np.random.rand(1000) * 20
+    quantity = np.random.rand(1000) * 30
     normalized = normalize(quantity, 'current_d')
     assert normalized.min() >= -1
     assert normalized.max() <= 1
@@ -20,12 +21,13 @@ def test__normalize():
 def test__denormalize():
     normalized_quantity = np.random.rand(1000)
     denormalized = denormalize(normalized_quantity, 'current_d')
-    assert denormalized.min() >= -20
-    assert denormalized.max() <= 20
+    assert denormalized.min() >= -30
+    assert denormalized.max() <= 30
 
 
-def test__load_exp_data():
-    data_dir = "/tmp/data/train_raw/LM50.mat"
+def test__load_exp_data(setup_data_dir):
+    data_dir = os.path.join(setup_data_dir, "train_raw",
+                            "LM50.mat")
     dataset, index_quant_map = _load_exp_data(data_dir)
 
     assert isinstance(dataset, np.ndarray)
@@ -43,11 +45,11 @@ def test__load_exp_data():
     assert 'time' in index_quant_map
 
 
-def test__load_data():
-    train_sim_dir = "/tmp/data/train_sim/"
-    val_sim_dir = "/tmp/data/val_sim/"
-    train_raw_dir = "/tmp/data/train_raw/"
-    test_raw_dir = "/tmp/data/test_raw/"
+def test__load_data(setup_data_dir):
+    train_sim_dir = os.path.join(setup_data_dir, "train_sim")
+    val_sim_dir = os.path.join(setup_data_dir, "val_sim")
+    train_raw_dir = os.path.join(setup_data_dir, "train_raw")
+    test_raw_dir = os.path.join(setup_data_dir, "test_raw")
 
     train_sim_dataset, index_quant_map = load_data(train_sim_dir)
     val_sim_dataset, index_quant_map = load_data(val_sim_dir)
@@ -60,10 +62,29 @@ def test__load_data():
     assert test_raw_dataset
 
     assert isinstance(index_quant_map, dict)
+    for data in train_sim_dataset:
+        assert isinstance(data, np.ndarray)
+        assert data[0:6, :].min() >= -1.0
+        assert data[0:6, :].max() <= 1.0
 
+    for data in val_sim_dataset:
+        assert isinstance(data, np.ndarray)
+        assert data[0:6, :].min() >= -1.0
+        assert data[0:6, :].max() <= 1.0
 
-def test__rev_test_output():
-    data_dir = "/tmp/data/train_raw/LM50.mat"
+    for data in train_raw_dataset:
+        assert isinstance(data, np.ndarray)
+        assert data[0:6, :].min() >= -1.0
+        assert data[0:6, :].max() <= 1.0
+
+    for data in test_raw_dataset:
+        assert isinstance(data, np.ndarray)
+        assert data[0:6, :].min() >= -1.0
+        assert data[0:6, :].max() <= 1.0
+
+def test__rev_test_output(setup_data_dir):
+    data_dir = os.path.join(setup_data_dir, "train_raw",
+                            "LM50.mat")
     dataset, index_quant_map = _load_exp_data(data_dir)
 
     dataset = np.vstack((dataset[-1, :],
@@ -90,8 +111,8 @@ def test__rev_test_output():
     assert 'torque_pred' in denormalized_dataset
 
 
-def test__get_sample_metadata():
-    data_dir = "/tmp/data/train_raw/"
+def test__get_sample_metadata(setup_data_dir):
+    data_dir = os.path.join(setup_data_dir, "train_raw")
     dataset, index_quant_map = load_data(data_dir)
     samples = get_sample_metadata(dataset, 1, 100)
 
@@ -105,8 +126,8 @@ def test__get_sample_metadata():
 
 
 class Test_FlatInFlatOut(object):
-    def test__init(self):
-        data_dir = "/tmp/data/train_raw/"
+    def test__init(self, setup_data_dir):
+        data_dir = os.path.join(setup_data_dir, "train_raw")
         dataset, index_quant_map = load_data(data_dir)
         samples = get_sample_metadata(dataset, 1, 100)
         inp_quants = ['voltage_d', 'voltage_q', 'speed']
@@ -120,8 +141,8 @@ class Test_FlatInFlatOut(object):
         assert isinstance(dataloader.inp_quant_ids, list)
         assert isinstance(dataloader.out_quant_ids, list)
 
-    def test__getitem__(self):
-        data_dir = "/tmp/data/train_raw/"
+    def test__getitem__(self, setup_data_dir):
+        data_dir = os.path.join(setup_data_dir, "train_raw")
         dataset, index_quant_map = load_data(data_dir)
         samples = get_sample_metadata(dataset, 1, 100)
         inp_quants = ['voltage_d', 'voltage_q', 'speed']
@@ -142,8 +163,8 @@ class Test_FlatInFlatOut(object):
 
 
 class Test_SeqInFlatOut(object):
-    def test__init(self):
-        data_dir = "/tmp/data/train_raw/"
+    def test__init(self, setup_data_dir):
+        data_dir = os.path.join(setup_data_dir, "train_raw")
         dataset, index_quant_map = load_data(data_dir)
         samples = get_sample_metadata(dataset, 1, 100)
         inp_quants = ['voltage_d', 'voltage_q', 'speed']
@@ -157,8 +178,8 @@ class Test_SeqInFlatOut(object):
         assert isinstance(dataloader.inp_quant_ids, list)
         assert isinstance(dataloader.out_quant_ids, list)
 
-    def test__getitem__(self):
-        data_dir = "/tmp/data/train_raw/"
+    def test__getitem__(self, setup_data_dir):
+        data_dir = os.path.join(setup_data_dir, "train_raw")
         dataset, index_quant_map = load_data(data_dir)
         samples = get_sample_metadata(dataset, 1, 100)
         inp_quants = ['voltage_d', 'voltage_q', 'speed']
@@ -180,8 +201,8 @@ class Test_SeqInFlatOut(object):
 
 
 class Test_SeqInSeqOut(object):
-    def test__init(self):
-        data_dir = "/tmp/data/train_raw/"
+    def test__init(self, setup_data_dir):
+        data_dir = os.path.join(setup_data_dir, "train_raw")
         dataset, index_quant_map = load_data(data_dir)
         samples = get_sample_metadata(dataset, 1, 100)
         inp_quants = ['voltage_d', 'voltage_q', 'speed']
@@ -195,8 +216,8 @@ class Test_SeqInSeqOut(object):
         assert isinstance(dataloader.inp_quant_ids, list)
         assert isinstance(dataloader.out_quant_ids, list)
 
-    def test__getitem__(self):
-        data_dir = "/tmp/data/train_raw/"
+    def test__getitem__(self, setup_data_dir):
+        data_dir = os.path.join(setup_data_dir, "train_raw")
         dataset, index_quant_map = load_data(data_dir)
         samples = get_sample_metadata(dataset, 1, 100)
         inp_quants = ['voltage_d', 'voltage_q', 'speed']

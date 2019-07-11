@@ -63,7 +63,7 @@ def get_parser_with_args():
     parser.add_argument('--model',
                         type=str,
                         required=True,
-                        help='''shallow_ffn, deep_fnn,
+                        help='''shallow_fnn, deep_fnn,
                         shallow_rnn, deep_rnn,
                         shallow_lstm, deep_lstm,
                         shallow_cnn, deep_cnn,

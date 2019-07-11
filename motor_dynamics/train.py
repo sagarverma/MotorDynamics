@@ -18,6 +18,8 @@ def train(opt):
     criterion = nn.MSELoss()
     optimizer = optim.Adam(model.parameters(), lr=opt.lr)
 
+    best_smape = 1000000
+    
     for epoch in range(opt.epochs):
         train_metrics = initialize_metrics()
         model.train()
@@ -32,14 +34,22 @@ def train(opt):
             loss.backward()
             optimizer.step()
 
-            smape_err = smape(out.cpu().numpy(), preds.data.cpu().numpy())
-            train_metrics = set_metrics(train_metrics, loss, smape_err)
+            out = out.cpu().numpy()
+            preds = preds.data.cpu().numpy()
+            smape_err = smape(out, preds)
+            r2_err = r2(out, preds)
+            rmsle_err = rmsle(out, preds)
+            rmse_err = rmse(out, preds)
+            mae_err = mae(out, preds)
+
+            train_metrics = set_metrics(train_metrics, loss, smape_err, r2_err,
+                                        rmsle_err, rmse_err, mae_err)
 
         train_metrics = get_mean_metrics(train_metrics)
         log.log_train_metrics(train_metrics, epoch)
-        print (epoch, train_metrics)
+        print (epoch, 'train', train_metrics)
 
-        test_metrics = initialize_metrics()
+        val_metrics = initialize_metrics()
         model.eval()
 
         for inp, out in val_sim_loader:
@@ -49,13 +59,23 @@ def train(opt):
             preds = model(inp)
             loss = criterion(preds, out)
 
-            smape_err = smape(out.cpu().numpy(), preds.data.cpu().numpy())
-            test_metrics = set_metrics(test_metrics, loss, smape_err)
+            out = out.cpu().numpy()
+            preds = preds.data.cpu().numpy()
+            smape_err = smape(out, preds)
+            r2_err = r2(out, preds)
+            rmsle_err = rmsle(out, preds)
+            rmse_err = rmse(out, preds)
+            mae_err = mae(out, preds)
 
-        test_metrics = get_mean_metrics(test_metrics)
-        log.log_train_metrics(test_metrics, epoch)
-        print (epoch, test_metrics)
+            val_metrics = set_metrics(val_metrics, loss, smape_err, r2_err,
+                                        rmsle_err, rmse_err, mae_err)
 
-        torch.save(model, weight_file_path)
+        val_metrics = get_mean_metrics(val_metrics)
+        log.log_validation_metrics(val_metrics, epoch)
+        print (epoch, 'val', val_metrics)
+
+        if val_metrics['smapes'] < best_smape:
+            torch.save(model, weight_file_path)
+            best_smape = val_metrics['smapes']
 
     log.close()

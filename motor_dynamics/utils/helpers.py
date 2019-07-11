@@ -190,7 +190,7 @@ def get_model_from_weight(opt):
     model = torch.load(opt.weight_file)
     return model
 
-    
+
 def _get_prelaoder_class(opt):
     if 'fnn' in opt.model:
         return FlatInFlatOut
@@ -330,12 +330,12 @@ class Log(object):
             self.log.write(k + '=' + str(v) + '\n')
         self.log.write('\n##TRAIN METRICS##\n')
 
-    def log_test_metrics(self, metrics, epoch):
-        self.log.write('\n##TEST METRICS##\n')
+    def log_validation_metrics(self, metrics, epoch):
+        self.log.write('\n##VALIDATION METRICS##\n')
         self.log.write('@epoch:' + str(epoch) + '\n')
         for k, v in metrics.items():
             self.log.write(k + '=' + str(v) + '\n')
-        self.log.write('\n##TEST METRICS##\n')
+        self.log.write('\n##VALIDATION METRICS##\n')
 
     def close(self):
         self.log.close()

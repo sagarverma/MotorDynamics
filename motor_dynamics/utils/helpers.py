@@ -209,7 +209,7 @@ def _get_loader(dir, opt, shuffle):
                           opt.out_quants.split(','))
     dataloader = DataLoader(preloader, batch_size=opt.batch_size,
                             shuffle=shuffle, num_workers=opt.num_workers)
-    return dataloader
+    return dataloader, len(samples)
 
 
 def get_train_loaders(opt):
@@ -230,11 +230,11 @@ def get_train_loaders(opt):
 
     """
 
-    train_sim_loader = _get_loader(opt.train_sim_dir, opt, True)
-    val_sim_loader = _get_loader(opt.val_sim_dir, opt, False)
+    train_sim_loader, train_samples = _get_loader(opt.train_sim_dir, opt, True)
+    val_sim_loader, val_samples = _get_loader(opt.val_sim_dir, opt, False)
 
-    print('train sim samples : ', len(train_sim_loader))
-    print('val sim samples : ', len(val_sim_loader))
+    print('train sim samples : ', train_samples)
+    print('val sim samples : ', val_samples)
 
     return train_sim_loader, val_sim_loader
 
@@ -257,11 +257,11 @@ def get_finetune_loaders(opt):
 
     """
 
-    train_raw_loader = _get_loader(opt.train_raw_dir, opt, True)
-    val_sim_loader = _get_loader(opt.val_sim_dir, opt, False)
+    train_raw_loader, train_samples = _get_loader(opt.train_raw_dir, opt, True)
+    val_sim_loader, val_samples = _get_loader(opt.val_sim_dir, opt, False)
 
-    print('train raw samples : ', len(train_raw_loader))
-    print('val sim samples : ', len(val_sim_loader))
+    print('train raw samples : ', train_samples)
+    print('val sim samples : ', val_samples)
 
 
     return train_raw_loader, val_sim_loader
@@ -286,9 +286,9 @@ def get_test_loaders(opt):
 
     """
 
-    test_raw_loader = _get_loader(opt.test_raw_dir, opt, False)
+    test_raw_loader, tot_samples = _get_loader(opt.test_raw_dir, opt, False)
 
-    print('test raw samples : ', len(test_raw_loader))
+    print('test raw samples : ', tot_samples)
 
     return test_raw_loader
 

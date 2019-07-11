@@ -38,7 +38,7 @@ def normalize(data, quantity):
         >>>
 
     """
-    a = -1
+    a = 0
     b = 1
     minn, maxx = quantities_min_max[quantity]
     if minn > data.min() or maxx < data.max():
@@ -66,7 +66,7 @@ def denormalize(data, quantity):
 
     """
     a, b = quantities_min_max[quantity]
-    t = a + (data - (-1)) * ((b-a) / (1-(-1)))
+    t = a + (data - (0)) * ((b-a) / (1-(0)))
     return t.astype(np.float32)
 
 

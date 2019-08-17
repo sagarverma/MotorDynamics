@@ -4,12 +4,11 @@ import torch.optim as optim
 from torch.autograd import Variable
 
 from motor_dynamics.utils.helpers import (get_file_names, initialize_metrics,
-                                          get_mean_metrics, set_metrics, 
-                                          denormalize_metrics, get_model,
-                                          get_train_loaders, Log)
+                                          get_mean_metrics, set_metrics,
+                                          get_model, get_train_loaders, Log)
 from motor_dynamics.utils.metrics import smape, r2, rmsle, rmse, mae
 
-def train(opt):
+def test(opt):
     weight_file_path, log_file_path = get_file_names(opt)
     log = Log(log_file_path, 'w')
 
@@ -34,9 +33,9 @@ def train(opt):
             loss = criterion(preds, out)
             loss.backward()
             optimizer.step()
+
             out = out.cpu().numpy()
             preds = preds.data.cpu().numpy()
-            
             smape_err = smape(out, preds)
             r2_err = r2(out, preds)
             rmsle_err = rmsle(out, preds)
@@ -47,7 +46,6 @@ def train(opt):
                                         rmsle_err, rmse_err, mae_err)
 
         train_metrics = get_mean_metrics(train_metrics)
-        train_metrics = denormalize_metrics(train_metrics, opt.out_quants)
         log.log_train_metrics(train_metrics, epoch)
         print (epoch, 'train', train_metrics)
 
@@ -60,9 +58,9 @@ def train(opt):
 
             preds = model(inp)
             loss = criterion(preds, out)
+
             out = out.cpu().numpy()
             preds = preds.data.cpu().numpy()
-            
             smape_err = smape(out, preds)
             r2_err = r2(out, preds)
             rmsle_err = rmsle(out, preds)
@@ -73,7 +71,6 @@ def train(opt):
                                         rmsle_err, rmse_err, mae_err)
 
         val_metrics = get_mean_metrics(val_metrics)
-        val_metrics = denormalize_metrics(val_metrics, opt.out_quants)
         log.log_validation_metrics(val_metrics, epoch)
         print (epoch, 'val', val_metrics)
 

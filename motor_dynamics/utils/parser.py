@@ -21,8 +21,7 @@ def get_parser_with_args():
                         type=str,
                         default='train_sim',
                         required=True,
-                        help='''Train on sim(train_sim), train on raw(train_raw), fine-tune on raw(fine_tune_raw),
-                        or test model(test).''')
+                        help='''Train(train), finetune(finetune), and test model(test).''')
 
     parser.add_argument('--train_sim_dir',
                         type=str,

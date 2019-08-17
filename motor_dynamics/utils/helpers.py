@@ -144,7 +144,7 @@ def denormalize_metrics(metrics_dict, quantity):
     metrics_dict['rmsle'] = denormalize(metrics_dict['rmsle'], quantity)
     metrics_dict['rmse'] = denormalize(metrics_dict['rmse'], quantity)
     metrics_dict['mae'] = denormalize(metrics_dict['mae'], quantity)
-    
+
     return metrics_dict
 
 def get_model(opt):
@@ -201,7 +201,7 @@ def get_model(opt):
 
     print ('Parameters :', sum(p.numel() for p in model.parameters()))
 
-    return model.cuda()
+    return model.cuda(opt.gpu)
 
 
 def get_model_from_weight(opt):

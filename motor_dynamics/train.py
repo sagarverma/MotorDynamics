@@ -4,7 +4,7 @@ import torch.optim as optim
 from torch.autograd import Variable
 
 from motor_dynamics.utils.helpers import (get_file_names, initialize_metrics,
-                                          get_mean_metrics, set_metrics, 
+                                          get_mean_metrics, set_metrics,
                                           denormalize_metrics, get_model,
                                           get_train_loaders, Log)
 from motor_dynamics.utils.metrics import smape, r2, rmsle, rmse, mae
@@ -26,8 +26,8 @@ def train(opt):
         model.train()
 
         for inp, out in train_sim_loader:
-            inp = Variable(inp).cuda()
-            out = Variable(out).cuda()
+            inp = Variable(inp).cuda(opt.gpu)
+            out = Variable(out).cuda(opt.gpu)
 
             optimizer.zero_grad()
             preds = model(inp)
@@ -36,7 +36,7 @@ def train(opt):
             optimizer.step()
             out = out.cpu().numpy()
             preds = preds.data.cpu().numpy()
-            
+
             smape_err = smape(out, preds)
             r2_err = r2(out, preds)
             rmsle_err = rmsle(out, preds)
@@ -55,14 +55,14 @@ def train(opt):
         model.eval()
 
         for inp, out in val_sim_loader:
-            inp = Variable(inp).cuda()
-            out = Variable(out).cuda()
+            inp = Variable(inp).cuda(opt.gpu)
+            out = Variable(out).cuda(opt.gpu)
 
             preds = model(inp)
             loss = criterion(preds, out)
             out = out.cpu().numpy()
             preds = preds.data.cpu().numpy()
-            
+
             smape_err = smape(out, preds)
             r2_err = r2(out, preds)
             rmsle_err = rmsle(out, preds)

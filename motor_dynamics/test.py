@@ -25,8 +25,8 @@ def test(opt):
         model.train()
 
         for inp, out in train_sim_loader:
-            inp = Variable(inp).cuda()
-            out = Variable(out).cuda()
+            inp = Variable(inp).cuda(opt.gpu)
+            out = Variable(out).cuda(opt.gpu)
 
             optimizer.zero_grad()
             preds = model(inp)
@@ -53,8 +53,8 @@ def test(opt):
         model.eval()
 
         for inp, out in val_sim_loader:
-            inp = Variable(inp).cuda()
-            out = Variable(out).cuda()
+            inp = Variable(inp).cuda(opt.gpu)
+            out = Variable(out).cuda(opt.gpu)
 
             preds = model(inp)
             loss = criterion(preds, out)

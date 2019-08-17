@@ -17,6 +17,12 @@ def get_parser_with_args():
     """
     parser = ag.ArgumentParser(description='Training or inference')
 
+    parser.add_argument('--gpu',
+                        type=int,
+                        default=0,
+                        required=True,
+                        help="GPU ID on which to run")
+                        
     parser.add_argument('--task',
                         type=str,
                         default='train_sim',

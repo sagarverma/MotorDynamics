@@ -6,5 +6,11 @@ from motor_dynamics.train import train
 parser = get_parser_with_args()
 opt = parser.parse_args()
 
-if opt.task == 'train_sim':
+if opt.task == 'train':
     train(opt)
+
+if opt.task == 'finetune':
+    finetune(opt)
+    
+if opt.task == 'test':
+    test(opt)

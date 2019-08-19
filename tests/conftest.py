@@ -33,7 +33,8 @@ def setup_logs_dir(tmpdir_factory):
 
 @pytest.fixture(scope="session")
 def setup_args(setup_data_dir, setup_weights_dir, setup_logs_dir):
-    args = {'--task': 'train_sim',
+    args = {'--gpu': 0,
+            '--task': 'train_sim',
             '--train_sim_dir': os.path.join(setup_data_dir, 'train_sim'),
             '--train_raw_dir': os.path.join(setup_data_dir, 'train_raw'),
             '--val_sim_dir': os.path.join(setup_data_dir, 'val_sim'),

@@ -5,7 +5,7 @@ import numpy as np
 import torch
 from torch.utils.data import DataLoader
 
-from motor_dynamics.utils.dataloader import (load_data, get_sample_metadata, FlatInFlatOut,
+from motor_dynamics.utils.dataloader import (denormalize, load_data, get_sample_metadata, FlatInFlatOut,
                               SeqInFlatOut, SeqInSeqOut)
 
 from motor_dynamics.models.cnn import ShallowCNN, DeepCNN
@@ -54,8 +54,8 @@ def get_file_names(opt):
     if 'cnn' in opt.model or 'encdec' in opt.model:
         fname = opt.model + suffix
 
-    weight_path = os.path.join(opt.weights_dir, fname + '.pt')
-    log_path = os.path.join(opt.logs_dir, fname + '.log')
+    weight_path = os.path.join(opt.weights_dir, opt.model, fname + '.pt')
+    log_path = os.path.join(opt.logs_dir, opt.model, fname + '.log')
 
     return weight_path, log_path
 
@@ -137,6 +137,16 @@ def set_metrics(metrics_dict, loss, smape, r2, rmsle, rmse, mae):
     return metrics_dict
 
 
+def denormalize_metrics(metrics_dict, quantity):
+    metrics_dict['loss'] = metrics_dict['loss']
+    metrics_dict['smape'] =  metrics_dict['smape']
+    metrics_dict['r2'] =  metrics_dict['r2']
+    metrics_dict['rmsle'] = denormalize(metrics_dict['rmsle'], quantity)
+    metrics_dict['rmse'] = denormalize(metrics_dict['rmse'], quantity)
+    metrics_dict['mae'] = denormalize(metrics_dict['mae'], quantity)
+
+    return metrics_dict
+
 def get_model(opt):
     """Get model.
 
@@ -191,7 +201,7 @@ def get_model(opt):
 
     print ('Parameters :', sum(p.numel() for p in model.parameters()))
 
-    return model.cuda()
+    return model.cuda(opt.gpu)
 
 
 def get_model_from_weight(opt):

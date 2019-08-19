@@ -17,12 +17,17 @@ def get_parser_with_args():
     """
     parser = ag.ArgumentParser(description='Training or inference')
 
+    parser.add_argument('--gpu',
+                        type=int,
+                        default=0,
+                        required=True,
+                        help="GPU ID on which to run")
+                        
     parser.add_argument('--task',
                         type=str,
                         default='train_sim',
                         required=True,
-                        help='''Train on sim(train_sim), train on raw(train_raw), fine-tune on raw(fine_tune_raw),
-                        or test model(test).''')
+                        help='''Train(train), finetune(finetune), and test model(test).''')
 
     parser.add_argument('--train_sim_dir',
                         type=str,

@@ -2,6 +2,10 @@ import math
 
 import numpy as np
 
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+
 from sklearn.metrics import r2_score, mean_absolute_error
 from sklearn.metrics import mean_squared_log_error
 
@@ -18,7 +22,7 @@ def rmsle(y_true, y_pred):
     assert len(y_true) == len(y_pred)
     y_true = flatten_extra_dims(y_true)
     y_pred = flatten_extra_dims(y_pred)
-    terms_to_sum = (np.log(y_pred + 1) - np.log(y_true + 1)) ** 2.0 
+    terms_to_sum = (np.log(y_pred + abs(y_pred) + 0.0001) - np.log(y_true + 1)) ** 2.0 
     return (sum(terms_to_sum) * (1.0/len(y_true))) ** 0.5
 
 
@@ -58,3 +62,11 @@ def smape_vs_sc(y_true, y_pred, window):
             smape_vs_sc_all_windows.append([smape_val, sc_val])
 
     return np.asarray(smape_vs_sc_all_windows)
+
+
+def sc_mse(y_pred, y_true):
+    sc_y_true = torch.sum(torch.abs(y_true[:,:,1:] - y_true[:,:,:-1]), dim=2)
+    mse = torch.mean((y_pred - y_true) ** 2.0, dim=2)
+    loss = sc_y_true * mse
+    loss = torch.mean(loss)
+    return loss

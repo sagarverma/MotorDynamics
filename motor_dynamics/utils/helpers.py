@@ -5,6 +5,8 @@ import numpy as np
 import torch
 from torch.utils.data import DataLoader
 
+from motor_dynamics.utils.metrics import sc_mse
+
 from motor_dynamics.utils.dataloader import (denormalize, load_data, get_sample_metadata, FlatInFlatOut,
                               SeqInFlatOut, SeqInSeqOut)
 
@@ -43,6 +45,7 @@ def get_file_names(opt):
     suffix += '_lr_' + str(opt.lr)
     suffix += '_batchSize_' + str(opt.batch_size)
     suffix += '_epochs_' + str(opt.epochs)
+    suffix += '_loss_' + str(opt.loss)
 
     if 'fnn' in opt.model:
         fname = opt.model + suffix
@@ -203,6 +206,13 @@ def get_model(opt):
 
     return model.cuda(opt.gpu)
 
+def get_loss_function(opt):
+    if opt.loss == 'mse':
+        criterion = nn.MSELoss()
+    if opt.loss == 'sc_mse':
+        criterion = sc_mse
+        
+    return criterion
 
 def get_model_from_weight(opt):
     model = torch.load(opt.weight_file)

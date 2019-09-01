@@ -6,7 +6,7 @@ from torch.autograd import Variable
 from motor_dynamics.utils.helpers import (get_file_names, initialize_metrics,
                                           get_mean_metrics, set_metrics,
                                           denormalize_metrics, get_model,
-                                          get_train_loaders, Log)
+                                          get_loss_function, get_train_loaders, Log)
 from motor_dynamics.utils.metrics import smape, r2, rmsle, rmse, mae
 
 def train(opt):
@@ -16,7 +16,7 @@ def train(opt):
     model = get_model(opt)
     train_sim_loader, val_sim_loader = get_train_loaders(opt)
 
-    criterion = nn.MSELoss()
+    criterion = get_loss_function(opt)
     optimizer = optim.SGD(model.parameters(), lr=opt.lr)
 
     best_smape = 1000000

@@ -17,7 +17,7 @@ class IndRNNCell(nn.Module):
         self.w = Parameter(torch.Tensor(input_dim))
         self.u = Parameter(torch.Tensor(input_dim))
         self.b = Parameter(torch.Tensor(input_dim))
-        self.act = F.tanh
+        self.act = nn.Tanh()
 
         self.reset_parameters()
 

@@ -16,9 +16,10 @@ from scipy.interpolate import interp1d
 quantities_min_max = {'voltage_d': (-200, 200),
                       'voltage_q': (-500, 500),
                       'speed': (-700, 700),
+                      'statorPuls': (-700, 700),
                       'current_d': (-30, 30),
                       'current_q': (-30, 30),
-                      'torque': (-200, 200)}
+                      'torque': (-30, 30)}
 
 def normalize(data, quantity):
     """Normalize a quantity using global minima and maxima.
@@ -98,28 +99,35 @@ def load_data(root):
 
 
 def _load_exp_data(root):
-    data = sio.loadmat(root)
+    voltage = sio.loadmat(os.path.join(root, 'Votlage.mat'))
+    current = sio.loadmat(os.path.join(root, 'Current.mat'))
+    speed = sio.loadmat(os.path.join(root, 'Speed.mat'))
+    statorPuls = sio.loadmat(os.path.join(root, 'StatorPuls.mat'))
+    torque = sio.loadmat(os.path.join(root, 'Torque.mat'))
+    time = sio.loadmat(os.path.join(root, 'Time.mat'))
 
-    voltage_d = normalize(data['voltage_d'][0, :], 'voltage_d')
-    voltage_q = normalize(data['voltage_q'][0, :], 'voltage_q')
-    current_d = normalize(data['current_d'][0, :], 'current_d')
-    current_q = normalize(data['current_q'][0, :], 'current_q')
-    speed = normalize(data['speed'][0, :], 'speed')
-    torque = normalize(data['torque'][0, :], 'torque')
-    time = data['time'][0, :]
+    voltage_d = normalize(voltage['voltage'][:, 0], 'voltage_d')
+    voltage_q = normalize(voltage['voltage'][:, 1], 'voltage_q')
+    current_d = normalize(current['current'][:, 0], 'current_d')
+    current_q = normalize(current['current'][:, 1], 'current_q')
+    speed = normalize(speed['speed'][:, 0], 'speed')
+    statorPuls = normalize(statorPuls['statorPuls'][:, 0], 'statorPuls')
+    torque = normalize(torque['torque'][:, 0], 'torque')
+    time = time['time'][:, 0]
 
 
-    dataset = (voltage_d, voltage_q, speed,
+    dataset = (voltage_d, voltage_q, speed, statorPuls,
                current_d, current_q, torque, time)
     dataset = np.vstack(dataset)
 
     index_quant_map = {'voltage_d': 0,
                        'voltage_q': 1,
                        'speed': 2,
-                       'current_d': 3,
-                       'current_q': 4,
-                       'torque': 5,
-                       'time': 6}
+                       'statorPuls': 3
+                       'current_d': 4,
+                       'current_q': 5,
+                       'torque': 6,
+                       'time': 7}
 
     return dataset.astype(np.float32), index_quant_map
 

@@ -21,7 +21,7 @@ def test__rmsle():
 
     rmsle_err = rmsle(y_true, y_pred)
 
-    assert rmsle_err == 0
+    assert rmsle_err >= 0
 
 
 def test__rmse():

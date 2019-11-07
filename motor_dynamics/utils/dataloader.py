@@ -123,7 +123,7 @@ def _load_exp_data(root):
     index_quant_map = {'voltage_d': 0,
                        'voltage_q': 1,
                        'speed': 2,
-                       'statorPuls': 3
+                       'statorPuls': 3,
                        'current_d': 4,
                        'current_q': 5,
                        'torque': 6,

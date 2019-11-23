@@ -13,12 +13,12 @@
 %  fold_name = 'LM45_TorqueSteps.mat';
  fold_name = 'LM20_TorqueSteps.mat';
 
-voltage = load(strcat('../../datasets/SimSynthData/', fold_name, '/Voltage.mat'));
-current = load(strcat('../../datasets/SimSynthData/', fold_name, '/Current.mat'));
-statorPuls = load(strcat('../../datasets/SimSynthData/', fold_name, '/StatorPuls.mat'));
-speed = load(strcat('../../datasets/SimSynthData/', fold_name, '/Speed.mat'));
-torque = load(strcat('../../datasets/SimSynthData/', fold_name, '/Torque.mat'));
-time = load(strcat('../../datasets/SimSynthData/', fold_name, '/Time.mat'));
+voltage = load(strcat('../../../datasets/SimSynthData/', fold_name, '/Voltage.mat'));
+current = load(strcat('../../../datasets/SimSynthData/', fold_name, '/Current.mat'));
+statorPuls = load(strcat('../../../datasets/SimSynthData/', fold_name, '/StatorPuls.mat'));
+speed = load(strcat('../../../datasets/SimSynthData/', fold_name, '/Speed.mat'));
+torque = load(strcat('../../../datasets/SimSynthData/', fold_name, '/Torque.mat'));
+time = load(strcat('../../../datasets/SimSynthData/', fold_name, '/Time.mat'));
 
 figure; set(gcf,'Name','dq')
 subplot(321); hold on; grid on; zoom on; xlabel(' t(s) '); ylabel(' Voltage (V) '); plot( time.time , voltage.voltage );

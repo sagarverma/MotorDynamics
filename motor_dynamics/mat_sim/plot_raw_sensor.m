@@ -1,5 +1,4 @@
-%        data = load('../../datasets/RawData/OFVC4kW_LM10Hz_paliers_0to120PercTnom_Data.mat');
-%        data = load('../../datasets/RawData/OFVC4kW_LM30Hz_paliers_0to120PercTnom_Data.mat');
+       data = load('../../../datasets/RawData/OFVC4kW_LM10Hz_paliers__0to120PercTnom_Data.mat');
 %        data = load('../../datasets/RawData/OFVC4kW_LM50Hz_paliers_0to120PercTnom_Data.mat');
 %        data = load('../../datasets/RawData/OFVC4kW_LM68Hz_paliers_0to120PercTnom_Data.mat');
 %        data = load('../../datasets/RawData/OFVC4kW_NoLM_paliers_0to100Hz_Data.mat');
@@ -7,7 +6,13 @@
 %   data = load('../../datasets/RawData/OFVC4kW_LM60Hz_TorqueSteps_20190419_Data.mat');
 %   data = load('../../datasets/RawData/OFVC4kW_NoLM_SpeedVariations_20190419_Data.mat');
 %    data = load('../../datasets/RawData/OFVC4kW_LM45Hz_TorqueSteps_20190419_Data.mat');
-  data = load('../../datasets/RawData/OFVC4kW_LM20Hz_TorqueSteps_20190419_Data.mat');
+%   data = load('../../datasets/RawData/OFVC4kW_LM20Hz_TorqueSteps_20190419_Data.mat');
+
+vd = hampel(data.VdRef_V);
+vq = hampel(data.VqRef_V);
+vt = data.Time_VSpdTq;
+
+id = hampel(data.IdMeas_A)
 
 vd = hampel(data.VdRef_V);
 vq = hampel(data.VqRef_V);

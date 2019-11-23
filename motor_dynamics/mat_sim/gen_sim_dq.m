@@ -1,9 +1,9 @@
 %load_system('ModelMotS_dq');
 
-files = dir('../../../datasets/benchmark/sim_dynamic/Exp_acc_0.5_load_0_speed_50*.mat')
+files = dir('../../../datasets/benchmark/sim_random/Exp_18*.mat')
 for file = files'
     
-    Data_Ts = 0.005;
+    Data_Ts = 1/4000;
 
     Ts = 0.000250;
     Tpwm = Ts;
@@ -38,7 +38,7 @@ for file = files'
     load_system(model);
 
 
-    data = load(strcat('../../../datasets/benchmark/sim_dynamic/', file.name));
+    data = load(strcat('../../../datasets/benchmark/sim_random/', file.name));
 
     t = strcat('[',num2str(data.t),']');
     speed = strcat('[',num2str(data.Speed),']');
@@ -63,14 +63,15 @@ for file = files'
     statorPuls = Data_dq.StatorPuls.Data;
     time = Data_dq.Torque.Time;
 % 
-    
-%      save(strcat('../../../datasets/benchmark/sim_dynamic_output/', strrep(file.name, '.mat',''), '/Voltage.mat'), 'voltage');
-%      save(strcat('../../../datasets/benchmark/sim_dynamic_output/', strrep(file.name, '.mat',''), '/Current.mat'), 'current');
-%      save(strcat('../../../datasets/benchmark/sim_dynamic_output/', strrep(file.name, '.mat',''), '/Torque.mat'), 'torque');
-%      save(strcat('../../../datasets/benchmark/sim_dynamic_output/', strrep(file.name, '.mat',''), '/Speed.mat'), 'speed');
-%      save(strcat('../../../datasets/benchmark/sim_dynamic_output/', strrep(file.name, '.mat',''), '/StatorPuls.mat'), 'statorPuls');
-%      save(strcat('../../../datasets/benchmark/sim_dynamic_output/', strrep(file.name, '.mat',''), '/Time.mat'), 'time');
+% %     
+%      save(strcat('../../../datasets/benchmark/sim_random_output/', strrep(file.name, '.mat',''), '/Voltage.mat'), 'voltage');
+%      save(strcat('../../../datasets/benchmark/sim_random_output/', strrep(file.name, '.mat',''), '/Current.mat'), 'current');
+%      save(strcat('../../../datasets/benchmark/sim_random_output/', strrep(file.name, '.mat',''), '/Torque.mat'), 'torque');
+%      save(strcat('../../../datasets/benchmark/sim_random_output/', strrep(file.name, '.mat',''), '/Speed.mat'), 'speed');
+%      save(strcat('../../../datasets/benchmark/sim_random_output/', strrep(file.name, '.mat',''), '/StatorPuls.mat'), 'statorPuls');
+%      save(strcat('../../../datasets/benchmark/sim_random_output/', strrep(file.name, '.mat',''), '/Time.mat'), 'time');
 % 
 %      clear 
 break
+
 end

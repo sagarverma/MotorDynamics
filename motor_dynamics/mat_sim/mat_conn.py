@@ -5,6 +5,11 @@ import numpy as np
 import matplotlib.pyplot as plt
 import cv2
 
+#Convert speed to Hz and torque to % of nominal torque in the plots.
+#Variable flat durations
+#Dynamic variations
+#Don't change speed and torque at same time
+
 eng = me.connect_matlab()
 
 eng.workspace['Data_Ts'] = float(1/4000)

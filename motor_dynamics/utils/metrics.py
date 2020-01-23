@@ -22,7 +22,7 @@ def rmsle(y_true, y_pred):
     assert len(y_true) == len(y_pred)
     y_true = flatten_extra_dims(y_true)
     y_pred = flatten_extra_dims(y_pred)
-    terms_to_sum = (np.log(y_pred + abs(y_pred) + 0.0001) - np.log(y_true + 1)) ** 2.0 
+    terms_to_sum = (np.log(y_pred + abs(y_pred) + 0.0001) - np.log(y_true + 1)) ** 2.0
     return (sum(terms_to_sum) * (1.0/len(y_true))) ** 0.5
 
 
@@ -70,3 +70,39 @@ def sc_mse(y_pred, y_true):
     loss = sc_y_true * mse
     loss = torch.mean(loss)
     return loss
+
+def response_time_2perc(reference, simulated):
+    #when is the simulated quantity 2% of the nominal reference quantity.
+    pass
+
+def response_time_95perc(reference, simulated):
+    #when is the simulated quantity 95% of the nominal reference quantity
+    pass
+
+def following_error(reference, simulated):
+    #error between refernece and simulated when reference is 0.5 of of the nominal
+    pass
+
+def stead_state_error(reference, simulated):
+    #error between reference and simulated when simulated has stablised after overshoot
+    pass
+
+def overshoot(reference, simulated):
+    #value of simulated at ramp overshoot
+    pass
+
+def max_torque_acceleration(reference, simulated):
+    #maximum value of torque when speed ramp occurs
+    pass
+
+def speed_drop(reference, simulated):
+    #minimum value of speed when torque ramp occurs
+    pass
+
+def setting_time(reference, simulated):
+    #When simulated speed value is back to 0.005 of reference speed value
+    pass
+
+def speed_drop_area(reference, simulated):
+    #area of speed when drop occurs
+    pass

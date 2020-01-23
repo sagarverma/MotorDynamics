@@ -1,6 +1,6 @@
 %load_system('ModelMotS_dq');
 
-files = dir('../../../datasets/benchmark/sim_random/Exp_18*.mat')
+files = dir('../../../datasets/benchmark/sim_dynamic/Exp_constant_speed_75_ramp_load_100_acc_delta_0.001.ma*')
 for file = files'
     
     Data_Ts = 1/4000;
@@ -38,11 +38,11 @@ for file = files'
     load_system(model);
 
 
-    data = load(strcat('../../../datasets/benchmark/sim_random/', file.name));
+    data = load(strcat('../../../datasets/benchmark/sim_dynamic/', file.name));
 
     t = strcat('[',num2str(data.t),']');
     speed = strcat('[',num2str(data.Speed),']');
-    torque= strcat('[',num2str(data.Kvalv),']');
+    torque= strcat('[',num2str(double(data.Kvalv)),']');
 
     fprintf('data2str\n');
 
@@ -52,7 +52,7 @@ for file = files'
     fprintf('model data load\n');
 
     simOut = sim('ModelMotS_dq_V2bis_FVC', 'SimulationMode', 'normal',... 
-           'StopTime', '24', 'SaveOutput','on',...
+           'StopTime', '25', 'SaveOutput','on',...
            'OutputSaveName','Data_dq','SaveFormat', 'Dataset');
     Data_dq = simOut.get('Data_dq');
 
@@ -63,14 +63,14 @@ for file = files'
     statorPuls = Data_dq.StatorPuls.Data;
     time = Data_dq.Torque.Time;
 % 
-% %     
+%     
 %      save(strcat('../../../datasets/benchmark/sim_random_output/', strrep(file.name, '.mat',''), '/Voltage.mat'), 'voltage');
 %      save(strcat('../../../datasets/benchmark/sim_random_output/', strrep(file.name, '.mat',''), '/Current.mat'), 'current');
-%      save(strcat('../../../datasets/benchmark/sim_random_output/', strrep(file.name, '.mat',''), '/Torque.mat'), 'torque');
-%      save(strcat('../../../datasets/benchmark/sim_random_output/', strrep(file.name, '.mat',''), '/Speed.mat'), 'speed');
+%      save('../../../results_sim/benchmark/GT_Torque.mat', 'torque');
+%      save('../../../results_sim/benchmark/GT_Speed.mat', 'speed');
 %      save(strcat('../../../datasets/benchmark/sim_random_output/', strrep(file.name, '.mat',''), '/StatorPuls.mat'), 'statorPuls');
-%      save(strcat('../../../datasets/benchmark/sim_random_output/', strrep(file.name, '.mat',''), '/Time.mat'), 'time');
-% 
+%      save('../../../results_sim/benchmark/GT_Time.mat', 'time');
+
 %      clear 
 break
 

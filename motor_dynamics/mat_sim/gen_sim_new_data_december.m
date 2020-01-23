@@ -19,11 +19,11 @@ Tn = 25;
 
 
 load_system('ModelMotS_dq');
-data = load('../../datasets/DATACSdet.mat');
+data = load('../../../datasets/RefSynthData/Data8Feb2019.mat');
 
 t = strcat('[',num2str(data.t'),']');
 speed = strcat('[',num2str(data.Speed'),']');
-torque= strcat('[',num2str(data.TorqueLoad'),']');
+torque= strcat('[',num2str(data.Kvalv'),']');
 
 set_param('ModelMotS_dq/Reference Speed (rad//s)','rep_seq_t',t,'rep_seq_y',speed);
 set_param('ModelMotS_dq/Load value p.u.','rep_seq_t',t,'rep_seq_y',torque);

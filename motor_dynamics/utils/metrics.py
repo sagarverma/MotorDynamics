@@ -1,6 +1,7 @@
 import math
 
 import numpy as np
+import scipy.io as sio
 
 import torch
 import torch.nn as nn
@@ -71,17 +72,28 @@ def sc_mse(y_pred, y_true):
     loss = torch.mean(loss)
     return loss
 
-def response_time_2perc(reference, simulated):
-    #when is the simulated quantity 2% of the nominal reference quantity.
-    pass
+def get_ramp(simulated):
+    ramp_start = np.argmin(simulated == simulated.min())
+    ramp_end = np.argmax(simulated)
+    return ramp_start, ramp_end
 
-def response_time_95perc(reference, simulated):
+def response_time_2perc(reference, simulated, time):
+    #when is the simulated quantity 2% of the nominal reference quantity.
+    start, end = get_ramp(simulated)
+    perc2_time = time[start + np.argmax(reference[start:end] >= 0.02 * simulated.max())]
+    return perc2_time
+
+def response_time_95perc(reference, simulated, time):
     #when is the simulated quantity 95% of the nominal reference quantity
-    pass
+    start, end = get_ramp(simulated)
+    perc2_time = time[start + np.argmax(reference[start:end] >= 0.95 * simulated.max())]
+    return perc2_time
 
 def following_error(reference, simulated):
     #error between refernece and simulated when reference is 0.5 of of the nominal
-    pass
+    start, end = get_ramp(simulated)
+    following_indx = start + np.argmax(simulated >= 0.5 * (simulated.max()-simulated.min()))
+    return reference[following_indx] - simulated[following_indx]
 
 def stead_state_error(reference, simulated):
     #error between reference and simulated when simulated has stablised after overshoot
@@ -89,11 +101,13 @@ def stead_state_error(reference, simulated):
 
 def overshoot(reference, simulated):
     #value of simulated at ramp overshoot
-    pass
+    start, end = get_ramp(simulated)
+    overshoot_idx = end + np.argmax(abs(reference[end:-1] - simulated[end:-1]))
+    return 100 * (simulated[overshoot_idx] - reference[overshoot_idx]) / (simulated.max() - simulated.min())
 
-def max_torque_acceleration(reference, simulated):
+def max_torque_acceleration(simulated):
     #maximum value of torque when speed ramp occurs
-    pass
+    return np.max(simulated)
 
 def speed_drop(reference, simulated):
     #minimum value of speed when torque ramp occurs
@@ -106,3 +120,18 @@ def setting_time(reference, simulated):
 def speed_drop_area(reference, simulated):
     #area of speed when drop occurs
     pass
+
+
+test = sio.loadmat('../mat_sim/test1.mat')
+print (test.keys())
+sim_speed = test['Speed']
+ref_speed = test['RefSpeed']
+sim_torque = test['Torque']
+ref_torque = test['RefLoad']
+time = test['t']
+
+print (response_time_2perc(ref_speed, sim_speed, time))
+print (response_time_95perc(ref_speed, sim_speed, time))
+print (following_error(ref_speed, sim_speed))
+print (overshoot(ref_speed, sim_speed))
+print (max_torque_acceleration(sim_torque))

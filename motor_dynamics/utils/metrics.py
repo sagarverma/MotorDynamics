@@ -72,6 +72,11 @@ def sc_mse(y_pred, y_true):
     loss = torch.mean(loss)
     return loss
 
+def mirror(reference, simulated):
+    if simulated.min() < 0:
+        return abs(reference), abs(simulated)
+    return reference, simualted
+
 def get_ramp(simulated):
     ramp_start = np.argmin(simulated == simulated.min())
     ramp_end = np.argmax(simulated)
@@ -80,7 +85,8 @@ def get_ramp(simulated):
 def response_time_2perc(reference, simulated, time):
     #when is the simulated quantity 2% of the nominal reference quantity.
     start, end = get_ramp(simulated)
-    perc2_time = time[start + np.argmax(reference[start:end] >= 0.02 * simulated.max())]
+    perc2_time = time[start + np.argmax(reference[start:end] >=\
+                        0.02 * simulated.max())]
     return perc2_time
 
 def response_time_95perc(reference, simulated, time):
@@ -122,13 +128,16 @@ def speed_drop_area(reference, simulated):
     pass
 
 
-test = sio.loadmat('../mat_sim/test1.mat')
+test = sio.loadmat('../mat_sim/test2.mat')
 print (test.keys())
 sim_speed = test['Speed']
 ref_speed = test['RefSpeed']
 sim_torque = test['Torque']
 ref_torque = test['RefLoad']
 time = test['t']
+
+ref_speed, sim_speed = mirror(ref_speed, sim_speed)
+ref_torque, sim_torque = mirror(ref_torque, sim_torque)
 
 print (response_time_2perc(ref_speed, sim_speed, time))
 print (response_time_95perc(ref_speed, sim_speed, time))

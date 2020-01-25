@@ -136,6 +136,7 @@ sim_torque = test['Torque']
 ref_torque = test['RefLoad']
 time = test['t']
 
+#mirror is not the correct solution
 ref_speed, sim_speed = mirror(ref_speed, sim_speed)
 ref_torque, sim_torque = mirror(ref_torque, sim_torque)
 

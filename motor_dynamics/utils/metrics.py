@@ -128,20 +128,20 @@ def speed_drop_area(reference, simulated):
     pass
 
 
-test = sio.loadmat('../mat_sim/test2.mat')
-print (test.keys())
-sim_speed = test['Speed']
-ref_speed = test['RefSpeed']
-sim_torque = test['Torque']
-ref_torque = test['RefLoad']
-time = test['t']
-
-#mirror is not the correct solution
-ref_speed, sim_speed = mirror(ref_speed, sim_speed)
-ref_torque, sim_torque = mirror(ref_torque, sim_torque)
-
-print (response_time_2perc(ref_speed, sim_speed, time))
-print (response_time_95perc(ref_speed, sim_speed, time))
-print (following_error(ref_speed, sim_speed))
-print (overshoot(ref_speed, sim_speed))
-print (max_torque_acceleration(sim_torque))
+# test = sio.loadmat('../mat_sim/test2.mat')
+# print (test.keys())
+# sim_speed = test['Speed']
+# ref_speed = test['RefSpeed']
+# sim_torque = test['Torque']
+# ref_torque = test['RefLoad']
+# time = test['t']
+#
+# #mirror is not the correct solution
+# ref_speed, sim_speed = mirror(ref_speed, sim_speed)
+# ref_torque, sim_torque = mirror(ref_torque, sim_torque)
+#
+# print (response_time_2perc(ref_speed, sim_speed, time))
+# print (response_time_95perc(ref_speed, sim_speed, time))
+# print (following_error(ref_speed, sim_speed))
+# print (overshoot(ref_speed, sim_speed))
+# print (max_torque_acceleration(sim_torque))

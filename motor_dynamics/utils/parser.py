@@ -22,7 +22,7 @@ def get_parser_with_args():
                         default=0,
                         required=True,
                         help="GPU ID on which to run")
-                        
+
     parser.add_argument('--task',
                         type=str,
                         default='train_sim',
@@ -77,7 +77,7 @@ def get_parser_with_args():
                         encdec_rnn_skip,
                         encdec_birnn_skip,
                         encdec_diag_birnn_skip''')
-    
+
     parser.add_argument('--loss',
                        type=str,
                        required=True,
@@ -143,4 +143,10 @@ def get_parser_with_args():
                         default=8,
                         required=False,
                         help='Number of cpu cores to use')
+
+    parser.add_argument('--loader',
+                        type=str,
+                        default='pickle',
+                        required=False,
+                        help='Type of data file loader(mat/pickle)')
     return parser

@@ -2,6 +2,7 @@ import torch
 
 from motor_dynamics.utils.parser import get_parser_with_args
 from motor_dynamics.train import train
+from motor_dynamics.test import test
 
 parser = get_parser_with_args()
 opt = parser.parse_args()
@@ -11,6 +12,6 @@ if opt.task == 'train':
 
 if opt.task == 'finetune':
     finetune(opt)
-    
+
 if opt.task == 'test':
     test(opt)

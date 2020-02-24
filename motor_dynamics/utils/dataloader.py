@@ -138,7 +138,11 @@ def _load_pkl_data(pkl_path):
     data = pkl.load(fin)
     fin.close()
 
-    print (data.keys())
+    norm_data = {}
+    for k in quantities_min_max.keys():
+        norm_data[k] = normalize(data[k], k)
+        
+    return norm_data, data
     
 def rev_test_output(data):
     """Denormalize the inference output.

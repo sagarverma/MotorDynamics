@@ -130,7 +130,7 @@ def speed_drop_area(reference, simulated):
     pass
 
 
-test = sio.loadmat('../mat_sim/test2.mat')
+test = sio.loadmat('../mat_sim/test1.mat')
 print (test.keys())
 sim_speed = test['Speed']
 ref_speed = test['RefSpeed']

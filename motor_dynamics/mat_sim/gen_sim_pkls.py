@@ -2,7 +2,7 @@ import random
 import matlab
 import matlab.engine as me
 import numpy as np
-import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
 import pickle as pkl
 
 #
@@ -27,8 +27,8 @@ eng.workspace['np'] = float(2)
 eng.workspace['Psdnom'] = float(0.95)
 eng.workspace['Uo'] = float(15)
 eng.workspace['Ulim'] = float(415*(2/3)**0.5)
-eng.workspace['Psinit'] = matlab.double([ 0,  0 ])
-eng.workspace['Prinit'] = matlab.double([ 0,  0 ])
+eng.workspace['Psinit'] = matlab.double([ 0.95,  0 ])
+eng.workspace['Prinit'] = matlab.double([ 1,  0 ])
 eng.workspace['Inom'] = float(9.1)
 eng.workspace['Prdnom'] = float(1)
 eng.workspace['SLP_Coeff'] = float(100)
@@ -162,3 +162,5 @@ for split in ['train', 'val', 'test']:
         fout = open('../../../datasets/benchmark/' + split + '/' + str(sample_no) + '.pkl','wb')
         pkl.dump(sample, fout)
         fout.close()
+        break
+    break

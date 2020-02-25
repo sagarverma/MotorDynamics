@@ -86,20 +86,21 @@ def response_time_2perc(reference, simulated, time):
     #when is the simulated quantity 2% of the nominal reference quantity.
     start, end = get_ramp(simulated)
     perc2_time = time[start + np.argmax(reference[start:end] >=\
-                        0.02 * simulated.max())]
-    return perc2_time
+                        0.02 * simulated.max())] - time[start]
+    return perc2_time[0]
 
 def response_time_95perc(reference, simulated, time):
     #when is the simulated quantity 95% of the nominal reference quantity
     start, end = get_ramp(simulated)
-    perc2_time = time[start + np.argmax(reference[start:end] >= 0.95 * simulated.max())]
-    return perc2_time
+    perc2_time = time[start + np.argmax(reference[start:end] >= 0.95 * simulated.max())] - time[start]
+    return perc2_time[0]
 
 def following_error(reference, simulated):
     #error between refernece and simulated when reference is 0.5 of of the nominal
     start, end = get_ramp(simulated)
     following_indx = start + np.argmax(simulated >= 0.5 * (simulated.max()-simulated.min()))
-    return reference[following_indx] - simulated[following_indx]
+    following_err = reference[following_indx] - simulated[following_indx]
+    return following_err[0]
 
 def stead_state_error(reference, simulated):
     #error between reference and simulated when simulated has stablised after overshoot
@@ -109,7 +110,8 @@ def overshoot(reference, simulated):
     #value of simulated at ramp overshoot
     start, end = get_ramp(simulated)
     overshoot_idx = end + np.argmax(abs(reference[end:-1] - simulated[end:-1]))
-    return 100 * (simulated[overshoot_idx] - reference[overshoot_idx]) / (simulated.max() - simulated.min())
+    overshoot_perc = 100 * (simulated[overshoot_idx] - reference[overshoot_idx]) / (simulated.max() - simulated.min())
+    return overshoot_perc[0]
 
 def max_torque_acceleration(simulated):
     #maximum value of torque when speed ramp occurs
@@ -128,7 +130,7 @@ def speed_drop_area(reference, simulated):
     pass
 
 
-test = sio.loadmat('../mat_sim/test1.mat')
+test = sio.loadmat('../mat_sim/test2.mat')
 print (test.keys())
 sim_speed = test['Speed']
 ref_speed = test['RefSpeed']
@@ -137,11 +139,11 @@ ref_torque = test['RefLoad']
 time = test['t']
 
 #mirror is not the correct solution
-ref_speed, sim_speed = mirror(ref_speed, sim_speed)
-ref_torque, sim_torque = mirror(ref_torque, sim_torque)
+# ref_speed, sim_speed = mirror(ref_speed, sim_speed)
+# ref_torque, sim_torque = mirror(ref_torque, sim_torque)
 
-print (response_time_2perc(ref_speed, sim_speed, time))
-print (response_time_95perc(ref_speed, sim_speed, time))
-print (following_error(ref_speed, sim_speed))
-print (overshoot(ref_speed, sim_speed))
-print (max_torque_acceleration(sim_torque))
+print ('2 % response time', response_time_2perc(ref_speed, sim_speed, time), 'seconds')
+print ('95 % response time', response_time_95perc(ref_speed, sim_speed, time), 'seconds')
+print ('following error', following_error(ref_speed, sim_speed))
+print ('overshoot', overshoot(ref_speed, sim_speed))
+print ('max torque acceleration', max_torque_acceleration(sim_torque))

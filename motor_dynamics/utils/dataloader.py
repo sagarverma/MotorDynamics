@@ -1,6 +1,8 @@
 import os
 import math
 import glob
+import pickle as pkl
+
 import torch
 import torch.utils.data as data
 from torch.autograd import Variable
@@ -131,7 +133,17 @@ def _load_exp_data(root):
 
     return dataset.astype(np.float32), index_quant_map
 
+def _load_pkl_data(pkl_path):
+    fin = open(pkl_path, 'rb')
+    data = pkl.load(fin)
+    fin.close()
 
+    norm_data = {}
+    for k in quantities_min_max.keys():
+        norm_data[k] = normalize(data[k], k)
+        
+    return norm_data, data
+    
 def rev_test_output(data):
     """Denormalize the inference output.
 

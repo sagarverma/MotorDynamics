@@ -2,7 +2,6 @@ import random
 import matlab
 import matlab.engine as me
 import numpy as np
-import matplotlib.pyplot as plt
 import pickle as pkl
 
 quantities_min_max = {'voltage_d': (-200, 200),
@@ -91,22 +90,20 @@ pos_torque_zones = [x for x in range(0, 120, 1)]
 pos_speed_zones = [x for x in range(-80, 80, 1)]
 ramps = [0.00025, 0.0005, 0.001, 0.0025, 0.005, 0.1, 0.2, 0.025, 0.05, 0.2, 0.1, 0.5, 1]
 
-sample_type = {0:'norm', 1:'norm', 2:'fail', 3:'fail',
-                4:'25hz_0to100trq', 5:'speed_inversion_1.6_0trq',
-                6:'speed_inversion_1.6_50trq'}
 
-s1 = [[0, 1, 1.5, 4], [0, 0, 50, 50], [0, 0, 0, 0], 4]
-s2 = [[0, 1, 1.5, 4], [0, 0, 50, 50], [100, 100, 100, 100], 4]
-s3 = [[0, 1, 1.5, 4], [0, 0, 80, 80], [150, 150, 150, 150], 4]
-s4 = [[0, 1, 1.5, 4], [0, 0, -80, -80], [150, 150, 150, 150], 4]
-s5 = [[0, 1, 1.5, 4], [25, 25, 25, 25], [0, 0, 100, 100], 4]
-s6 = [[0, 1, 1.5, 3.1, 4], [0, 0, 80, -80, -80], [0, 0, 0, 0, 0], 4]
-s7 = [[0, 1, 1.5, 3.1, 4], [0, 0, 80, -80, -80], [50, 50, 50, 50, 50], 4]
+s1 = [[0, 1, 1.5, 4], [0, 0, 0, 0], [0, 0, 100, 100], 4]
+s2 = [[0, 1, 1.5, 4], [0, 0, 50, 50], [0, 0, 100, 100], 4]
+s3 = [[0, 1, 1.5, 1.50025, 4], [0, 0, 25, 25, 25], [0, 0, 0, 150, 150], 4]
+s4 = [[0, 1, 1.5, 3.1, 4], [0, 0, 80, -80, -80], [0, 0, 0, 0, 0], 4]
+s5 = [[0, 1, 1.5, 3, 4.6, 5], [0, 0, 80, 80, -80, -80], [0, 0, 0, 50, 50, 50], 5]
+s6 = [[0, 1, 1.5, 3, 4], [0, 0, 80, 80, 80], [0, 0, 0, 120, 120], 4]
+s7 = [[0, 1, 1.5, 3, 4], [0, 0, 0, 80, 80], [0, 0, 120, 120, 120], 4]
 
 samples = [s1, s2, s3, s4, s5, s6, s7]
 for sample_no in range(len(samples)):
     print (sample_no)
     sample = samples[sample_no]
+    print (len(sample), len(sample[0]), len(sample[1]), len(sample[2]))
     speed_time = torque_time = sample[0]
     reference_speed = sample[1]
     reference_torque = sample[2]

@@ -229,7 +229,7 @@ def _get_prelaoder_class(opt):
 
 
 def _get_loader(dir, opt, shuffle):
-    dataset, index_quant_map = load_data(dir)
+    dataset, index_quant_map = load_data(dir, opt)
     samples = get_sample_metadata(dataset, opt.stride, opt.window)
     preloader_class = _get_prelaoder_class(opt)
     preloader = preloader_class(dataset, index_quant_map, samples,

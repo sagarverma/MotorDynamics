@@ -77,30 +77,32 @@ def mirror(reference, simulated):
         return abs(reference), abs(simulated)
     return reference, simualted
 
-def get_ramp(simulated):
-    ramp_start = np.argmin(simulated == simulated.min())
-    ramp_end = np.argmax(simulated)
+def get_ramp(reference):
+    ramp_start = np.argmin(reference == reference.min())
+    ramp_end = np.argmax(reference)
     return ramp_start, ramp_end
 
 def response_time_2perc(reference, simulated, time):
     #when is the simulated quantity 2% of the nominal reference quantity.
-    start, end = get_ramp(simulated)
-    perc2_time = time[start + np.argmax(reference[start:end] >=\
-                        0.02 * simulated.max())] - time[start]
-    return perc2_time[0]
+    start, end = get_ramp(reference)
+    perc2_time = time[start + np.argmax(simulated[start:] >=\
+                        0.02 * reference.max())] - time[start]
+    return perc2_time
 
 def response_time_95perc(reference, simulated, time):
-    #when is the simulated quantity 95% of the nominal reference quantity
-    start, end = get_ramp(simulated)
-    perc2_time = time[start + np.argmax(reference[start:end] >= 0.95 * simulated.max())] - time[start]
-    return perc2_time[0]
+    #when is the simulated quantity 95% between 105% of the nominal reference
+    # quantity and remains with 95% and 105% for test 2 it is 1.025
+    start, end = get_ramp(reference)
+    perc95_time = time[start + np.argmax(simulated[start:] >= \
+                    0.95 * reference.max())] - time[start]
+    return perc95_time
 
 def following_error(reference, simulated):
     #error between refernece and simulated when reference is 0.5 of of the nominal
-    start, end = get_ramp(simulated)
-    following_indx = start + np.argmax(simulated >= 0.5 * (simulated.max()-simulated.min()))
-    following_err = reference[following_indx] - simulated[following_indx]
-    return following_err[0]
+    start, end = get_ramp(reference)
+    following_indx = start + np.argmax(reference[start:end] >= \
+                        0.5 * (reference.max()-reference.min()))
+    return reference[following_indx] - simulated[following_indx]
 
 def stead_state_error(reference, simulated):
     #error between reference and simulated when simulated has stablised after overshoot
@@ -108,10 +110,10 @@ def stead_state_error(reference, simulated):
 
 def overshoot(reference, simulated):
     #value of simulated at ramp overshoot
-    start, end = get_ramp(simulated)
+    start, end = get_ramp(reference)
     overshoot_idx = end + np.argmax(abs(reference[end:-1] - simulated[end:-1]))
-    overshoot_perc = 100 * (simulated[overshoot_idx] - reference[overshoot_idx]) / (simulated.max() - simulated.min())
-    return overshoot_perc[0]
+    return 100 * (simulated[overshoot_idx] - reference[overshoot_idx]) / \
+                (reference.max() - reference.min())
 
 def max_torque_acceleration(simulated):
     #maximum value of torque when speed ramp occurs

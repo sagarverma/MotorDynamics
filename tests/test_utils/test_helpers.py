@@ -5,23 +5,23 @@ import numpy as np
 import torch
 import torch.nn as nn
 
-from motor_dynamics.utils.parser import get_parser_with_args
-from motor_dynamics.utils.helpers import (get_file_names, initialize_metrics,
+from motornn.utils.parser import get_parser_with_args
+from motornn.utils.helpers import (get_file_names, initialize_metrics,
                                           get_mean_metrics, set_metrics,
                                           get_model, _get_prelaoder_class,
                                           _get_loader, get_train_loaders,
                                           get_finetune_loaders,
                                           get_test_loaders)
 
-from motor_dynamics.models.cnn import ShallowCNN, DeepCNN
-from motor_dynamics.models.ffnn import ShallowFNN, DeepFNN
-from motor_dynamics.models.rnn import ShallowRNN, DeepRNN
-from motor_dynamics.models.lstm import ShallowLSTM, DeepLSTM
-from motor_dynamics.models.encdec import (ShallowEncDec, DeepEncDec, EncDecSkip,
+from motornn.models.cnn import ShallowCNN, DeepCNN
+from motornn.models.ffnn import ShallowFNN, DeepFNN
+from motornn.models.rnn import ShallowRNN, DeepRNN
+from motornn.models.lstm import ShallowLSTM, DeepLSTM
+from motornn.models.encdec import (ShallowEncDec, DeepEncDec, EncDecSkip,
                           EncDecRNNSkip, EncDecBiRNNSkip,
                           EncDecDiagBiRNNSkip)
 
-from motor_dynamics.utils.dataloader import (FlatInFlatOut, SeqInFlatOut,
+from motornn.utils.dataloader import (FlatInFlatOut, SeqInFlatOut,
                                              SeqInSeqOut)
 
 def test__get_file_name_fnn(setup_args, tmpdir_factory):

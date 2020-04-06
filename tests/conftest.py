@@ -3,7 +3,7 @@ import pytest
 from urllib.request import urlretrieve
 import tarfile
 
-from motor_dynamics.utils.parser import get_parser_with_args
+from motornn.utils.parser import get_parser_with_args
 
 @pytest.fixture(scope="session")
 def setup_data_dir(tmpdir_factory):

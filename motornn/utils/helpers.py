@@ -5,16 +5,16 @@ import numpy as np
 import torch
 from torch.utils.data import DataLoader
 
-from motor_dynamics.utils.metrics import sc_mse
+from motormetrics.ml import *
 
-from motor_dynamics.utils.dataloader import (denormalize, load_data, get_sample_metadata, FlatInFlatOut,
+from motornn.utils.dataloader import (denormalize, load_data, get_sample_metadata, FlatInFlatOut,
                               SeqInFlatOut, SeqInSeqOut)
 
-from motor_dynamics.models.cnn import ShallowCNN, DeepCNN
-from motor_dynamics.models.ffnn import ShallowFNN, DeepFNN
-from motor_dynamics.models.rnn import ShallowRNN, DeepRNN
-from motor_dynamics.models.lstm import ShallowLSTM, DeepLSTM
-from motor_dynamics.models.encdec import (ShallowEncDec, DeepEncDec, EncDecSkip,
+from motornn.models.cnn import ShallowCNN, DeepCNN
+from motornn.models.ffnn import ShallowFNN, DeepFNN
+from motornn.models.rnn import ShallowRNN, DeepRNN
+from motornn.models.lstm import ShallowLSTM, DeepLSTM
+from motornn.models.encdec import (ShallowEncDec, DeepEncDec, EncDecSkip,
                           EncDecRNNSkip, EncDecBiRNNSkip,
                           EncDecDiagBiRNNSkip)
 
@@ -211,7 +211,7 @@ def get_loss_function(opt):
         criterion = nn.MSELoss()
     if opt.loss == 'sc_mse':
         criterion = sc_mse
-        
+
     return criterion
 
 def get_model_from_weight(opt):

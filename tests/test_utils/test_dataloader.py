@@ -3,7 +3,7 @@ import pytest
 
 import numpy as np
 
-from motor_dynamics.utils.dataloader import (normalize, denormalize,
+from motornn.utils.dataloader import (normalize, denormalize,
                                              load_data, _load_exp_data,
                                              rev_test_output,
                                              get_sample_metadata,

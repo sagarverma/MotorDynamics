@@ -21,7 +21,7 @@ for pkl in train_pkls + val_pkls:
     fin = open(pkl, 'rb')
     data = pickle.load(fin)
     fin.close()
-
+    
     for k in data.keys():
         if k not in stats['min']:
             stats['min'][k] = [np.min(data[k])]

@@ -36,8 +36,7 @@ def get_file_names(opt):
         >>>
 
     """
-    suffix = '_' + opt.task + '_'
-    suffix += '_act_' + opt.act
+    suffix = '_act_' + opt.act
     suffix += '_stride_' + str(opt.stride)
     suffix += '_window_' + str(opt.window)
     suffix += '_inpQuants_' + opt.inp_quants

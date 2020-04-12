@@ -52,25 +52,32 @@ def test__get_intialize_metrics():
 
 
 def test__get_mean_metrics():
-    metrics = {'losses':[1, 2], 'smapes':[100, 50]}
+    metrics = {'loss':[1, 2], 'smape':[100, 50]}
     mean_metrics = get_mean_metrics(metrics)
 
     assert isinstance(mean_metrics, dict)
-    assert mean_metrics['losses'] == 1.5
-    assert mean_metrics['smapes'] == 75
+    assert mean_metrics['loss'] == 1.5
+    assert mean_metrics['smape'] == 75
 
 
 def test__set_metrics():
-    metrics = {'losses':[1, 2], 'smapes':[100, 50]}
-    metrics = set_metrics(metrics, loss=torch.tensor(3), smape=torch.tensor(0))
+    metrics = {'loss':[1, 2], 'smape':[100, 50], 'r2': [1, 2],
+                'rmsle': [3, 4], 'rmse': [5, 6], 'mae': [7, 8]}
+    metrics = set_metrics(metrics, loss=torch.tensor(3), smape=0,
+                            r2=1, rmsle=2,
+                            rmse=3, mae=4)
 
     assert isinstance(metrics, dict)
-    assert isinstance(metrics['losses'], list)
-    assert isinstance(metrics['smapes'], list)
-    assert metrics['losses']
-    assert metrics['smapes']
-    assert metrics['losses'] == [1, 2, 3]
-    assert metrics['smapes'] == [100, 50, 0]
+    assert isinstance(metrics['loss'], list)
+    assert isinstance(metrics['smape'], list)
+    assert metrics['loss']
+    assert metrics['smape']
+    assert metrics['loss'] == [1, 2, 3]
+    assert metrics['smape'] == [100, 50, 0]
+    assert metrics['r2'] == [1, 2, 1]
+    assert metrics['rmsle'] == [3, 4, 2]
+    assert metrics['rmse'] == [5, 6, 3]
+    assert metrics['mae'] == [7, 8, 4]
 
 
 def test__get_model_shallow_fnn(setup_args):

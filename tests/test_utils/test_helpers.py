@@ -25,76 +25,25 @@ from motornn.utils.dataloader import (FlatInFlatOut, SeqInFlatOut,
                                              SeqInSeqOut)
 
 def test__get_file_name_fnn(setup_args, tmpdir_factory):
-    parser = get_parser_with_args()
-    args = sum([list(arg) for arg in setup_args.items()], [])
-    opt = parser.parse_args(args)
-
-    weight_path, log_path = get_file_names(opt)
+    weight_path, log_path = get_file_names(setup_args)
 
     assert isinstance(weight_path, str)
     assert isinstance(log_path, str)
     assert weight_path
     assert log_path
+
     assert weight_path == os.path.join(tmpdir_factory.getbasetemp(), 'weights',
-                        f"shallow_fnn_train_sim__act_relu_stride_1_window_100"\
-                        f"_inpQuants_voltage_d,voltage_q,speed_outQuants_"\
-                        f"current_d,current_q,torque_lr_0.01_batchSize_2_"\
-                        f"epochs_1.pt")
+                        setup_args.model,
+                        f"shallow_fnn_act_relu_stride_1_window_100"\
+                        f"_inpQuants_voltage_d,voltage_q,current_d,current_q_outQuants_"\
+                        f"speed,torque_lr_0.01_batchSize_2_"\
+                        f"epochs_1_loss_mse.pt")
     assert log_path == os.path.join(tmpdir_factory.getbasetemp(), 'logs',
-                       f"shallow_fnn_train_sim__act_relu_stride_1_window_100_"\
-                       f"inpQuants_voltage_d,voltage_q,speed_outQuants_"\
-                       f"current_d,current_q,torque_lr_0.01_batchSize_2_"\
-                       f"epochs_1.log")
-
-
-def test__get_file_name_rnn(setup_args, tmpdir_factory):
-    parser = get_parser_with_args()
-    setup_args['--model'] = 'deep_rnn'
-    setup_args['--hidden_size'] = '64'
-    args = sum([list(arg) for arg in setup_args.items()], [])
-    opt = parser.parse_args(args)
-
-    weight_path, log_path = get_file_names(opt)
-
-    assert isinstance(weight_path, str)
-    assert isinstance(log_path, str)
-    assert weight_path
-    assert log_path
-    assert weight_path == os.path.join(tmpdir_factory.getbasetemp(), 'weights',
-                        f"deep_rnn_train_sim__act_relu_stride_1_window_100"\
-                        f"_inpQuants_voltage_d,voltage_q,speed_outQuants_"\
-                        f"current_d,current_q,torque_lr_0.01_batchSize_2_"\
-                        f"epochs_1_hiddenSize_64.pt")
-    assert log_path == os.path.join(tmpdir_factory.getbasetemp(), 'logs',
-                       f"deep_rnn_train_sim__act_relu_stride_1_window_100_"\
-                       f"inpQuants_voltage_d,voltage_q,speed_outQuants_"\
-                       f"current_d,current_q,torque_lr_0.01_batchSize_2_"\
-                       f"epochs_1_hiddenSize_64.log")
-
-
-def test__get_file_name_encdec(setup_args, tmpdir_factory):
-    parser = get_parser_with_args()
-    setup_args['--model'] = 'deep_encdec'
-    args = sum([list(arg) for arg in setup_args.items()], [])
-    opt = parser.parse_args(args)
-
-    weight_path, log_path = get_file_names(opt)
-
-    assert isinstance(weight_path, str)
-    assert isinstance(log_path, str)
-    assert weight_path
-    assert log_path
-    assert weight_path == os.path.join(tmpdir_factory.getbasetemp(), 'weights',
-                        f"deep_encdec_train_sim__act_relu_stride_1_window_100"\
-                        f"_inpQuants_voltage_d,voltage_q,speed_outQuants_"\
-                        f"current_d,current_q,torque_lr_0.01_batchSize_2_"\
-                        f"epochs_1.pt")
-    assert log_path == os.path.join(tmpdir_factory.getbasetemp(), 'logs',
-                       f"deep_encdec_train_sim__act_relu_stride_1_window_100_"\
-                       f"inpQuants_voltage_d,voltage_q,speed_outQuants_"\
-                       f"current_d,current_q,torque_lr_0.01_batchSize_2_"\
-                       f"epochs_1.log")
-
+                        setup_args.model,
+                       f"shallow_fnn_act_relu_stride_1_window_100"\
+                      f"_inpQuants_voltage_d,voltage_q,current_d,current_q_outQuants_"\
+                      f"speed,torque_lr_0.01_batchSize_2_"\
+                       f"epochs_1_loss_mse.log")
 
 def test__get_intialize_metrics():
     metrics = initialize_metrics()

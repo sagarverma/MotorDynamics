@@ -7,7 +7,7 @@ from torch.utils.data import DataLoader
 
 from motormetrics.ml import *
 
-from motornn.utils.dataloader import (denormalize, load_data, get_sample_metadata, FlatInFlatOut,
+from motornn.utils.dataloader import (load_data, FlatInFlatOut,
                               SeqInFlatOut, SeqInSeqOut)
 
 from motornn.models.cnn import ShallowCNN, DeepCNN

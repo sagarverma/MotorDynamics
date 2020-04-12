@@ -100,7 +100,7 @@ def load_data(args):
 
     return dataset, train_samples, val_samples, metadata
 
-def loader(full_load, sample, metadata, args):
+def loader(full_load, sample, metadata, args, type='flat'):
     inp_quants = args.inp_quants.split(',')
     out_quants = args.out_quants.split(',')
 
@@ -113,7 +113,10 @@ def loader(full_load, sample, metadata, args):
 
     out_data = []
     for out_quant in out_quants:
-        window = full_load[sample[0]][out_quant][sample[1]: sample[2]]
+        if type == 'seq':
+            window = full_load[sample[0]][out_quant][sample[1]: sample[2]]
+        if type == 'flat':
+            window = full_load[sample[0]][out_quant][sample[3]]
         minn = metadata['min'][out_quant]
         maxx = metadata['max'][out_quant]
         out_data.append(normalize(window, minn, maxx))
@@ -121,21 +124,18 @@ def loader(full_load, sample, metadata, args):
     return np.asarray(inp_data), np.asarray(out_data)
 
 class FlatInFlatOut(data.Dataset):
-    def __init__(self, full_load, samples, args):
+    def __init__(self, full_load, samples, metadata, args):
         random.shuffle(samples)
         self.samples = samples
         self.full_load = full_load
-        self.inp_quant_ids = [index_quant_map[x] for x in args.inp_quants.split(',')]
-        self.out_quant_ids = [index_quant_map[x] for x in args.out_quants.split(',')]
-
+        self.metadata = metadata
+        self.args = args
 
     def __getitem__(self, index):
-        mat_no, start, end, infer_index = self.samples[index]
+        sample = self.samples[index]
 
-        inp_seq = self.full_load[mat_no][self.inp_quant_ids, start: end]
-        out_seq = self.full_load[mat_no][self.out_quant_ids, infer_index]
+        inp_seq, out_seq = loader(self.full_load, sample, self.metadata, self.args, 'flat')
         inp_seq = inp_seq.flatten()
-        out_seq = out_seq.flatten()
 
         return inp_seq, out_seq
 
@@ -144,42 +144,17 @@ class FlatInFlatOut(data.Dataset):
 
 
 class SeqInFlatOut(data.Dataset):
-    def __init__(self, full_load, index_quant_map, samples,
-                 inp_quants, out_quants):
-        """Dataloader class to load samples from signals loaded.
-
-        Args:
-            full_load (list): List of numpy array of loaded mat files.
-            index_quant_map (dict): Dictionary which maps signal quantity to
-                                    to index in full_load arrays.
-            samples (list): Metadata used to sample subsequences from
-                            full_load.
-            inp_quants (list): Input quantities to the model.
-            out_quants (list): Output quantities to the model.
-
-        Returns:
-            type: Description of returned object.
-
-        Raises:            ExceptionName: Why the exception is raised.
-
-        Examples
-            Examples should be written in doctest format, and
-            should illustrate how to use the function/class.
-            >>>
-
-        """
+    def __init__(self, full_load, samples, metadata, args):
         random.shuffle(samples)
         self.samples = samples
         self.full_load = full_load
-        self.inp_quant_ids = [index_quant_map[x] for x in inp_quants]
-        self.out_quant_ids = [index_quant_map[x] for x in out_quants]
+        self.metadata = metadata
+        self.args = args
 
     def __getitem__(self, index):
-        mat_no, start, end, infer_index = self.samples[index]
+        sample = self.samples[index]
 
-        inp_seq = self.full_load[mat_no][self.inp_quant_ids, start: end]
-        out_seq = self.full_load[mat_no][self.out_quant_ids, infer_index]
-        out_seq = out_seq.flatten()
+        inp_seq, out_seq = loader(self.full_load, sample, self.metadata, self.args, 'flat')
 
         return inp_seq, out_seq
 
@@ -188,41 +163,17 @@ class SeqInFlatOut(data.Dataset):
 
 
 class SeqInSeqOut(data.Dataset):
-    def __init__(self, full_load, index_quant_map, samples,
-                 inp_quants, out_quants):
-        """Dataloader class to load samples from signals loaded.
-
-        Args:
-            full_load (list): List of numpy array of loaded mat files.
-            index_quant_map (dict): Dictionary which maps signal quantity to
-                                    to index in full_load arrays.
-            samples (list): Metadata used to sample subsequences from
-                            full_load.
-            inp_quants (list): Input quantities to the model.
-            out_quants (list): Output quantities to the model.
-
-        Returns:
-            type: Description of returned object.
-
-        Raises:            ExceptionName: Why the exception is raised.
-
-        Examples
-            Examples should be written in doctest format, and
-            should illustrate how to use the function/class.
-            >>>
-
-        """
+    def __init__(self, full_load, samples, metadata, args):
         random.shuffle(samples)
         self.samples = samples
         self.full_load = full_load
-        self.inp_quant_ids = [index_quant_map[x] for x in inp_quants]
-        self.out_quant_ids = [index_quant_map[x] for x in out_quants]
+        self.metadata = metadata
+        self.args = args
 
     def __getitem__(self, index):
-        mat_no, start, end, _ = self.samples[index]
+        sample = self.samples[index]
 
-        inp_seq = self.full_load[mat_no][self.inp_quant_ids, start: end]
-        out_seq = self.full_load[mat_no][self.out_quant_ids, start: end]
+        inp_seq, out_seq = loader(self.full_load, sample, self.metadata, self.args, 'seq')
 
         return inp_seq, out_seq
 

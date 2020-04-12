@@ -64,7 +64,7 @@ def test__load_data(setup_args):
 def test__loader(setup_args):
     full_load, train_samples, val_samples, metadata = load_data(setup_args)
 
-    x, y = loader(full_load, train_samples[0], metadata, setup_args)
+    x, y = loader(full_load, train_samples[0], metadata, setup_args, type='seq')
 
     assert isinstance(x, np.ndarray)
     assert isinstance(y, np.ndarray)
@@ -75,104 +75,77 @@ def test__loader(setup_args):
     assert y.min() >= -1
     assert y.max() <= 1
 
+    x, y = loader(full_load, train_samples[0], metadata, setup_args, type='flat')
+
+    assert y.shape == (2, )
+
 class Test_FlatInFlatOut(object):
     def test__init(self, setup_args):
         dataset, train_samples, _, metadata = load_data(setup_args)
-        dataloader = FlatInFlatOut(dataset, train_samples, setup_args)
+        dataloader = FlatInFlatOut(dataset, train_samples, metadata, setup_args)
 
         assert isinstance(dataloader.samples, list)
-        assert isinstance(dataloader.inp_quant_ids, list)
-        assert isinstance(dataloader.out_quant_ids, list)
+        assert isinstance(dataloader.full_load, dict)
+        assert isinstance(dataloader.metadata, dict)
 
     def test__getitem__(self, setup_args):
-        dataset, index_quant_map = load_data(setup_args)
+        dataset, train_samples, _, metadata = load_data(setup_args)
+        dataloader = FlatInFlatOut(dataset, train_samples, metadata, setup_args)
 
-        dataloader = FlatInFlatOut(dataset, index_quant_map,
-                                     samples, inp_quants,
-                                     out_quants)
 
         inp_seq, out_seq = dataloader.__getitem__(0)
 
         assert isinstance(inp_seq, np.ndarray)
         assert isinstance(out_seq, np.ndarray)
         assert len(inp_seq.shape) == 1
-        assert inp_seq.shape[0] == 300
+        assert inp_seq.shape == (400, )
         assert len(out_seq.shape) == 1
-        assert out_seq.shape[0] == 3
+        assert out_seq.shape == (2, )
 
 
 class Test_SeqInFlatOut(object):
-    def test__init(self, setup_data_dir):
-        data_dir = os.path.join(setup_data_dir, "train_raw")
-        dataset, index_quant_map = load_data(data_dir)
-        samples = get_sample_metadata(dataset, 1, 100)
-        inp_quants = ['voltage_d', 'voltage_q', 'speed']
-        out_quants = ['current_d', 'current_q', 'torque']
-
-        dataloader = SeqInFlatOut(dataset, index_quant_map,
-                                     samples, inp_quants,
-                                     out_quants)
+    def test__init(self, setup_args):
+        dataset, train_samples, _, metadata = load_data(setup_args)
+        dataloader = SeqInFlatOut(dataset, train_samples, metadata, setup_args)
 
         assert isinstance(dataloader.samples, list)
-        assert isinstance(dataloader.inp_quant_ids, list)
-        assert isinstance(dataloader.out_quant_ids, list)
+        assert isinstance(dataloader.full_load, dict)
+        assert isinstance(dataloader.metadata, dict)
 
-    def test__getitem__(self, setup_data_dir):
-        data_dir = os.path.join(setup_data_dir, "train_raw")
-        dataset, index_quant_map = load_data(data_dir)
-        samples = get_sample_metadata(dataset, 1, 100)
-        inp_quants = ['voltage_d', 'voltage_q', 'speed']
-        out_quants = ['current_d', 'current_q', 'torque']
+    def test__getitem__(self, setup_args):
+        dataset, train_samples, _, metadata = load_data(setup_args)
+        dataloader = SeqInFlatOut(dataset, train_samples, metadata, setup_args)
 
-        dataloader = SeqInFlatOut(dataset, index_quant_map,
-                                     samples, inp_quants,
-                                     out_quants)
 
         inp_seq, out_seq = dataloader.__getitem__(0)
 
         assert isinstance(inp_seq, np.ndarray)
         assert isinstance(out_seq, np.ndarray)
         assert len(inp_seq.shape) == 2
-        assert inp_seq.shape[0] == 3
-        assert inp_seq.shape[1] == 100
+        assert inp_seq.shape == (4, 100)
         assert len(out_seq.shape) == 1
-        assert out_seq.shape[0] == 3
+        assert out_seq.shape == (2, )
 
 
 class Test_SeqInSeqOut(object):
-    def test__init(self, setup_data_dir):
-        data_dir = os.path.join(setup_data_dir, "train_raw")
-        dataset, index_quant_map = load_data(data_dir)
-        samples = get_sample_metadata(dataset, 1, 100)
-        inp_quants = ['voltage_d', 'voltage_q', 'speed']
-        out_quants = ['current_d', 'current_q', 'torque']
-
-        dataloader = SeqInSeqOut(dataset, index_quant_map,
-                                     samples, inp_quants,
-                                     out_quants)
+    def test__init(self, setup_args):
+        dataset, train_samples, _, metadata = load_data(setup_args)
+        dataloader = SeqInSeqOut(dataset, train_samples, metadata, setup_args)
 
         assert isinstance(dataloader.samples, list)
-        assert isinstance(dataloader.inp_quant_ids, list)
-        assert isinstance(dataloader.out_quant_ids, list)
+        assert isinstance(dataloader.full_load, dict)
+        assert isinstance(dataloader.metadata, dict)
 
-    def test__getitem__(self, setup_data_dir):
-        data_dir = os.path.join(setup_data_dir, "train_raw")
-        dataset, index_quant_map = load_data(data_dir)
-        samples = get_sample_metadata(dataset, 1, 100)
-        inp_quants = ['voltage_d', 'voltage_q', 'speed']
-        out_quants = ['current_d', 'current_q', 'torque']
+    def test__getitem__(self, setup_args):
+        dataset, train_samples, _, metadata = load_data(setup_args)
+        dataloader = SeqInSeqOut(dataset, train_samples, metadata, setup_args)
 
-        dataloader = SeqInSeqOut(dataset, index_quant_map,
-                                     samples, inp_quants,
-                                     out_quants)
 
         inp_seq, out_seq = dataloader.__getitem__(0)
 
         assert isinstance(inp_seq, np.ndarray)
         assert isinstance(out_seq, np.ndarray)
         assert len(inp_seq.shape) == 2
-        assert inp_seq.shape[0] == 3
-        assert inp_seq.shape[1] == 100
+        assert inp_seq.shape == (4, 100)
         assert len(out_seq.shape) == 2
-        assert out_seq.shape[0] == 3
-        assert out_seq.shape[1] == 100
+        assert out_seq.shape == (2, 100)

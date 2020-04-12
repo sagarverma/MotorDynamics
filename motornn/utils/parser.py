@@ -23,45 +23,21 @@ def get_parser_with_args():
                         required=True,
                         help="GPU ID on which to run")
 
-    parser.add_argument('--task',
+    parser.add_argument('--data_dir',
                         type=str,
-                        default='train_sim',
-                        required=True,
-                        help='''Train(train), finetune(finetune), and test model(test).''')
-
-    parser.add_argument('--train_sim_dir',
-                        type=str,
-                        default='../datasets/data/train_sim/',
-                        required=False,
-                        help='Simulated dataset directory for training.')
-
-    parser.add_argument('--train_raw_dir',
-                        type=str,
-                        default='../datasets/data/train_raw/',
-                        required=False,
-                        help='Raw dataset directory for training.')
-
-    parser.add_argument('--val_sim_dir',
-                        type=str,
-                        default='../datasets/data/val_sim/',
-                        required=False,
-                        help='Smimulated dataset directory for validation.')
-
-    parser.add_argument('--test_raw_dir',
-                        type=str,
-                        default='../datasets/data/test_raw/',
+                        default='../../datasets/Data_09042020_sm',
                         required=False,
                         help='Raw dataset directory for testing.')
 
     parser.add_argument('--weights_dir',
                         type=str,
-                        default='../weights/',
+                        default='../../weights/Data_09042020_sm',
                         required=False,
                         help='Directory to save model weights.')
 
     parser.add_argument('--logs_dir',
                         type=str,
-                        default='../logs/',
+                        default='../../logs/Data_09042020_sm',
                         required=False,
                         help='Directory to save training logs.')
 
@@ -103,13 +79,13 @@ def get_parser_with_args():
 
     parser.add_argument('--inp_quants',
                         type=str,
-                        default='voltage_d,voltage_q,speed',
+                        default='voltage_d,voltage_q,current_d,current_q',
                         required=False,
                         help='Input quantites to the model.')
 
     parser.add_argument('--out_quants',
                         type=str,
-                        default='current_d,current_q,torque',
+                        default='speed,torque',
                         required=False,
                         help='Output quantities from the model.')
 

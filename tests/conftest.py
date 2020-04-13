@@ -39,7 +39,7 @@ def setup_args(setup_data_dir, setup_weights_dir, setup_logs_dir):
             '--logs_dir', setup_logs_dir,
             '--model', 'shallow_fnn',
             '--epochs', '1',
-            '--batch_size', '2',
+            '--batch_size', '1000',
             '--lr', '0.01',
             '--inp_quants', 'voltage_d,voltage_q,current_d,current_q',
             '--out_quants', 'speed,torque',

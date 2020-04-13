@@ -84,7 +84,7 @@ def initialize_metrics():
         'loss': [],
         'smape': [],
         'r2': [],
-        'rmsle': [],
+        # 'rmsle': [],
         'rmse': [],
         'mae': []
     }
@@ -151,7 +151,7 @@ def compute_metrics(metrics_dict, loss, predicted, target):
 
     metrics_dict['smape'].append(smape(target, predicted))
     metrics_dict['r2'].append(r2(target, predicted))
-    metrics_dict['rmsle'].append(rmsle(target, predicted))
+    # metrics_dict['rmsle'].append(rmsle(target, predicted))
     metrics_dict['rmse'].append(rmse(target, predicted))
     metrics_dict['mae'].append(mae(target, predicted))
 

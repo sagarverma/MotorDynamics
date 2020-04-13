@@ -24,7 +24,7 @@ class Runner():
 
     def batch_to_gpu(self, input_tensor, output_tensor):
         input_tensor = Variable(input_tensor).to(self.device)
-        output_tensor = Variable(output_tensor).long().to(self.device)
+        output_tensor = Variable(output_tensor).to(self.device)
         return input_tensor, output_tensor
 
     def train_forward_backward(self, input_tensor, output_tensor):
@@ -48,10 +48,10 @@ class Runner():
         self.model.train()
 
         for input_tensor, output_tensor in self.train_loader:
-            prediction_tensor, output_tensor = self.batch_to_gpu(prediction_tensor,
+            input_tensor, output_tensor = self.batch_to_gpu(input_tensor,
                                                           output_tensor)
 
-            prediction_tensor, loss = self.train_forward_backward(prediction_tensor,
+            prediction_tensor, loss = self.train_forward_backward(input_tensor,
                                                    output_tensor)
             compute_metrics(self.train_metrics, loss, prediction_tensor,
                                                     output_tensor)
@@ -64,10 +64,10 @@ class Runner():
         self.model.eval()
 
         for input_tensor, output_tensor in self.train_loader:
-            prediction_tensor, output_tensor = self.batch_to_gpu(prediction_tensor,
+            input_tensor, output_tensor = self.batch_to_gpu(input_tensor,
                                                           output_tensor)
 
-            preds, loss = self.eval_forward(input_tensor, output_tensor)
+            prediction_tensor, loss = self.eval_forward(input_tensor, output_tensor)
             compute_metrics(self.val_metrics, loss, prediction_tensor,
                                                     output_tensor)
             # clear batch variables from memory

@@ -35,13 +35,13 @@ def test__get_file_name_fnn(setup_args, tmpdir_factory):
                         setup_args.model,
                         f"shallow_fnn_act_relu_stride_1_window_100"\
                         f"_inpQuants_voltage_d,voltage_q,current_d,current_q_outQuants_"\
-                        f"speed,torque_lr_0.01_batchSize_2_"\
+                        f"speed,torque_lr_0.01_batchSize_1000_"\
                         f"epochs_1_loss_mse.pt")
     assert log_path == os.path.join(tmpdir_factory.getbasetemp(), 'logs',
                         setup_args.model,
                        f"shallow_fnn_act_relu_stride_1_window_100"\
                       f"_inpQuants_voltage_d,voltage_q,current_d,current_q_outQuants_"\
-                      f"speed,torque_lr_0.01_batchSize_2_"\
+                      f"speed,torque_lr_0.01_batchSize_1000_"\
                        f"epochs_1_loss_mse.log")
 
 def test__get_intialize_metrics():
@@ -78,7 +78,7 @@ def test__transform_tensor():
 
 def test__compute_metrics():
     metrics = {'loss':[1, 2], 'smape':[100, 50], 'r2': [1, 2],
-                'rmsle': [3, 4], 'rmse': [5, 6], 'mae': [7, 8]}
+                'rmse': [5, 6], 'mae': [7, 8]}
     predicted = [0, 1, 0]
     target = [0, 0, 0]
     metrics = compute_metrics(metrics, torch.tensor(3), predicted, target)
@@ -91,7 +91,6 @@ def test__compute_metrics():
     assert metrics['loss'] == [1, 2, 3]
     assert metrics['smape'] == [100, 50, 66.66600000666661]
     assert metrics['r2'] == [1, 2, 0.0]
-    assert metrics['rmsle'] == [3, 4, 0.40018871128431455]
     assert metrics['rmse'] == [5, 6, 0.5773502691896257]
     assert metrics['mae'] == [7, 8, 0.3333333333333333]
 

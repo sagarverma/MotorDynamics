@@ -1,84 +1,43 @@
 import torch
-import torch.nn as nn
 import torch.optim as optim
-from torch.autograd import Variable
 
-from motor_dynamics.utils.helpers import (get_file_names, initialize_metrics,
-                                          get_mean_metrics, set_metrics,
-                                          denormalize_metrics, get_model,
-                                          get_loss_function, get_train_loaders, Log)
-from motor_dynamics.utils.metrics import smape, r2, rmsle, rmse, mae
+from motornn.utils.parser import get_parser_with_args
+from motornn.utils.helpers import (get_file_names, get_dataloaders,
+                                    get_model, get_loss_function, Log)
+from motornn.utils.runner import Runner
 
-def train(opt):
-    weight_file_path, log_file_path = get_file_names(opt)
-    log = Log(log_file_path, 'w')
+parser = get_parser_with_args()
+args = parser.parse_args()
 
-    model = get_model(opt)
-    train_sim_loader, val_sim_loader = get_train_loaders(opt)
+weight_path, log_path = get_file_names(args)
+logger = Log(log_path, 'w')
 
-    criterion = get_loss_function(opt)
-    optimizer = optim.SGD(model.parameters(), lr=opt.lr)
+train_loader, val_loader = get_dataloaders(args)
+model = get_model(args)
+criterion = get_loss_function(args)
+optimizer = optim.SGD(model.parameters(), lr=args.lr)
 
-    best_smape = 1000000
+runner = Runner(args.gpu, model, optimizer, criterion,
+                train_loader, val_loader)
 
-    for epoch in range(opt.epochs):
-        train_metrics = initialize_metrics()
-        model.train()
+best_r2 = -1000
 
-        for inp, out in train_sim_loader:
-            inp = Variable(inp).cuda(opt.gpu)
-            out = Variable(out).cuda(opt.gpu)
+logger.write_model(model)
 
-            optimizer.zero_grad()
-            preds = model(inp)
-            loss = criterion(preds, out)
-            loss.backward()
-            optimizer.step()
-            out = out.cpu().numpy()
-            preds = preds.data.cpu().numpy()
+for epoch in range(args.epochs):
+    runner.set_epoch_metrics()
 
-            smape_err = smape(out, preds)
-            r2_err = r2(out, preds)
-            rmsle_err = rmsle(out, preds)
-            rmse_err = rmse(out, preds)
-            mae_err = mae(out, preds)
+    train_metrics = runner.train_model()
+    val_metrics = runner.eval_model()
 
-            train_metrics = set_metrics(train_metrics, loss, smape_err, r2_err,
-                                        rmsle_err, rmse_err, mae_err)
+    print ('TRAIN METRICS EPOCH ', epoch, train_metrics)
+    print ('EVAL METRICS EPOCH ', epoch, val_metrics)
 
-        train_metrics = get_mean_metrics(train_metrics)
-        train_metrics = denormalize_metrics(train_metrics, opt.out_quants)
-        log.log_train_metrics(train_metrics, epoch)
-        print (epoch, 'train', train_metrics)
+    logger.log_train_metrics(train_metrics, epoch)
+    logger.log_validation_metrics(val_metrics, epoch)
 
-        val_metrics = initialize_metrics()
-        model.eval()
+    if val_metrics['r2'] >= best_r2:
+        torch.save(model, weight_path)
+        best_r2 = val_metrics['r2']
 
-        for inp, out in val_sim_loader:
-            inp = Variable(inp).cuda(opt.gpu)
-            out = Variable(out).cuda(opt.gpu)
-
-            preds = model(inp)
-            loss = criterion(preds, out)
-            out = out.cpu().numpy()
-            preds = preds.data.cpu().numpy()
-
-            smape_err = smape(out, preds)
-            r2_err = r2(out, preds)
-            rmsle_err = rmsle(out, preds)
-            rmse_err = rmse(out, preds)
-            mae_err = mae(out, preds)
-
-            val_metrics = set_metrics(val_metrics, loss, smape_err, r2_err,
-                                        rmsle_err, rmse_err, mae_err)
-
-        val_metrics = get_mean_metrics(val_metrics)
-        val_metrics = denormalize_metrics(val_metrics, opt.out_quants)
-        log.log_validation_metrics(val_metrics, epoch)
-        print (epoch, 'val', val_metrics)
-
-        if val_metrics['smape'] < best_smape:
-            torch.save(model, weight_file_path)
-            best_smape = val_metrics['smape']
-
-    log.close()
+logger.close()

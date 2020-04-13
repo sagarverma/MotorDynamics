@@ -58,6 +58,12 @@ def get_file_names(opt):
     if 'cnn' in opt.model or 'encdec' in opt.model:
         fname = opt.model + suffix
 
+    if not os.path.exists(os.path.join(opt.weights_dir, opt.model)):
+        os.makedirs(os.path.join(opt.weights_dir, opt.model))
+
+    if not os.path.exists(os.path.join(opt.logs_dir, opt.model)):
+        os.makedirs(os.path.join(opt.logs_dir, opt.model))
+
     weight_path = os.path.join(opt.weights_dir, opt.model, fname + '.pt')
     log_path = os.path.join(opt.logs_dir, opt.model, fname + '.log')
 
@@ -240,6 +246,9 @@ def get_dataloaders(args):
     dataset, train_samples, val_samples, metadata = load_data(args)
     preloader_class = _get_prelaoder_class(args)
 
+    print ('Train Samples ', len(train_samples))
+    print ('Val Samples ', len(val_samples))
+    
     train_preloader = preloader_class(dataset, train_samples, metadata, args)
     train_loader = DataLoader(train_preloader, batch_size=args.batch_size,
                             shuffle=True, num_workers=args.num_workers)
@@ -273,7 +282,7 @@ class Log(object):
 
     def write_model(self, model):
         self.log.write('\n##MODEL START##\n')
-        self.log.write(model)
+        self.log.write(str(model))
         self.log.write('\n##MODEL END##\n')
 
         self.log.write('\n##MODEL SIZE##\n')

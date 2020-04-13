@@ -8,7 +8,7 @@ import torch.nn as nn
 from motornn.utils.parser import get_parser_with_args
 from motornn.utils.helpers import (get_file_names, initialize_metrics,
                                   get_mean_metrics, transform_tensor,
-                                  compute_metrics,
+                                  compute_metrics, get_loss_function,
                                   get_model, _get_prelaoder_class,
                                   get_dataloaders)
 
@@ -95,6 +95,10 @@ def test__compute_metrics():
     assert metrics['rmse'] == [5, 6, 0.5773502691896257]
     assert metrics['mae'] == [7, 8, 0.3333333333333333]
 
+def test__get_loss_function(setup_args):
+    loss = get_loss_function(setup_args)
+
+    assert isinstance(loss, nn.MSELoss)
 
 def test__get_model_shallow_fnn(setup_args):
     setup_args.model = 'shallow_fnn'

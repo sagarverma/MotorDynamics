@@ -157,16 +157,6 @@ def compute_metrics(metrics_dict, loss, predicted, target):
     return metrics_dict
 
 
-def denormalize_metrics(metrics_dict, quantity):
-    metrics_dict['loss'] = metrics_dict['loss']
-    metrics_dict['smape'] =  metrics_dict['smape']
-    metrics_dict['r2'] =  metrics_dict['r2']
-    metrics_dict['rmsle'] = denormalize(metrics_dict['rmsle'], quantity)
-    metrics_dict['rmse'] = denormalize(metrics_dict['rmse'], quantity)
-    metrics_dict['mae'] = denormalize(metrics_dict['mae'], quantity)
-
-    return metrics_dict
-
 def get_model(opt):
     """Get model.
 

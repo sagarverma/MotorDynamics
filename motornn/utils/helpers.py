@@ -227,98 +227,19 @@ def _get_prelaoder_class(opt):
         return SeqInSeqOut
 
 
-def _get_loader(dir, opt, shuffle):
-    dataset, index_quant_map = load_data(dir, opt)
-    samples = get_sample_metadata(dataset, opt.stride, opt.window)
-    preloader_class = _get_prelaoder_class(opt)
-    preloader = preloader_class(dataset, index_quant_map, samples,
-                          opt.inp_quants.split(','),
-                          opt.out_quants.split(','))
-    dataloader = DataLoader(preloader, batch_size=opt.batch_size,
-                            shuffle=shuffle, num_workers=opt.num_workers)
-    return dataloader, len(samples)
+def get_dataloaders(args):
+    dataset, train_samples, val_samples, metadata = load_data(args)
+    preloader_class = _get_prelaoder_class(args)
 
+    train_preloader = preloader_class(dataset, train_samples, metadata, args)
+    train_loader = DataLoader(train_preloader, batch_size=args.batch_size,
+                            shuffle=True, num_workers=args.num_workers)
 
-def get_train_loaders(opt):
-    """Get dataloaders for training, and validation.
+    val_preloader = preloader_class(dataset, val_samples, metadata, args)
+    val_loader = DataLoader(val_preloader, batch_size=args.batch_size,
+                            shuffle=True, num_workers=args.num_workers)
 
-    Args:
-        opt (argparse.ArgumentParser): Parsed arguments.
-
-    Returns:
-        tuple: train sim dataloader and val sim dataloader
-
-    Raises:        ExceptionName: Why the exception is raised.
-
-    Examples
-        Examples should be written in doctest format, and
-        should illustrate how to use the function/class.
-        >>>
-
-    """
-
-    train_sim_loader, train_samples = _get_loader(opt.train_sim_dir, opt, True)
-    val_sim_loader, val_samples = _get_loader(opt.val_sim_dir, opt, False)
-
-    print('train sim samples : ', train_samples)
-    print('val sim samples : ', val_samples)
-
-    return train_sim_loader, val_sim_loader
-
-
-def get_finetune_loaders(opt):
-    """Get dataloaders for finetuning, and validation.
-
-    Args:
-        opt (argparse.ArgumentParser): Parsed arguments.
-
-    Returns:
-        tuple:  train raw dataloader and val sim dataloader.
-
-    Raises:        ExceptionName: Why the exception is raised.
-
-    Examples
-        Examples should be written in doctest format, and
-        should illustrate how to use the function/class.
-        >>>
-
-    """
-
-    train_raw_loader, train_samples = _get_loader(opt.train_raw_dir, opt, True)
-    val_sim_loader, val_samples = _get_loader(opt.val_sim_dir, opt, False)
-
-    print('train raw samples : ', train_samples)
-    print('val sim samples : ', val_samples)
-
-
-    return train_raw_loader, val_sim_loader
-
-
-
-def get_test_loaders(opt):
-    """Get dataloader for testing.
-
-    Args:
-        opt (argparse.ArgumentParser): Parsed arguments.
-
-    Returns:
-        tuple: test dataloader.
-
-    Raises:        ExceptionName: Why the exception is raised.
-
-    Examples
-        Examples should be written in doctest format, and
-        should illustrate how to use the function/class.
-        >>>
-
-    """
-
-    test_raw_loader, tot_samples = _get_loader(opt.test_raw_dir, opt, False)
-
-    print('test raw samples : ', tot_samples)
-
-    return test_raw_loader
-
+    return train_loader, val_loader
 
 class Log(object):
     """Logger class to log training metadata.

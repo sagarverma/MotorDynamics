@@ -9,9 +9,7 @@ from motornn.utils.parser import get_parser_with_args
 from motornn.utils.helpers import (get_file_names, initialize_metrics,
                                           get_mean_metrics, set_metrics,
                                           get_model, _get_prelaoder_class,
-                                          _get_loader, get_train_loaders,
-                                          get_finetune_loaders,
-                                          get_test_loaders)
+                                          get_dataloaders)
 
 from motornn.models.cnn import ShallowCNN, DeepCNN
 from motornn.models.ffnn import ShallowFNN, DeepFNN
@@ -81,242 +79,144 @@ def test__set_metrics():
 
 
 def test__get_model_shallow_fnn(setup_args):
-    parser = get_parser_with_args()
-    setup_args['--model'] = 'shallow_fnn'
-    args = sum([list(arg) for arg in setup_args.items()], [])
-    opt = parser.parse_args(args)
-
-    model = get_model(opt)
+    setup_args.model = 'shallow_fnn'
+    model = get_model(setup_args)
 
     assert isinstance(model, nn.Module)
     assert isinstance(model, ShallowFNN)
 
 
 def test__get_model_deep_fnn(setup_args):
-    parser = get_parser_with_args()
-    setup_args['--model'] = 'deep_fnn'
-    args = sum([list(arg) for arg in setup_args.items()], [])
-    opt = parser.parse_args(args)
-
-    model = get_model(opt)
+    setup_args.model = 'deep_fnn'
+    model = get_model(setup_args)
 
     assert isinstance(model, nn.Module)
     assert isinstance(model, DeepFNN)
 
 
 def test__get_model_shallow_cnn(setup_args):
-    parser = get_parser_with_args()
-    setup_args['--model'] = 'shallow_cnn'
-    args = sum([list(arg) for arg in setup_args.items()], [])
-    opt = parser.parse_args(args)
-
-    model = get_model(opt)
+    setup_args.model = 'shallow_cnn'
+    model = get_model(setup_args)
 
     assert isinstance(model, nn.Module)
     assert isinstance(model, ShallowCNN)
 
 
 def test__get_model_deep_cnn(setup_args):
-    parser = get_parser_with_args()
-    setup_args['--model'] = 'deep_cnn'
-    args = sum([list(arg) for arg in setup_args.items()], [])
-    opt = parser.parse_args(args)
-
-    model = get_model(opt)
+    setup_args.model = 'deep_cnn'
+    model = get_model(setup_args)
 
     assert isinstance(model, nn.Module)
     assert isinstance(model, DeepCNN)
 
 
 def test__get_model_shallow_rnn(setup_args):
-    parser = get_parser_with_args()
-    setup_args['--model'] = 'shallow_rnn'
-    setup_args['--hidden_size'] = '64'
-    args = sum([list(arg) for arg in setup_args.items()], [])
-    opt = parser.parse_args(args)
-
-    model = get_model(opt)
+    setup_args.model = 'shallow_rnn'
+    model = get_model(setup_args)
 
     assert isinstance(model, nn.Module)
     assert isinstance(model, ShallowRNN)
 
 
 def test__get_model_deep_rnn(setup_args):
-    parser = get_parser_with_args()
-    setup_args['--model'] = 'deep_rnn'
-    setup_args['--hidden_size'] = '64'
-    args = sum([list(arg) for arg in setup_args.items()], [])
-    opt = parser.parse_args(args)
-
-    model = get_model(opt)
+    setup_args.model = 'deep_rnn'
+    model = get_model(setup_args)
 
     assert isinstance(model, nn.Module)
     assert isinstance(model, DeepRNN)
 
 
 def test__get_model_shallow_lstm(setup_args):
-    parser = get_parser_with_args()
-    setup_args['--model'] = 'shallow_lstm'
-    setup_args['--hidden_size'] = '64'
-    args = sum([list(arg) for arg in setup_args.items()], [])
-    opt = parser.parse_args(args)
-
-    model = get_model(opt)
+    setup_args.model = 'shallow_lstm'
+    model = get_model(setup_args)
 
     assert isinstance(model, nn.Module)
     assert isinstance(model, ShallowLSTM)
 
 
 def test__get_model_deep_lstm(setup_args):
-    parser = get_parser_with_args()
-    setup_args['--model'] = 'deep_lstm'
-    setup_args['--hidden_size'] = '64'
-    args = sum([list(arg) for arg in setup_args.items()], [])
-    opt = parser.parse_args(args)
-
-    model = get_model(opt)
+    setup_args.model = 'deep_lstm'
+    model = get_model(setup_args)
 
     assert isinstance(model, nn.Module)
     assert isinstance(model, DeepLSTM)
 
 def test__get_model_shallow_encdec(setup_args):
-    parser = get_parser_with_args()
-    setup_args['--model'] = 'shallow_encdec'
-    args = sum([list(arg) for arg in setup_args.items()], [])
-    opt = parser.parse_args(args)
-
-    model = get_model(opt)
+    setup_args.model = 'shallow_encdec'
+    model = get_model(setup_args)
 
     assert isinstance(model, nn.Module)
     assert isinstance(model, ShallowEncDec)
 
 
 def test__get_model_deep_encdec(setup_args):
-    parser = get_parser_with_args()
-    setup_args['--model'] = 'deep_encdec'
-    args = sum([list(arg) for arg in setup_args.items()], [])
-    opt = parser.parse_args(args)
-
-    model = get_model(opt)
+    setup_args.model = 'deep_encdec'
+    model = get_model(setup_args)
 
     assert isinstance(model, nn.Module)
     assert isinstance(model, DeepEncDec)
 
 
 def test__get_model_encdec_skip(setup_args):
-    parser = get_parser_with_args()
-    setup_args['--model'] = 'encdec_skip'
-    args = sum([list(arg) for arg in setup_args.items()], [])
-    opt = parser.parse_args(args)
-
-    model = get_model(opt)
+    setup_args.model = 'encdec_skip'
+    model = get_model(setup_args)
 
     assert isinstance(model, nn.Module)
     assert isinstance(model, EncDecSkip)
 
 
 def test__get_model_encdec_rnn_skip(setup_args):
-    parser = get_parser_with_args()
-    setup_args['--model'] = 'encdec_rnn_skip'
-    args = sum([list(arg) for arg in setup_args.items()], [])
-    opt = parser.parse_args(args)
-
-    model = get_model(opt)
+    setup_args.model = 'encdec_rnn_skip'
+    model = get_model(setup_args)
 
     assert isinstance(model, nn.Module)
     assert isinstance(model, EncDecRNNSkip)
 
 
 def test__get_model_encdec_birnn_skip(setup_args):
-    parser = get_parser_with_args()
-    setup_args['--model'] = 'encdec_birnn_skip'
-    args = sum([list(arg) for arg in setup_args.items()], [])
-    opt = parser.parse_args(args)
-
-    model = get_model(opt)
+    setup_args.model = 'encdec_birnn_skip'
+    model = get_model(setup_args)
 
     assert isinstance(model, nn.Module)
     assert isinstance(model, EncDecBiRNNSkip)
 
 
 def test__get_model_encdec_diag_birnn_skip(setup_args):
-    parser = get_parser_with_args()
-    setup_args['--model'] = 'encdec_diag_birnn_skip'
-    args = sum([list(arg) for arg in setup_args.items()], [])
-    opt = parser.parse_args(args)
-
-    model = get_model(opt)
+    setup_args.model = 'encdec_diag_birnn_skip'
+    model = get_model(setup_args)
 
     assert isinstance(model, nn.Module)
     assert isinstance(model, EncDecDiagBiRNNSkip)
 
 
 def test__get_loader_fnn(setup_args):
-    parser = get_parser_with_args()
-    setup_args['--model'] = 'shallow_fnn'
-    args = sum([list(arg) for arg in setup_args.items()], [])
-    opt = parser.parse_args(args)
+    setup_args.model = 'shallow_fnn'
+    train_loader, val_loader = get_dataloaders(setup_args)
 
-    loader = _get_loader(opt.train_sim_dir, opt, True)
+    assert isinstance(train_loader, torch.utils.data.DataLoader)
+    assert isinstance(train_loader.dataset, FlatInFlatOut)
 
-    assert isinstance(loader, torch.utils.data.DataLoader)
-    assert isinstance(loader.dataset, FlatInFlatOut)
+    assert isinstance(val_loader, torch.utils.data.DataLoader)
+    assert isinstance(val_loader.dataset, FlatInFlatOut)
 
 
 def test__get_loader_cnn(setup_args):
-    parser = get_parser_with_args()
-    setup_args['--model'] = 'shallow_cnn'
-    args = sum([list(arg) for arg in setup_args.items()], [])
-    opt = parser.parse_args(args)
+    setup_args.model = 'shallow_cnn'
+    train_loader, val_loader = get_dataloaders(setup_args)
 
-    loader = _get_loader(opt.train_sim_dir, opt, True)
+    assert isinstance(train_loader, torch.utils.data.DataLoader)
+    assert isinstance(train_loader.dataset, SeqInFlatOut)
 
-    assert isinstance(loader, torch.utils.data.DataLoader)
-    assert isinstance(loader.dataset, SeqInFlatOut)
+    assert isinstance(val_loader, torch.utils.data.DataLoader)
+    assert isinstance(val_loader.dataset, SeqInFlatOut)
 
 
 def test__get_loader_encdec(setup_args):
-    parser = get_parser_with_args()
-    setup_args['--model'] = 'shallow_encdec'
-    args = sum([list(arg) for arg in setup_args.items()], [])
-    opt = parser.parse_args(args)
+    setup_args.model = 'shallow_encdec'
+    train_loader, val_loader = get_dataloaders(setup_args)
 
-    loader = _get_loader(opt.train_sim_dir, opt, True)
+    assert isinstance(train_loader, torch.utils.data.DataLoader)
+    assert isinstance(train_loader.dataset, SeqInSeqOut)
 
-    assert isinstance(loader, torch.utils.data.DataLoader)
-    assert isinstance(loader.dataset, SeqInSeqOut)
-
-
-def test__get_train_loaders(setup_args):
-    parser = get_parser_with_args()
-    setup_args['--model'] = 'shallow_encdec'
-    args = sum([list(arg) for arg in setup_args.items()], [])
-    opt = parser.parse_args(args)
-
-    train_sim_loader, val_sim_loader = get_train_loaders(opt)
-
-    assert isinstance(train_sim_loader, torch.utils.data.DataLoader)
-    assert isinstance(val_sim_loader, torch.utils.data.DataLoader)
-
-
-def test__get_finetune_loaders(setup_args):
-    parser = get_parser_with_args()
-    setup_args['--model'] = 'shallow_encdec'
-    args = sum([list(arg) for arg in setup_args.items()], [])
-    opt = parser.parse_args(args)
-
-    train_raw_loader, val_sim_loader = get_finetune_loaders(opt)
-
-    assert isinstance(train_raw_loader, torch.utils.data.DataLoader)
-    assert isinstance(val_sim_loader, torch.utils.data.DataLoader)
-
-
-def test__get_test_loaders(setup_args):
-    parser = get_parser_with_args()
-    setup_args['--model'] = 'shallow_encdec'
-    args = sum([list(arg) for arg in setup_args.items()], [])
-    opt = parser.parse_args(args)
-
-    test_raw_loader = get_test_loaders(opt)
-
-    assert isinstance(test_raw_loader, torch.utils.data.DataLoader)
+    assert isinstance(val_loader, torch.utils.data.DataLoader)
+    assert isinstance(val_loader.dataset, SeqInSeqOut)

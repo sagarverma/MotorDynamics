@@ -3,7 +3,7 @@ import pytest
 import torch
 import torch.nn as nn
 
-from motor_dynamics.models.lstm import ShallowLSTM, DeepLSTM
+from motornn.models.lstm import ShallowLSTM, DeepLSTM
 
 
 class Test_ShallowLSTM(object):

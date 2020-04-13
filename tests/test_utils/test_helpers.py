@@ -7,9 +7,10 @@ import torch.nn as nn
 
 from motornn.utils.parser import get_parser_with_args
 from motornn.utils.helpers import (get_file_names, initialize_metrics,
-                                          get_mean_metrics, set_metrics,
-                                          get_model, _get_prelaoder_class,
-                                          get_dataloaders)
+                                  get_mean_metrics, transform_tensor,
+                                  compute_metrics,
+                                  get_model, _get_prelaoder_class,
+                                  get_dataloaders)
 
 from motornn.models.cnn import ShallowCNN, DeepCNN
 from motornn.models.ffnn import ShallowFNN, DeepFNN
@@ -57,13 +58,30 @@ def test__get_mean_metrics():
     assert mean_metrics['loss'] == 1.5
     assert mean_metrics['smape'] == 75
 
+def test__transform_tensor():
 
-def test__set_metrics():
+    tensor = [0, 1, 2]
+    tensor = transform_tensor(tensor)
+    assert isinstance(tensor, np.ndarray)
+
+    tensor = np.asarray([0, 1, 2])
+    tensor = transform_tensor(tensor)
+    assert isinstance(tensor, np.ndarray)
+
+    tensor = torch.tensor([0, 1, 2])
+    tensor = transform_tensor(tensor)
+    assert isinstance(tensor, np.ndarray)
+
+    tensor = torch.tensor([0, 1, 2]).cuda()
+    tensor = transform_tensor(tensor)
+    assert isinstance(tensor, np.ndarray)
+
+def test__compute_metrics():
     metrics = {'loss':[1, 2], 'smape':[100, 50], 'r2': [1, 2],
                 'rmsle': [3, 4], 'rmse': [5, 6], 'mae': [7, 8]}
-    metrics = set_metrics(metrics, loss=torch.tensor(3), smape=0,
-                            r2=1, rmsle=2,
-                            rmse=3, mae=4)
+    predicted = [0, 1, 0]
+    target = [0, 0, 0]
+    metrics = compute_metrics(metrics, torch.tensor(3), predicted, target)
 
     assert isinstance(metrics, dict)
     assert isinstance(metrics['loss'], list)
@@ -71,11 +89,11 @@ def test__set_metrics():
     assert metrics['loss']
     assert metrics['smape']
     assert metrics['loss'] == [1, 2, 3]
-    assert metrics['smape'] == [100, 50, 0]
-    assert metrics['r2'] == [1, 2, 1]
-    assert metrics['rmsle'] == [3, 4, 2]
-    assert metrics['rmse'] == [5, 6, 3]
-    assert metrics['mae'] == [7, 8, 4]
+    assert metrics['smape'] == [100, 50, 66.66600000666661]
+    assert metrics['r2'] == [1, 2, 0.0]
+    assert metrics['rmsle'] == [3, 4, 0.40018871128431455]
+    assert metrics['rmse'] == [5, 6, 0.5773502691896257]
+    assert metrics['mae'] == [7, 8, 0.3333333333333333]
 
 
 def test__get_model_shallow_fnn(setup_args):

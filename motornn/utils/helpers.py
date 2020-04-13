@@ -18,6 +18,7 @@ from motornn.models.encdec import (ShallowEncDec, DeepEncDec, EncDecSkip,
                           EncDecRNNSkip, EncDecBiRNNSkip,
                           EncDecDiagBiRNNSkip)
 
+from motormetrics.ml import *
 
 def get_file_names(opt):
     """Get file fully qualified names to write weights and logs.
@@ -109,8 +110,21 @@ def get_mean_metrics(metrics_dict):
     """
     return {k: np.mean(v) for k, v in metrics_dict.items()}
 
+def transform_tensor(tensor):
+    r"""
+    Transform all tensor types to numpy ndarray.
+    """
+    if isinstance(tensor, torch.Tensor):
+        if tensor.is_cuda:
+            return tensor.data.cpu().numpy()
+        else:
+            return tensor.data.numpy()
+    if isinstance(tensor, np.ndarray):
+        return tensor
+    if isinstance(tensor, list):
+        return np.asarray(tensor)
 
-def set_metrics(metrics_dict, loss, smape, r2, rmsle, rmse, mae):
+def compute_metrics(metrics_dict, loss, predicted, target):
     """Updates metrics dictionary with batch metrics.
 
     Args:
@@ -130,11 +144,15 @@ def set_metrics(metrics_dict, loss, smape, r2, rmsle, rmse, mae):
 
     """
     metrics_dict['loss'].append(loss.item())
-    metrics_dict['smape'].append(smape)
-    metrics_dict['r2'].append(r2)
-    metrics_dict['rmsle'].append(rmsle)
-    metrics_dict['rmse'].append(rmse)
-    metrics_dict['mae'].append(mae)
+
+    predicted = transform_tensor(predicted)
+    target = transform_tensor(target)
+
+    metrics_dict['smape'].append(smape(target, predicted))
+    metrics_dict['r2'].append(r2(target, predicted))
+    metrics_dict['rmsle'].append(rmsle(target, predicted))
+    metrics_dict['rmse'].append(rmse(target, predicted))
+    metrics_dict['mae'].append(mae(target, predicted))
 
     return metrics_dict
 

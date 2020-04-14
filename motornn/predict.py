@@ -5,7 +5,7 @@ import torch
 import torch.nn as nn
 
 from motornn.utils.dataloader import normalize, denormalize
-from motornn.models.fnn import ShallowFNN
+from motornn.models.ffnn import ShallowFNN
 from motornn.models.encdec import EncDecDiagBiRNNSkip
 from motormetrics.ml import *
 
@@ -22,56 +22,68 @@ def predict(model, data, window):
 
     inp_data = []
     for inp_quant in ['voltage_d','voltage_q','current_d','current_q']:
-        window = full_load[sample[0]][inp_quant][sample[1]: sample[2]]
+        quantity = data[inp_quant]
         minn = metadata['min'][inp_quant]
         maxx = metadata['max'][inp_quant]
-        inp_data.append(normalize(window, minn, maxx))
+        inp_data.append(normalize(quantity, minn, maxx))
 
     inp_data = np.asarray(inp_data)
     if inp_trf_typ == 'flat':
         inp_data = inp_data.flatten()
 
     out_data = []
-    for out_quant in ['speed', 'voltage']:
-        if out_trf_typ == 'seq':
-            window = full_load[sample[0]][out_quant][sample[1]: sample[2]]
-        if out_trf_typ == 'flat':
-            window = full_load[sample[0]][out_quant][sample[3]]
+    for out_quant in ['speed', 'torque']:
+        quantity = data[out_quant]
         minn = metadata['min'][out_quant]
         maxx = metadata['max'][out_quant]
-        out_data.append(normalize(window, minn, maxx))
+        out_data.append(normalize(quantity, minn, maxx))
 
-    batch_inp = []
-    batch_out = []
+    out_data = np.asarray(out_data)
+
+    samples = []
     for i in range(inp_data.shape[1]):
-        if i + window < inp_data.shape[1]:
-            batch_inp.append(inp_data[:, i:i+window])
-            batch_out.append(out_data[:, i+i+window])
+        if (i + window) < inp_data.shape[1]:
+            samples.append(inp_data[:, i:i+window])
 
-    batch_out = np.asarray(batch_out)
-    batch_inp = torch.tensor(np.asarray(batch_inp)).float().cuda()
+    preds = []
+    for i in range(0, len(samples), 2000):
+        batch_inp = torch.tensor(np.asarray(samples[i:i+2000])).float().cuda(0)
+        out = model(batch_inp)
+        preds.append(out.data.cpu().numpy())
 
-    preds = model(batch_inp)
-    preds = preds.data.cpu().numpy()
+    preds = np.concatenate(preds, axis=0)
 
-    ml_metrics = {}
-    ml_metrics['smape'] = smape(batch_out, preds)
-    ml_metrics['r2'] = r2(batch_out, preds)
-    ml_metrics['rmse'] = rmse(batch_out, preds)
-    ml_metrics['mae'] = mae(batch_out, preds)
+    if out_trf_typ == 'seq':
+        speed_preds = preds[:, 0, window//2].flatten()
+        torque_preds = preds[:, 1, window//2].flatten()
+    if out_trf_typ == 'flat':
+        speed_preds = preds[:, 0].flatten()
+        torque_preds = preds[:, 1].flatten()
 
-    speed = []
-    torque = []
+    speed_true = out_data[0, :].flatten()
+    torque_true = out_data[1, :].flatten()
 
-    for pred in preds:
-        if out_trf_typ == 'seq':
-            speed.append(pred[0, window//2])
-            torque.append(pred[1, window//2])
-        if out_trf_typ == 'flat':
-            speed.append(pred[0])
-            torque.append(pred[1])
+    speed_preds = np.concatenate((speed_true[:100], speed_preds), axis=0)
+    torque_preds = np.concatenate((torque_true[:100], torque_preds), axis=0)
 
-    speed = np.hstack(batch_out[0, :window//2], speed)
-    torque = np.hstack(batch_out[1, :window//2], torque)
+    speed_ml_metrics = {}
+    speed_ml_metrics['smape'] = smape(speed_true, speed_preds)
+    speed_ml_metrics['r2'] = r2(speed_true, speed_preds)
+    speed_ml_metrics['rmse'] = rmse(speed_true, speed_preds)
+    speed_ml_metrics['mae'] = mae(speed_true, speed_preds)
 
-    return speed, torque, ml_metrics
+    torque_ml_metrics = {}
+    torque_ml_metrics['smape'] = smape(torque_true, torque_preds)
+    torque_ml_metrics['r2'] = r2(torque_true, torque_preds)
+    torque_ml_metrics['rmse'] = rmse(torque_true, torque_preds)
+    torque_ml_metrics['mae'] = mae(torque_true, torque_preds)
+
+    minn = metadata['min']['speed']
+    maxx = metadata['max']['speed']
+    speed_denormed = denormalize(speed_preds, minn, maxx)
+
+    minn = metadata['min']['torque']
+    maxx = metadata['max']['torque']
+    torque_denormed = denormalize(torque_preds, minn, maxx)
+
+    return speed_denormed, torque_denormed, speed_ml_metrics, torque_ml_metrics

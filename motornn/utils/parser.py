@@ -53,6 +53,10 @@ def get_parser_with_args():
                         encdec_rnn_skip,
                         encdec_birnn_skip,
                         encdec_diag_birnn_skip''')
+    parser.add_argument('--finetune_from',
+                        type=str,
+                        required=False,
+                        help='finetune weight file')
 
     parser.add_argument('--loss',
                        type=str,

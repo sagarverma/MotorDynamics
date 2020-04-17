@@ -2,6 +2,7 @@ import os
 import pytest
 from urllib.request import urlretrieve
 import tarfile
+import pickle
 
 from motornn.utils.parser import get_parser_with_args
 
@@ -18,11 +19,24 @@ def setup_data_dir(tmpdir_factory):
 
     return os.path.join(tmpdir_factory.getbasetemp(), "Data_09042020_sm")
 
-
 @pytest.fixture(scope="session")
 def setup_weights_dir(tmpdir_factory):
     fn = tmpdir_factory.mktemp("weights", numbered=False)
     return fn.strpath
+
+
+@pytest.fixture(scope="session")
+def setup_infer_weight_dir(setup_weights_dir):
+    data_url = 'http://sagarverma.github.io/others/Weights_Data_09042020_sm.tar.xz'
+    fname, headers = urlretrieve(data_url,
+                                os.path.join(setup_weights_dir,
+                                "Weights_Data_09042020_sm.tar.xz"))
+
+    tar = tarfile.open(fname)
+    tar.extractall(path=setup_weights_dir)
+    tar.close()
+
+    return os.path.join(setup_weights_dir, "Data_09042020_sm")
 
 
 @pytest.fixture(scope="session")
@@ -53,3 +67,11 @@ def setup_args(setup_data_dir, setup_weights_dir, setup_logs_dir):
     parser = get_parser_with_args()
     args = parser.parse_args(default)
     return args
+
+@pytest.fixture(scope="session")
+def setup_test_data(setup_data_dir):
+    fin = open(os.path.join(setup_data_dir, 'val', '00001.pkl'), 'rb')
+    data = pickle.load(fin)
+    fin.close()
+
+    return data

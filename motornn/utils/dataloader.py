@@ -35,9 +35,10 @@ def normalize(data, minn, maxx):
         >>>
 
     """
-    a = 0
-    b = 1
-    t = a + (data - minn) * ((b - a) / (maxx - minn))
+    # a = 0
+    # b = 1
+    # t = a + (data - minn) * ((b - a) / (maxx - minn))
+    t = data / maxx
     return t.astype(np.float32)
 
 
@@ -59,7 +60,8 @@ def denormalize(data, minn, maxx):
         >>>
 
     """
-    t = minn + (data - (0)) * ((maxx - minn) / (1 - (0)))
+    # t = minn + (data - (0)) * ((maxx - minn) / (1 - (0)))
+    t = data * maxx
     return t.astype(np.float32)
 
 

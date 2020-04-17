@@ -256,7 +256,7 @@ def get_arg_parse():
     parser.add_argument('--model_file', required=True, type=str)
     parser.add_argument('--benchmark_file', type=str, required=True, help='benchmark file')
     parser.add_argument('--window', type=int, required=True, help='input window')
-
+    parser.add_argument('--save_dir', type=str, required=True, help='directory where results are saved')
     args = parser.parse_args()
     return args
 
@@ -276,6 +276,9 @@ print ('Following Error', ee_metrics['following_errs'][0], ee_metrics['model_fol
 print ('Steady State Error', ee_metrics['sse_errs'][0], ee_metrics['model_sse_errs'][0])
 print ('Max Acc Torque', ee_metrics['max_trq_accs'][0], ee_metrics['model_max_trq_accs'][0])
 
-fout = open('test.pkl','wb')
+if not os.path.exists(args.save_dir):
+    os.makedirs(args.save_dir)
+
+fout = open(os.path.join(args.save_dir, args.model_file.split('/')[-1].replace('.pt','.pkl')),'wb')
 pickle.dump([speed_denormed, torque_denormed], fout)
 fout.close()

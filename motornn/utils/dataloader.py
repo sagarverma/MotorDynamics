@@ -37,8 +37,6 @@ def normalize(data, minn, maxx):
     """
     a = 0
     b = 1
-    if minn > data.min() or maxx < data.max():
-        print (quantity, data.min(), data.max())
     t = a + (data - minn) * ((b - a) / (maxx - minn))
     return t.astype(np.float32)
 

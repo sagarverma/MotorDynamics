@@ -25,19 +25,19 @@ def get_parser_with_args():
 
     parser.add_argument('--data_dir',
                         type=str,
-                        default='../../datasets/Data_09042020',
+                        default='../../datasets/',
                         required=False,
                         help='Raw dataset directory for testing.')
 
     parser.add_argument('--weights_dir',
                         type=str,
-                        default='../../weights/Data_09042020',
+                        default='../../weights/',
                         required=False,
                         help='Directory to save model weights.')
 
     parser.add_argument('--logs_dir',
                         type=str,
-                        default='../../logs/Data_09042020',
+                        default='../../logs/',
                         required=False,
                         help='Directory to save training logs.')
 

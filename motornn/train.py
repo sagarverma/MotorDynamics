@@ -3,7 +3,7 @@ import torch.optim as optim
 
 from motornn.utils.parser import get_parser_with_args
 from motornn.utils.helpers import (get_file_names, get_dataloaders,
-                                    get_model, get_loss_function, Log)
+                                   get_model, get_loss_function, Log)
 from motornn.utils.runner import Runner
 
 parser = get_parser_with_args()
@@ -30,8 +30,8 @@ for epoch in range(args.epochs):
     train_metrics = runner.train_model()
     val_metrics = runner.eval_model()
 
-    print ('TRAIN METRICS EPOCH ', epoch, train_metrics)
-    print ('EVAL METRICS EPOCH ', epoch, val_metrics)
+    print('TRAIN METRICS EPOCH ', epoch, train_metrics)
+    print('EVAL METRICS EPOCH ', epoch, val_metrics)
 
     logger.log_train_metrics(train_metrics, epoch)
     logger.log_validation_metrics(val_metrics, epoch)

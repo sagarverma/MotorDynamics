@@ -164,7 +164,56 @@ def compute_metrics(data, model_speed, model_torque):
             'model_max_trq_acc_times': model_max_trq_acc_times}
 
 def predict(model, data, window):
-    metadata = {"min": {"voltage_d": -113.32642347073255, "voltage_q": -326.5986323710904, "current_d": -5.093863046306245, "current_q": -18.620089841080084, "torque": -225.77387560757103, "speed": -78.36573196887844, "statorPuls": -75.49294574023405, "time": 0.0, "reference_torque_interp": -119.85271837136129, "reference_speed_interp": -69.91498492993017, "reference_torque": -119.85271837136129, "reference_speed": -69.91498492993017, "torque_time": 0.0, "speed_time": 0.0}, "max": {"voltage_d": 104.2551972429801, "voltage_q": 326.5986323710904, "current_d": 8.461554137463365, "current_q": 18.160159823846662, "torque": 225.71019912125365, "speed": 77.7049747270389, "statorPuls": 75.09130896631866, "time": 109.4945, "reference_torque_interp": 119.7513513986357, "reference_speed_interp": 69.76198701954684, "reference_torque": 119.7513513986357, "reference_speed": 69.76198701954684, "torque_time": 109.49471143946505, "speed_time": 109.49471143946505}, "mean": {"voltage_d": 9.003071958162886, "voltage_q": -2.4178692534379818, "current_d": 6.308971140979901, "current_q": 0.19328783771928326, "torque": 1.5370578339811476, "speed": 0.18783987142976483, "statorPuls": 0.2299965732910069, "time": 38.94373999999999, "reference_torque_interp": -2.2920262517508387, "reference_speed_interp": 0.19234474366209212, "reference_torque": -3.000290228983823, "reference_speed": -1.5599456580091273, "torque_time": 32.79873976958612, "speed_time": 34.68157650605395}}
+    metadata = {
+  "min": {
+    "voltage_d": -300,
+    "voltage_q": -300,
+    "current_d": -30,
+    "current_q": -30,
+    "torque": -120,
+    "speed": -80,
+    "statorPuls": -80,
+    "time": 0,
+    "reference_torque_interp": -119.85271837136129,
+    "reference_speed_interp": -69.91498492993017,
+    "reference_torque": -119.85271837136129,
+    "reference_speed": -69.91498492993017,
+    "torque_time": 0,
+    "speed_time": 0
+  },
+  "max": {
+    "voltage_d": 300,
+    "voltage_q": 300,
+    "current_d": 30,
+    "current_q": 30,
+    "torque": 120,
+    "speed": 80,
+    "statorPuls": 80,
+    "time": 109.4945,
+    "reference_torque_interp": 119.7513513986357,
+    "reference_speed_interp": 69.76198701954684,
+    "reference_torque": 119.7513513986357,
+    "reference_speed": 69.76198701954684,
+    "torque_time": 109.49471143946505,
+    "speed_time": 109.49471143946505
+  },
+  "mean": {
+    "voltage_d": 9.003071958162886,
+    "voltage_q": -2.4178692534379818,
+    "current_d": 6.308971140979901,
+    "current_q": 0.19328783771928326,
+    "torque": 1.5370578339811476,
+    "speed": 0.18783987142976483,
+    "statorPuls": 0.2299965732910069,
+    "time": 38.94373999999999,
+    "reference_torque_interp": -2.2920262517508387,
+    "reference_speed_interp": 0.19234474366209212,
+    "reference_torque": -3.000290228983823,
+    "reference_speed": -1.5599456580091273,
+    "torque_time": 32.79873976958612,
+    "speed_time": 34.68157650605395
+  }
+}
 
     inp_trf_typ, out_trf_typ = get_loader_transform_types(model)
 
@@ -230,6 +279,7 @@ def predict(model, data, window):
 
     minn = metadata['min']['speed']
     maxx = metadata['max']['speed']
+    print (minn, maxx)
     speed_denormed = denormalize(speed_preds, minn, maxx)
 
     minn = metadata['min']['torque']

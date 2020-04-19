@@ -20,7 +20,7 @@ optimizer = optim.SGD(model.parameters(), lr=args.lr)
 runner = Runner(args.gpu, model, optimizer, criterion,
                 train_loader, val_loader)
 
-best_r2 = -1000
+best_smape = 1000
 
 logger.write_model(model)
 
@@ -36,8 +36,8 @@ for epoch in range(args.epochs):
     logger.log_train_metrics(train_metrics, epoch)
     logger.log_validation_metrics(val_metrics, epoch)
 
-    if val_metrics['r2'] >= best_r2:
+    if val_metrics['smape'] >= best_smape:
         torch.save(model, weight_path)
-        best_r2 = val_metrics['r2']
+        best_smape = val_metrics['smape']
 
 logger.close()

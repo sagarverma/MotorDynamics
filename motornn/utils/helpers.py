@@ -58,14 +58,14 @@ def get_file_names(opt):
     if 'cnn' in opt.model or 'encdec' in opt.model:
         fname = opt.model + suffix
 
-    if not os.path.exists(os.path.join(opt.weights_dir, opt.model)):
-        os.makedirs(os.path.join(opt.weights_dir, opt.model))
+    if not os.path.exists(os.path.join(opt.weights_dir, opt.data_dir.split('/')[-1], opt.model)):
+        os.makedirs(os.path.join(opt.weights_dir, opt.data_dir.split('/')[-1], opt.model))
 
-    if not os.path.exists(os.path.join(opt.logs_dir, opt.model)):
-        os.makedirs(os.path.join(opt.logs_dir, opt.model))
+    if not os.path.exists(os.path.join(opt.logs_dir, opt.data_dir.split('/')[-1], opt.model)):
+        os.makedirs(os.path.join(opt.logs_dir, opt.data_dir.split('/')[-1], opt.model))
 
-    weight_path = os.path.join(opt.weights_dir, opt.model, fname + '.pt')
-    log_path = os.path.join(opt.logs_dir, opt.model, fname + '.log')
+    weight_path = os.path.join(opt.weights_dir, opt.data_dir.split('/')[-1], opt.model, fname + '.pt')
+    log_path = os.path.join(opt.logs_dir, opt.data_dir.split('/')[-1], opt.model, fname + '.log')
 
     return weight_path, log_path
 

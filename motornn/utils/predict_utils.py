@@ -10,11 +10,13 @@ from motornn.models.encdec import EncDecDiagBiRNNSkip
 from motormetrics.ml import *
 from motormetrics.ee import *
 
+
 def get_loader_transform_types(model):
     if isinstance(model, ShallowFNN):
         return 'flat', 'flat'
     if isinstance(model, EncDecDiagBiRNNSkip):
         return 'seq', 'seq'
+
 
 def compute_metrics(data, model_speed, model_torque):
     ref_speed = data['reference_speed']
@@ -160,69 +162,33 @@ def compute_metrics(data, model_speed, model_torque):
             'model_max_trq_accs': model_max_trq_accs,
             'model_max_trq_acc_times': model_max_trq_acc_times}
 
-def predict(model, data, window):
-    metadata = {
-  "min": {
-    "voltage_d": -300,
-    "voltage_q": -300,
-    "current_d": -30,
-    "current_q": -30,
-    "torque": -120,
-    "speed": -80,
-    "statorPuls": -80,
-    "time": 0,
-    "reference_torque_interp": -119.85271837136129,
-    "reference_speed_interp": -69.91498492993017,
-    "reference_torque": -119.85271837136129,
-    "reference_speed": -69.91498492993017,
-    "torque_time": 0,
-    "speed_time": 0
-  },
-  "max": {
-    "voltage_d": 300,
-    "voltage_q": 300,
-    "current_d": 30,
-    "current_q": 30,
-    "torque": 120,
-    "speed": 80,
-    "statorPuls": 80,
-    "time": 109.4945,
-    "reference_torque_interp": 119.7513513986357,
-    "reference_speed_interp": 69.76198701954684,
-    "reference_torque": 119.7513513986357,
-    "reference_speed": 69.76198701954684,
-    "torque_time": 109.49471143946505,
-    "speed_time": 109.49471143946505
-  },
-  "mean": {
-    "voltage_d": 9.003071958162886,
-    "voltage_q": -2.4178692534379818,
-    "current_d": 6.308971140979901,
-    "current_q": 0.19328783771928326,
-    "torque": 1.5370578339811476,
-    "speed": 0.18783987142976483,
-    "statorPuls": 0.2299965732910069,
-    "time": 38.94373999999999,
-    "reference_torque_interp": -2.2920262517508387,
-    "reference_speed_interp": 0.19234474366209212,
-    "reference_torque": -3.000290228983823,
-    "reference_speed": -1.5599456580091273,
-    "torque_time": 32.79873976958612,
-    "speed_time": 34.68157650605395
-  }
-}
 
-    inp_trf_typ, out_trf_typ = get_loader_transform_types(model)
+def predict(speed_model, torque_model, data, window):
+    metadata = {"min": {"voltage_d": -300,
+                        "voltage_q": -300,
+                        "current_d": -30,
+                        "current_q": -30,
+                        "torque": -120,
+                        "speed": -80,
+                        "statorPuls": -80},
+                "max": {"voltage_d": 300,
+                        "voltage_q": 300,
+                        "current_d": 30,
+                        "current_q": 30,
+                        "torque": 120,
+                        "speed": 80,
+                        "statorPuls": 80}}
+
+    inp_trf_typ, out_trf_typ = get_loader_transform_types(speed_model)
 
     inp_data = []
-    for inp_quant in ['voltage_d','voltage_q','current_d','current_q']:
+    for inp_quant in ['voltage_d', 'voltage_q', 'current_d', 'current_q']:
         quantity = data[inp_quant]
         minn = metadata['min'][inp_quant]
         maxx = metadata['max'][inp_quant]
         inp_data.append(normalize(quantity, minn, maxx))
 
     inp_data = np.asarray(inp_data)
-
 
     out_data = []
     for out_quant in ['speed', 'torque']:
@@ -241,20 +207,24 @@ def predict(model, data, window):
                 inp_data_mod = inp_data_mod.flatten()
             samples.append(inp_data_mod)
 
-    preds = []
+    speed_preds = []
+    torque_preds = []
     for i in range(0, len(samples), 2000):
         batch_inp = torch.tensor(np.asarray(samples[i:i+2000])).float().cuda(0)
-        out = model(batch_inp)
-        preds.append(out.data.cpu().numpy())
+        speed_out = speed_model(batch_inp)
+        torque_out = torque_model(batch_inp)
+        speed_preds.append(speed_out.data.cpu().numpy())
+        torque_preds.append(torque_out.data.cpu().numpy())
 
-    preds = np.concatenate(preds, axis=0)
+    speed_preds = np.concatenate(speed_preds, axis=0)
+    torque_preds = np.concatenate(torque_preds, axis=0)
 
     if out_trf_typ == 'seq':
-        speed_preds = preds[:, 0, window//2].flatten()
-        torque_preds = preds[:, 1, window//2].flatten()
+        speed_preds = speed_preds[:, 0, window//2].flatten()
+        torque_preds = torque_preds[:, 0, window//2].flatten()
     if out_trf_typ == 'flat':
-        speed_preds = preds[:, 0].flatten()
-        torque_preds = preds[:, 1].flatten()
+        speed_preds = speed_preds[:, 0].flatten()
+        torque_preds = torque_preds[:, 0].flatten()
 
     speed_true = out_data[0, :].flatten()
     torque_true = out_data[1, :].flatten()
@@ -278,7 +248,6 @@ def predict(model, data, window):
 
     minn = metadata['min']['speed']
     maxx = metadata['max']['speed']
-    print (minn, maxx)
     speed_denormed = denormalize(speed_preds, minn, maxx)
 
     minn = metadata['min']['torque']
@@ -287,6 +256,7 @@ def predict(model, data, window):
 
     return speed_denormed, torque_denormed, speed_ml_metrics, torque_ml_metrics
 
+
 def load_data(opt):
     fin = open(opt.benchmark_file, 'rb')
     data = pickle.load(fin)
@@ -294,8 +264,12 @@ def load_data(opt):
 
     return data
 
-def load_model(opt):
-    model = torch.load(opt.model_file).cuda(0)
-    model = model.eval()
 
-    return model
+def load_model(opt):
+    speed_model = torch.load(opt.speed_model_file).cuda(0)
+    speed_model = speed_model.eval()
+
+    torque_model = torch.load(opt.torque_model_file).cuda(0)
+    torque_model = torque_model.eval()
+
+    return speed_model, torque_model

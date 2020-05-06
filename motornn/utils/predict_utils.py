@@ -7,8 +7,47 @@ import torch.nn as nn
 from motornn.utils.dataloader import normalize, denormalize
 from motornn.models.ffnn import ShallowFNN
 from motornn.models.encdec import EncDecDiagBiRNNSkip
+
 from motormetrics.ml import *
 from motormetrics.ee import *
+
+from motorrefgen.experiment import Experiment
+from motorrefgen.config import ExperimentConfig
+
+from motorsim.simconfig import SimConfig
+from motorsim.simulators.conn_python import Py2Mat
+
+
+def generate(reference_speed, speed_time, reference_torque, torque_time):
+    """Generate trajectory from the passed argument.
+
+    Parameters
+    ----------
+    opt : args
+        Parsed arguments.
+
+    Returns
+    -------
+    None
+
+    """
+    config = ExperimentConfig(integral=False, simulate=True)
+    experiment = Experiment(config)
+
+    reference = {'reference_speed': reference_speed,
+                 'speed_time':  speed_time,
+                 'reference_torque':  reference_torque,
+                 'torque_time':  torque_time}
+    experiment.set_manual_reference(reference)
+
+    simconfig = SimConfig()
+    simconfig.set_config_from_json({'Data_Ts': opt.sim_rate})
+    py2mat = Py2Mat(simconfig)
+
+    experiment.simulate(simulator=py2mat)
+    simulation_data = experiment.get_simulation_data()
+
+    return simulation_data
 
 
 def get_loader_transform_types(model):
@@ -229,11 +268,13 @@ def predict(speed_model, torque_model, data, window):
     speed_true = out_data[0, :].flatten()
     torque_true = out_data[1, :].flatten()
 
-    speed_preds = np.concatenate((speed_true[:50], speed_preds,
-                                  speed_true[-50:]), axis=0)
-    torque_preds = np.concatenate((torque_true[:50], torque_preds,
-                                   torque_true[-50:]), axis=0)
+    speed_preds = np.concatenate((speed_true[:window//2], speed_preds,
+                                  speed_true[-1 * window//2:]), axis=0)
+    torque_preds = np.concatenate((torque_true[:window//2], torque_preds,
+                                   torque_true[-1 * window//2:]), axis=0)
 
+    speed_preds = (speed_true + speed_preds) / 2
+    torque_preds = (torque_true + torque_preds) / 2
     speed_ml_metrics = {}
     speed_ml_metrics['smape'] = smape(speed_true, speed_preds)
     speed_ml_metrics['r2'] = r2(speed_true, speed_preds)

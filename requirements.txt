@@ -1,22 +1,11 @@
-attrs==19.3.0
-certifi==2020.4.5.1
-importlib-metadata==1.6.0
-joblib==0.14.1
-more-itertools==8.2.0
--e git+https://github.com/sagarverma/metrics.git@47ffe2a80d41302d92cb5597c11e81390122ce4a#egg=motormetrics
--e git+https://github.com/sagarverma/dynamical_system_modeling@544c5a8874b3205c2572f795595a6829e1356c8c#egg=motornn
+matplotlib==3.2.1
+-e git+https://github.com/sagarverma/metrics.git@04af336f5064c62e829c2cb12e8ea6c286c3adb9#egg=motormetrics
+-e git+https://github.com/sagarverma/dynamical_system_modeling@d44906d6154f2b8581146330f1d5ffdf868a8295#egg=motornn
+-e git+https://github.com/sagarverma/refgen.git@540b5baae1460769241af43a598b6be189789a82#egg=motorrefgen
+-e git+https://github.com/sagarverma/matsim.git@fb1e9ad874d363e404c40a88ce3ca01e4d7cac75#egg=motorsim
 numpy==1.18.1
-olefile==0.46
-packaging==20.1
 Pillow==7.1.1
-pluggy==0.13.1
-py==1.8.1
-pyparsing==2.4.7
-pytest==5.4.1
 scikit-learn==0.22.2.post1
 scipy==1.4.1
-six==1.14.0
 torch==1.4.0
 torchvision==0.5.0
-wcwidth==0.1.9
-zipp==3.1.0

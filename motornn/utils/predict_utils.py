@@ -18,7 +18,9 @@ from motorsim.simconfig import SimConfig
 from motorsim.simulators.conn_python import Py2Mat
 
 
-def generate(reference_speed, speed_time, reference_torque, torque_time):
+def generate(reference_speed, speed_time,
+             reference_torque, torque_time,
+             sim_rate):
     """Generate trajectory from the passed argument.
 
     Parameters
@@ -41,7 +43,7 @@ def generate(reference_speed, speed_time, reference_torque, torque_time):
     experiment.set_manual_reference(reference)
 
     simconfig = SimConfig()
-    simconfig.set_config_from_json({'Data_Ts': opt.sim_rate})
+    simconfig.set_config_from_json({'Data_Ts': sim_rate})
     py2mat = Py2Mat(simconfig)
 
     experiment.simulate(simulator=py2mat)

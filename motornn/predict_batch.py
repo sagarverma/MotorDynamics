@@ -26,7 +26,7 @@ speed_model, torque_model = load_model(args)
 
 ramp_overshoot = []
 
-for ramp in [0.01, 0.02, 0.05,
+for ramp in [0.005, 0.01, 0.02, 0.05,
              0.1, 0.2, 0.5, 1.0, 1.1,
              1.2, 1.5, 2, 2.5]:
     reference_speed = [0, 0, 50, 50]

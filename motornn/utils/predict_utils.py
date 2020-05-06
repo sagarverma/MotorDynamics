@@ -250,8 +250,8 @@ def predict(speed_model, torque_model, data, window):
 
     speed_preds = []
     torque_preds = []
-    for i in range(0, len(samples), 2000):
-        batch_inp = torch.tensor(np.asarray(samples[i:i+2000])).float().cuda(0)
+    for i in range(0, len(samples), 1000):
+        batch_inp = torch.tensor(np.asarray(samples[i:i+1000])).float().cuda(0)
         speed_out = speed_model(batch_inp)
         torque_out = torque_model(batch_inp)
         speed_preds.append(speed_out.data.cpu().numpy())

@@ -44,10 +44,11 @@ print('Steady State Error', ee_metrics['sse_errs'][0],
 print('Max Acc Torque', ee_metrics['max_trq_accs'][0],
       ee_metrics['model_max_trq_accs'][0])
 
-if not os.path.exists(args.save_dir):
-    os.makedirs(args.save_dir)
+save_dir = os.path.join(args.save_dir, args.benchmark_file.split('.')[0])
+if not os.path.exists(save_dir):
+    os.makedirs(save_dir)
 
-fout = open(os.path.join(args.save_dir,
+fout = open(os.path.join(save_dir,
             args.speed_model_file.split('/')[-1].replace('.pt', '.pkl')), 'wb')
 pickle.dump([speed_denormed, torque_denormed], fout)
 fout.close()

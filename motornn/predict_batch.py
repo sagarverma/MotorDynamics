@@ -15,8 +15,8 @@ def get_arg_parse():
     parser.add_argument('--torque_model_file', required=True, type=str)
     parser.add_argument('--window', type=int,
                         required=True, help='input window')
-    parser.add_argument('--save_dir', type=str, required=True,
-                        help='directory where results are saved')
+    parser.add_argument('--save_file', type=str, required=True,
+                        help='output filepath')
     args = parser.parse_args()
     return args
 
@@ -75,6 +75,6 @@ for ramp in [0.01, 0.02, 0.05,
     # fout.close()
 
 
-fout = open(os.path.join(args.save_dir, 'ramps_overshoots.pkl'), 'wb')
+fout = open(args.save_file, 'wb')
 pickle.dump(ramp_overshoot, fout)
 fout.close()

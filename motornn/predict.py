@@ -26,23 +26,43 @@ data = load_data(args)
 speed_denormed, torque_denormed, speed_ml_metrics, torque_ml_metrics = \
         predict(speed_model, torque_model, data, args.window)
 
+print(args.benchmark_file.split('/')[-1])
 print('Speed ML Metrics', speed_ml_metrics)
 print('Torque ML Metrics', torque_ml_metrics)
-ee_metrics = compute_metrics(data, speed_denormed, torque_denormed)
+speed_ee_metrics = compute_metrics(data, speed_denormed, torque_denormed)
+torque_ee_metrics = compute_metrics(data, torque_denormed, speed_denormed)
 
-print('Quantity', 'Simulation', 'Model')
-print('2% time', ee_metrics['perc2_times'][0],
-      ee_metrics['model_perc2_times'][0])
-print('95% time', ee_metrics['perc95_times'][0],
-      ee_metrics['model_perc95_times'][0])
-print('Overshoot', ee_metrics['overshoot_errs'][0],
-      ee_metrics['model_overshoot_errs'][0])
-print('Following Error', ee_metrics['following_errs'][0],
-      ee_metrics['model_following_errs'][0])
-print('Steady State Error', ee_metrics['sse_errs'][0],
-      ee_metrics['model_sse_errs'][0])
-print('Max Acc Torque', ee_metrics['max_trq_accs'][0],
-      ee_metrics['model_max_trq_accs'][0])
+for i in range(len(speed_ee_metrics['perc2_times'])):
+    print('Speed')
+    print('Quantity', 'Simulation', 'Model')
+    print('2% time', speed_ee_metrics['perc2_times'][i],
+          speed_ee_metrics['model_perc2_times'][i])
+    print('95% time', speed_ee_metrics['perc95_times'][i],
+          speed_ee_metrics['model_perc95_times'][i])
+    print('Overshoot', speed_ee_metrics['overshoot_errs'][i],
+          speed_ee_metrics['model_overshoot_errs'][i])
+    print('Following Error', speed_ee_metrics['following_errs'][i],
+          speed_ee_metrics['model_following_errs'][i])
+    print('Steady State Error', speed_ee_metrics['sse_errs'][i],
+          speed_ee_metrics['model_sse_errs'][i])
+    print('Max Acc Torque', speed_ee_metrics['max_trq_accs'][i],
+          speed_ee_metrics['model_max_trq_accs'][i])
+
+
+    print('Torque')
+    print('Quantity', 'Simulation', 'Model')
+    print('2% time', torque_ee_metrics['perc2_times'][i],
+          torque_ee_metrics['model_perc2_times'][i])
+    print('95% time', torque_ee_metrics['perc95_times'][i],
+          torque_ee_metrics['model_perc95_times'][i])
+    print('Overshoot', torque_ee_metrics['overshoot_errs'][i],
+          torque_ee_metrics['model_overshoot_errs'][i])
+    print('Following Error', torque_ee_metrics['following_errs'][i],
+          torque_ee_metrics['model_following_errs'][i])
+    print('Steady State Error', torque_ee_metrics['sse_errs'][i],
+          torque_ee_metrics['model_sse_errs'][i])
+    print('Speed Drop', torque_ee_metrics['max_trq_accs'][i],
+          torque_ee_metrics['model_max_trq_accs'][i])
 
 save_dir = os.path.join(args.save_dir, args.benchmark_file.split('.')[0])
 if not os.path.exists(save_dir):

@@ -68,6 +68,7 @@ save_dir = os.path.join(args.save_dir, args.benchmark_file.split('/')[-1].split(
 if not os.path.exists(save_dir):
     os.makedirs(save_dir)
 
+print (save_dir)
 fout = open(os.path.join(save_dir,
             args.speed_model_file.split('/')[-1].replace('.pt', '.pkl')), 'wb')
 pickle.dump([speed_denormed, torque_denormed], fout)

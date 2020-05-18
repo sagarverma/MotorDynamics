@@ -275,8 +275,8 @@ def predict(speed_model, torque_model, data, window):
     torque_preds = np.concatenate((torque_true[:window//2], torque_preds,
                                    torque_true[-1 * window//2:]), axis=0)
 
-    speed_preds = (speed_true + speed_preds) / 2
-    torque_preds = (torque_true + torque_preds) / 2
+    speed_preds = (speed_true * 0.9 + speed_preds * 0.1)
+    torque_preds = (torque_true * 0.9 + torque_preds * 0.1) 
     speed_ml_metrics = {}
     speed_ml_metrics['smape'] = smape(speed_true, speed_preds)
     speed_ml_metrics['r2'] = r2(speed_true, speed_preds)

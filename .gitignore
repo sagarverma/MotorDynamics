@@ -9,6 +9,7 @@ slprj
 *.pytest_cache
 src/
 
-.github/*
+.github
 
+**/__pycache__
 *.pyc

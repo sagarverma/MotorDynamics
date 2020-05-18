@@ -43,7 +43,7 @@ for ramp in [0.01, 0.02, 0.05,
 
     # print('Speed ML Metrics', speed_ml_metrics)
     # print('Torque ML Metrics', torque_ml_metrics)
-    ee_metrics = compute_metrics(data, speed_denormed, torque_denormed)
+    ee_metrics = compute_metrics(data, speed_denormed, torque_denormed, 'speed')
 
     # print('Quantity', 'Simulation', 'Model')
     # print('2% time', ee_metrics['perc2_times'][0],
@@ -65,14 +65,14 @@ for ramp in [0.01, 0.02, 0.05,
     print(ramp, ee_metrics['overshoot_errs'][0],
           ee_metrics['model_overshoot_errs'][0])
 
-    if not os.path.exists(args.save_dir):
-        os.makedirs(args.save_dir)
-
-    fout = open(os.path.join(args.save_dir,
-                args.speed_model_file.split('/')[-1].replace('.pt',
-                str(ramp) + '.pkl')), 'wb')
-    pickle.dump([speed_denormed, torque_denormed], fout)
-    fout.close()
+    # if not os.path.exists(args.save_dir):
+    #     os.makedirs(args.save_dir)
+    #
+    # fout = open(os.path.join(args.save_dir,
+    #             args.speed_model_file.split('/')[-1].replace('.pt',
+    #             str(ramp) + '.pkl')), 'wb')
+    # pickle.dump([speed_denormed, torque_denormed], fout)
+    # fout.close()
 
 
 fout = open(os.path.join(args.save_dir, 'ramps_overshoots.pkl'), 'wb')

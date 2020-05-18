@@ -8,3 +8,7 @@ slprj
 *.egg-info
 *.pytest_cache
 src/
+
+.github/*
+
+*.pyc

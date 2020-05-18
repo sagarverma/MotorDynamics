@@ -64,7 +64,7 @@ for i in range(len(torque_ee_metrics['perc2_times'])):
     print('Speed Drop', torque_ee_metrics['max_trq_accs'][i],
           torque_ee_metrics['model_max_trq_accs'][i])
 
-save_dir = os.path.join(args.save_dir, args.benchmark_file.split('.')[0])
+save_dir = os.path.join(args.save_dir, args.benchmark_file.split('/')[-1].split('.')[0])
 if not os.path.exists(save_dir):
     os.makedirs(save_dir)
 

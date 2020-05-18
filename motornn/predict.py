@@ -48,7 +48,7 @@ for i in range(len(speed_ee_metrics['perc2_times'])):
     print('Max Acc Torque', speed_ee_metrics['max_trq_accs'][i],
           speed_ee_metrics['model_max_trq_accs'][i])
 
-
+for i in range(len(torque_ee_metrics['perc2_times'])):
     print('Torque')
     print('Quantity', 'Simulation', 'Model')
     print('2% time', torque_ee_metrics['perc2_times'][i],

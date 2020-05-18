@@ -59,19 +59,33 @@ def get_loader_transform_types(model):
         return 'seq', 'seq'
 
 
-def compute_metrics(data, model_speed, model_torque):
-    ref_speed = data['reference_speed']
-    ref_torque = data['reference_torque']
-    ref_speed_t = data['speed_time']
-    ref_torque_t = data['torque_time']
+def compute_metrics(data, model_speed, model_torque, quant):
+    if quant == 'speed':
+        ref_speed = data['reference_speed']
+        ref_torque = data['reference_torque']
+        ref_speed_t = data['speed_time']
+        ref_torque_t = data['torque_time']
 
-    ref_speed_interp = data['reference_speed_interp']
-    ref_torque_interp = data['reference_torque_interp']
+        ref_speed_interp = data['reference_speed_interp']
+        ref_torque_interp = data['reference_torque_interp']
 
-    sim_speed = data['speed']
-    sim_torque = data['torque']
+        sim_speed = data['speed']
+        sim_torque = data['torque']
 
-    sim_time = data['time']
+        sim_time = data['time']
+    if quant == 'torque':
+        ref_torque = data['reference_speed']
+        ref_speed = data['reference_torque']
+        ref_torque_t = data['speed_time']
+        ref_speed_t = data['torque_time']
+
+        ref_toruqe_interp = data['reference_speed_interp']
+        ref_speed_interp = data['reference_torque_interp']
+
+        sim_torque = data['speed']
+        sim_speed = data['torque']
+
+        sim_time = data['time']
 
     ramp_scopes = get_ramps_from_raw_reference(ref_speed, ref_speed_t)
 
@@ -204,6 +218,7 @@ def compute_metrics(data, model_speed, model_torque):
             'model_max_trq_acc_times': model_max_trq_acc_times}
 
 
+
 def predict(speed_model, torque_model, data, window):
     metadata = {"min": {"voltage_d": -300,
                         "voltage_q": -300,
@@ -276,7 +291,7 @@ def predict(speed_model, torque_model, data, window):
                                    torque_true[-1 * window//2:]), axis=0)
 
     speed_preds = (speed_true * 0.9 + speed_preds * 0.1)
-    torque_preds = (torque_true * 0.9 + torque_preds * 0.1) 
+    torque_preds = (torque_true * 0.9 + torque_preds * 0.1)
     speed_ml_metrics = {}
     speed_ml_metrics['smape'] = smape(speed_true, speed_preds)
     speed_ml_metrics['r2'] = r2(speed_true, speed_preds)

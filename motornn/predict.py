@@ -30,7 +30,7 @@ print(args.benchmark_file.split('/')[-1])
 print('Speed ML Metrics', speed_ml_metrics)
 print('Torque ML Metrics', torque_ml_metrics)
 speed_ee_metrics = compute_metrics(data, speed_denormed, torque_denormed, 'speed')
-torque_ee_metrics = compute_metrics(data, speed_denormed, torque_denormed, 'torque')
+torque_ee_metrics = compute_metrics(data, torque_denormed, speed_denormed, 'torque')
 
 for i in range(len(speed_ee_metrics['perc2_times'])):
     print('Speed')

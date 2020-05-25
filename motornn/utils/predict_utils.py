@@ -5,8 +5,13 @@ import torch
 import torch.nn as nn
 
 from motornn.utils.dataloader import normalize, denormalize
-from motornn.models.ffnn import ShallowFNN
-from motornn.models.encdec import EncDecDiagBiRNNSkip
+from motornn.models.ffnn import ShallowFNN, DeepFNN
+from motornn.models.cnn import ShallowCNN, DeepCNN
+from motornn.models.rnn import ShallowRNN, DeepRNN
+from motornn.models.encdec import (EncDecSkip,
+                                   EncDecRNNSkip,
+                                   EncDecBiRNNSkip,
+                                   EncDecDiagBiRNNSkip)
 
 from motormetrics.ml import *
 from motormetrics.ee import *
@@ -53,10 +58,15 @@ def generate(reference_speed, speed_time,
 
 
 def get_loader_transform_types(model):
-    if isinstance(model, ShallowFNN):
+    if isinstance(model, ShallowFNN) or isinstance(model, DeepFNN):
         return 'flat', 'flat'
-    if isinstance(model, EncDecDiagBiRNNSkip):
+    if isinstance(model, ShallowRNN) or isinstance(model, DeepRNN) or \
+       isinstance(model, EncDecSkip) or isinstance(model, EncDecRNNSkip) or \
+       isinstance(model, EncDecBiRNNSkip) or \
+       isinstance(model, EncDecDiagBiRNNSkip):
         return 'seq', 'seq'
+    if isinstance(model, ShallowCNN) or isinstance(model, DeepCNN):
+        return 'seq', 'flat'
 
 
 def compute_metrics(data, model_speed, model_torque, quant):
@@ -219,7 +229,7 @@ def compute_metrics(data, model_speed, model_torque, quant):
 
 
 
-def predict(speed_model, torque_model, data, window):
+def predict(speed_model, torque_model, data, window, alpha):
     metadata = {"min": {"voltage_d": -300,
                         "voltage_q": -300,
                         "current_d": -30,
@@ -290,27 +300,30 @@ def predict(speed_model, torque_model, data, window):
     torque_preds = np.concatenate((torque_true[:window//2], torque_preds,
                                    torque_true[-1 * window//2:]), axis=0)
 
-    speed_preds = (speed_true * 0.9 + speed_preds * 0.1)
-    torque_preds = (torque_true * 0.9 + torque_preds * 0.1)
-    speed_ml_metrics = {}
-    speed_ml_metrics['smape'] = smape(speed_true, speed_preds)
-    speed_ml_metrics['r2'] = r2(speed_true, speed_preds)
-    speed_ml_metrics['rmse'] = rmse(speed_true, speed_preds)
-    speed_ml_metrics['mae'] = mae(speed_true, speed_preds)
-
-    torque_ml_metrics = {}
-    torque_ml_metrics['smape'] = smape(torque_true, torque_preds)
-    torque_ml_metrics['r2'] = r2(torque_true, torque_preds)
-    torque_ml_metrics['rmse'] = rmse(torque_true, torque_preds)
-    torque_ml_metrics['mae'] = mae(torque_true, torque_preds)
+    speed_preds = (speed_true * alpha + speed_preds * (1-alpha))
+    torque_preds = (torque_true * alpha + torque_preds * (1-alpha))
 
     minn = metadata['min']['speed']
     maxx = metadata['max']['speed']
     speed_denormed = denormalize(speed_preds, minn, maxx)
+    speed_true = denormalize(speed_true, minn, maxx)
 
     minn = metadata['min']['torque']
     maxx = metadata['max']['torque']
     torque_denormed = denormalize(torque_preds, minn, maxx)
+    torque_true = denormalize(torque_true, minn, maxx)
+
+    speed_ml_metrics = {}
+    speed_ml_metrics['smape'] = smape(speed_true, speed_denormed)
+    speed_ml_metrics['r2'] = r2(speed_true, speed_denormed)
+    speed_ml_metrics['rmse'] = rmse(speed_true, speed_denormed)
+    speed_ml_metrics['mae'] = mae(speed_true, speed_denormed)
+
+    torque_ml_metrics = {}
+    torque_ml_metrics['smape'] = smape(torque_true, torque_denormed)
+    torque_ml_metrics['r2'] = r2(torque_true, torque_denormed)
+    torque_ml_metrics['rmse'] = rmse(torque_true, torque_denormed)
+    torque_ml_metrics['mae'] = mae(torque_true, torque_denormed)
 
     return speed_denormed, torque_denormed, speed_ml_metrics, torque_ml_metrics
 

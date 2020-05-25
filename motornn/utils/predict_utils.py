@@ -69,165 +69,24 @@ def get_loader_transform_types(model):
         return 'seq', 'flat'
 
 
-def compute_metrics(data, model_speed, model_torque, quant):
-    if quant == 'speed':
-        ref_speed = data['reference_speed']
-        ref_torque = data['reference_torque']
-        ref_speed_t = data['speed_time']
-        ref_torque_t = data['torque_time']
+class Exper():
+    def __init__(self, kwargs):
+        for k in kwargs:
+            self.__dict__[k] = kwargs[k]
 
-        ref_speed_interp = data['reference_speed_interp']
-        ref_torque_interp = data['reference_torque_interp']
+def compute_metrics(data, model_speed, model_torque):
+    sim_exp = Exper(data)
+    data['speed'] = model_speed
+    data['torque'] = model_torque
+    model_exp = Exper(data)
 
-        sim_speed = data['speed']
-        sim_torque = data['torque']
+    torque_metrics = compute_torque_metrics(sim_exp)
+    model_torque_metrics = compute_torque_metrics(model_exp)
 
-        sim_time = data['time']
-    if quant == 'torque':
-        ref_torque = data['reference_speed']
-        ref_speed = data['reference_torque']
-        ref_torque_t = data['speed_time']
-        ref_speed_t = data['torque_time']
+    speed_metrics = compute_speed_metrics(sim_exp)
+    model_speed_metrics = compute_speed_metrics(model_exp)
 
-        ref_toruqe_interp = data['reference_speed_interp']
-        ref_speed_interp = data['reference_torque_interp']
-
-        sim_torque = data['speed']
-        sim_speed = data['torque']
-
-        sim_time = data['time']
-
-    ramp_scopes = get_ramps_from_raw_reference(ref_speed, ref_speed_t)
-
-    ramp_start_times = []
-    perc2_times = []
-    model_perc2_times = []
-    perc95_times = []
-    model_perc95_times = []
-    following_errs = []
-    model_following_errs = []
-    following_times = []
-    model_following_times = []
-    overshoot_errs = []
-    model_overshoot_errs = []
-    overshoot_times = []
-    model_overshoot_times = []
-    sse_errs = []
-    model_sse_errs = []
-    sse_times = []
-    model_sse_times = []
-    max_trq_accs = []
-    model_max_trq_accs = []
-    max_trq_acc_times = []
-    model_max_trq_acc_times = []
-
-    for ramp_scope in ramp_scopes:
-        sim_ramp_scope = get_ramp_from_sim_reference(sim_time, ramp_scope)
-
-        first_value = ref_speed_interp[sim_ramp_scope[0]]
-
-        ref_speed_scope = ref_speed_interp[sim_ramp_scope[1]: sim_ramp_scope[-1] + 1]
-        sim_speed_scope = sim_speed[sim_ramp_scope[1]: sim_ramp_scope[-1] + 1]
-        model_speed_scope = model_speed[sim_ramp_scope[1]: sim_ramp_scope[-1] + 1]
-        sim_time_scope = sim_time[sim_ramp_scope[1]: sim_ramp_scope[-1] + 1]
-        ramp_start_times.append(sim_time[sim_ramp_scope[1]])
-
-        ref_speed_scope, sim_speed_scope = mirror(ref_speed_scope, sim_speed_scope, first_value)
-        ref_speed_scope, model_speed_scope = mirror(ref_speed_scope, model_speed_scope, first_value)
-
-        perc2_time = response_time_2perc(ref_speed_scope,
-                            sim_speed_scope, sim_time_scope)
-        model_perc2_time = response_time_2perc(ref_speed_scope,
-                            model_speed_scope, sim_time_scope)
-        perc2_times.append(round(perc2_time, 5))
-        model_perc2_times.append(round(model_perc2_time, 5))
-
-        perc95_time = response_time_95perc(ref_speed_scope,
-                            sim_speed_scope, sim_time_scope)
-        model_perc95_time = response_time_95perc(ref_speed_scope,
-                            model_speed_scope, sim_time_scope)
-        perc95_times.append(round(perc95_time, 5))
-        model_perc95_times.append(round(model_perc95_time, 5))
-
-        following_err, following_time = following_error(ref_speed_scope,
-                                        sim_speed_scope, sim_time_scope)
-        model_following_err, model_following_time = following_error(ref_speed_scope,
-                                        model_speed_scope, sim_time_scope)
-        following_errs.append(round(following_err,4))
-        following_times.append(round(following_time, 5))
-        model_following_errs.append(round(model_following_err,4))
-        model_following_times.append(round(model_following_time, 5))
-
-        minn = min(ref_speed_scope)
-        maxx = max(ref_speed_scope)
-
-        ref_speed_scope = ref_speed_interp[sim_ramp_scope[2]: sim_ramp_scope[-1] + 1]
-        sim_speed_scope = sim_speed[sim_ramp_scope[2]: sim_ramp_scope[-1] + 1]
-        model_speed_scope = model_speed[sim_ramp_scope[2]: sim_ramp_scope[-1] + 1]
-        sim_time_scope = sim_time[sim_ramp_scope[2]: sim_ramp_scope[-1] + 1]
-
-        ref_speed_scope, sim_speed_scope = mirror(ref_speed_scope, sim_speed_scope,
-                                                    first_value)
-        ref_speed_scope, model_speed_scope = mirror(ref_speed_scope, model_speed_scope,
-                                                    first_value)
-
-        overshoot_err, overshoot_time = overshoot(ref_speed_scope, sim_speed_scope,
-                                        minn, maxx, sim_time_scope)
-        model_overshoot_err, model_overshoot_time = overshoot(ref_speed_scope, model_speed_scope,
-                                        minn, maxx, sim_time_scope)
-
-        overshoot_errs.append(round(overshoot_err,4))
-        overshoot_times.append(round(overshoot_time, 5))
-        model_overshoot_errs.append(round(model_overshoot_err,4))
-        model_overshoot_times.append(round(model_overshoot_time, 5))
-
-        sse_err, sse_time = steady_state_error(ref_speed_scope, sim_speed_scope,
-                                                sim_time_scope)
-        model_sse_err, model_sse_time = steady_state_error(ref_speed_scope, model_speed_scope,
-                                                sim_time_scope)
-
-        sse_errs.append(round(sse_err, 4))
-        sse_times.append(round(sse_time, 5))
-        model_sse_errs.append(round(model_sse_err, 4))
-        model_sse_times.append(round(model_sse_time, 5))
-
-        sim_torque_scope = sim_torque[sim_ramp_scope[0]: sim_ramp_scope[-1] + 1]
-        sim_time_scope = sim_time[sim_ramp_scope[0]: sim_ramp_scope[-1] + 1]
-        model_torque_scope = model_torque[sim_ramp_scope[0]: sim_ramp_scope[-1] + 1]
-
-        max_trq_acc, max_trq_acc_time = max_torque_acceleration(sim_torque_scope,
-                                        sim_time_scope)
-        model_max_trq_acc, model_max_trq_acc_time = max_torque_acceleration(model_torque_scope,
-                                        sim_time_scope)
-
-        max_trq_accs.append(round(max_trq_acc, 4))
-        max_trq_acc_times.append(round(max_trq_acc_time, 5))
-        model_max_trq_accs.append(round(model_max_trq_acc, 4))
-        model_max_trq_acc_times.append(round(model_max_trq_acc_time, 5))
-
-    return {'perc2_times': perc2_times,
-            'perc95_times': perc95_times,
-            'following_errs': following_errs,
-            'following_times': following_times,
-            'overshoot_errs': overshoot_errs,
-            'overshoot_times': overshoot_times,
-            'ramp_start_times': ramp_start_times,
-            'sse_errs': sse_errs,
-            'sse_times': sse_times,
-            'max_trq_accs': max_trq_accs,
-            'max_trq_acc_times': max_trq_acc_times,
-            'model_perc2_times': model_perc2_times,
-            'model_perc95_times': model_perc95_times,
-            'model_following_errs': model_following_errs,
-            'model_following_times': model_following_times,
-            'model_overshoot_errs': model_overshoot_errs,
-            'model_overshoot_times': model_overshoot_times,
-            'model_sse_errs': model_sse_errs,
-            'model_sse_times': model_sse_times,
-            'model_max_trq_accs': model_max_trq_accs,
-            'model_max_trq_acc_times': model_max_trq_acc_times}
-
-
+    return torque_metrics, model_torque_metrics, speed_metrics, model_speed_metrics
 
 def predict(speed_model, torque_model, data, window, alpha):
     metadata = {"min": {"voltage_d": -300,

@@ -159,8 +159,7 @@ def predict(speed_model, torque_model, data, window, alpha):
     torque_preds = np.concatenate((torque_true[:window//2], torque_preds,
                                    torque_true[-1 * window//2:]), axis=0)
 
-    speed_preds = (speed_true * alpha + speed_preds * (1-alpha))
-    torque_preds = (torque_true * alpha + torque_preds * (1-alpha))
+
 
     minn = metadata['min']['speed']
     maxx = metadata['max']['speed']

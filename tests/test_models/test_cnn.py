@@ -3,7 +3,7 @@ import pytest
 import torch
 import torch.nn as nn
 
-from motornn.models.cnn import ShallowCNN, DeepCNN
+from motor_dynamics.models.cnn import ShallowCNN, DeepCNN
 
 
 class Test_ShallowCNN(object):

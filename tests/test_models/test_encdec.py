@@ -3,7 +3,7 @@ import pytest
 import torch
 import torch.nn as nn
 
-from motornn.models.encdec import (ShallowEncDec, DeepEncDec,
+from motor_dynamics.models.encdec import (ShallowEncDec, DeepEncDec,
                                           EncDecSkip, EncDecRNNSkip,
                                           EncDecBiRNNSkip, EncDecDiagBiRNNSkip)
 

@@ -3,7 +3,7 @@ import pytest
 import torch
 import torch.nn as nn
 
-from motornn.models.indrnn import IndRNNCell, IndRNN
+from motor_dynamics.models.indrnn import IndRNNCell, IndRNN
 
 
 class Test_IndRNNCell(object):

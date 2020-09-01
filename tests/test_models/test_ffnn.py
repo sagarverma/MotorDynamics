@@ -3,7 +3,7 @@ import pytest
 import torch
 import torch.nn as nn
 
-from motornn.models.ffnn import ShallowFNN, DeepFNN
+from motor_dynamics.models.ffnn import ShallowFNN, DeepFNN
 
 
 class Test_ShallowFNN(object):

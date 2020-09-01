@@ -3,6 +3,7 @@ import argparse
 import pickle as pkl
 import numpy as np
 
+
 def get_args():
     parser = argparse.ArgumentParser(description=f"""
                                      Add noise to already generated samples.""")

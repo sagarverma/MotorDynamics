@@ -7,7 +7,7 @@ from motor_dynamics.utils.parser import get_parser_with_args
 
 @pytest.fixture(scope="session")
 def setup_data_dir(tmpdir_factory):
-    data_url = ''
+    data_url = 'https://sagarverma.github.io/others/motor_data.tar'
     fname, headers = urlretrieve(data_url,
                                 os.path.join(tmpdir_factory.getbasetemp(),
                                 "motor_data.tar"))

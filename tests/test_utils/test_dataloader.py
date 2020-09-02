@@ -82,6 +82,7 @@ def test__load_data(setup_data_dir):
         assert data[0:6, :].min() >= -1.0
         assert data[0:6, :].max() <= 1.0
 
+
 def test__rev_test_output(setup_data_dir):
     data_dir = os.path.join(setup_data_dir, "train_raw",
                             "LM50.mat")

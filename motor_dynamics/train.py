@@ -6,8 +6,10 @@ from torch.autograd import Variable
 from motor_dynamics.utils.helpers import (get_file_names, initialize_metrics,
                                           get_mean_metrics, set_metrics,
                                           denormalize_metrics, get_model,
-                                          get_loss_function, get_train_loaders, Log)
+                                          get_loss_function, get_train_loaders,
+                                          Log)
 from motor_dynamics.utils.metrics import smape, r2, rmsle, rmse, mae
+
 
 def train(opt):
     weight_file_path, log_file_path = get_file_names(opt)

@@ -20,6 +20,7 @@ quantities_min_max = {'voltage_d': (-200, 200),
                       'current_q': (-30, 30),
                       'torque': (-200, 200)}
 
+
 def normalize(data, quantity):
     """Normalize a quantity using global minima and maxima.
 

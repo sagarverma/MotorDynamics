@@ -93,6 +93,10 @@ def predict(speed_model, torque_model, data, window, alpha):
                         "voltage_q": -300,
                         "current_d": -30,
                         "current_q": -30,
+                        "noisy_voltage_d": -300,
+                        "noisy_voltage_q": -300,
+                        "noisy_current_d": -30,
+                        "noisy_current_q": -30,
                         "torque": -120,
                         "speed": -80,
                         "statorPuls": -80},
@@ -100,6 +104,10 @@ def predict(speed_model, torque_model, data, window, alpha):
                         "voltage_q": 300,
                         "current_d": 30,
                         "current_q": 30,
+                        "noisy_voltage_d": 300,
+                        "noisy_voltage_q": 300,
+                        "noisy_current_d": 30,
+                        "noisy_current_q": 30,
                         "torque": 120,
                         "speed": 80,
                         "statorPuls": 80}}
@@ -107,7 +115,7 @@ def predict(speed_model, torque_model, data, window, alpha):
     inp_trf_typ, out_trf_typ = get_loader_transform_types(speed_model)
 
     inp_data = []
-    for inp_quant in ['voltage_d', 'voltage_q', 'current_d', 'current_q']:
+    for inp_quant in ['noisy_voltage_d', 'noisy_voltage_q', 'noisy_current_d', 'noisy_current_q']:
         quantity = data[inp_quant]
         minn = metadata['min'][inp_quant]
         maxx = metadata['max'][inp_quant]
@@ -160,6 +168,9 @@ def predict(speed_model, torque_model, data, window, alpha):
                                    torque_true[-1 * window//2:]), axis=0)
 
 
+    print (alpha)
+    speed_preds = alpha * speed_preds + (1-alpha) * speed_true
+    torque_preds = alpha * torque_preds + (1-alpha) * torque_true
 
     minn = metadata['min']['speed']
     maxx = metadata['max']['speed']

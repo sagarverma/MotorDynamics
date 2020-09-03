@@ -1,6 +1,8 @@
 import os
 import argparse
 import pickle
+from copy import deepcopy
+from scipy.io import savemat
 
 from motornn.utils.predict_utils import (load_model, load_data,
                                          predict, compute_metrics)
@@ -24,6 +26,7 @@ def get_arg_parse():
 args = get_arg_parse()
 speed_model, torque_model = load_model(args)
 data = load_data(args)
+out = deepcopy(data)
 speed_denormed, torque_denormed, speed_ml_metrics, torque_ml_metrics = \
         predict(speed_model, torque_model, data, args.window, args.alpha)
 
@@ -69,14 +72,19 @@ save_dir = os.path.join(args.save_dir, args.benchmark_file.split('/')[-1].split(
 if not os.path.exists(save_dir):
     os.makedirs(save_dir)
 
+to_dump = {'pred_speed': speed_denormed,
+           'pred_torque': torque_denormed,
+           'speed_ml_metrics': speed_ml_metrics,
+           'torque_ml_metrics': torque_ml_metrics,
+           'speed_metrics': speed_metrics,
+           'torque_metrics': torque_metrics,
+           'model_speed_metrics': model_speed_metrics,
+           'model_torque_metrics': model_torque_metrics}
 fout = open(os.path.join(save_dir,
             args.speed_model_file.split('/')[-1].replace('.pt', '.pkl')), 'wb')
-pickle.dump({'pred_speed': speed_denormed,
-             'pred_torque': torque_denormed,
-             'speed_ml_metrics': speed_ml_metrics,
-             'torque_ml_metrics': torque_ml_metrics,
-             'speed_metrics': speed_metrics,
-             'torque_metrics': torque_metrics,
-             'model_speed_metrics': model_speed_metrics,
-             'model_torque_metrics': model_torque_metrics}, fout)
+pickle.dump({**to_dump, **out}, fout)
 fout.close()
+
+savemat(os.path.join(save_dir,
+        args.speed_model_file.split('/')[-1].replace('.pt', '.mat')),
+        {**to_dump, **out})

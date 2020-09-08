@@ -115,7 +115,7 @@ def predict(speed_model, torque_model, data, window, alpha):
     inp_trf_typ, out_trf_typ = get_loader_transform_types(speed_model)
 
     inp_data = []
-    for inp_quant in ['noisy_voltage_d', 'noisy_voltage_q', 'noisy_current_d', 'noisy_current_q']:
+    for inp_quant in ['noisy_tvoltage_d', 'noisy_voltage_q', 'noisy_current_d', 'noisy_current_q']:
         quantity = data[inp_quant]
         minn = metadata['min'][inp_quant]
         maxx = metadata['max'][inp_quant]

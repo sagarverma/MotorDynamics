@@ -36,6 +36,11 @@ def get_file_names(opt):
         >>>
 
     """
+    if not os.path.exists(os.path.join(opt.weights_dir, opt.model)):
+        os.makedirs(os.path.join(opt.weights_dir, opt.model))
+    if not os.path.exists(os.path.join(opt.logs_dir, opt.model)):
+        os.makedirs(os.path.join(opt.logs_dir, opt.model))
+        
     suffix = '_' + opt.task
     suffix += '_act_' + opt.act
     suffix += '_stride_' + str(opt.stride)

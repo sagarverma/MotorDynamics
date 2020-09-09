@@ -15,10 +15,10 @@ from scipy.interpolate import interp1d
 
 quantities_min_max = {'voltage_d': (-500, 500),
                       'voltage_q': (-500, 500),
-                      'speed': (-5000, 5000),
+                      'speed': (-700, 700),
                       'current_d': (-30, 30),
                       'current_q': (-30, 30),
-                      'torque': (-200, 200)}
+                      'torque': (-250, 250)}
 
 
 def normalize(data, quantity):

@@ -22,7 +22,7 @@ def rmsle(y_true, y_pred):
     assert len(y_true) == len(y_pred)
     y_true = flatten_extra_dims(y_true)
     y_pred = flatten_extra_dims(y_pred)
-    terms_to_sum = (np.log(y_pred + abs(y_pred) + 0.0001) - np.log(y_true + 1)) ** 2.0 
+    terms_to_sum = (np.log(abs(y_pred) + 1) - np.log(y_true + 1)) ** 2.0 
     return (sum(terms_to_sum) * (1.0/len(y_true))) ** 0.5
 
 

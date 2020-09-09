@@ -3,6 +3,7 @@ import os
 import numpy as np
 
 import torch
+import torch.nn as nn
 from torch.utils.data import DataLoader
 
 from motor_dynamics.utils.metrics import sc_mse
@@ -40,7 +41,7 @@ def get_file_names(opt):
         os.makedirs(os.path.join(opt.weights_dir, opt.model))
     if not os.path.exists(os.path.join(opt.logs_dir, opt.model)):
         os.makedirs(os.path.join(opt.logs_dir, opt.model))
-        
+
     suffix = '_' + opt.task
     suffix += '_act_' + opt.act
     suffix += '_stride_' + str(opt.stride)

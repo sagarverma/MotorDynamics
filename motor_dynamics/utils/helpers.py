@@ -36,7 +36,7 @@ def get_file_names(opt):
         >>>
 
     """
-    suffix = '_' + opt.task + '_'
+    suffix = '_' + opt.task
     suffix += '_act_' + opt.act
     suffix += '_stride_' + str(opt.stride)
     suffix += '_window_' + str(opt.window)
@@ -142,13 +142,14 @@ def set_metrics(metrics_dict, loss, smape, r2, rmsle, rmse, mae):
 
 def denormalize_metrics(metrics_dict, quantity):
     metrics_dict['loss'] = metrics_dict['loss']
-    metrics_dict['smape'] =  metrics_dict['smape']
-    metrics_dict['r2'] =  metrics_dict['r2']
+    metrics_dict['smape'] = metrics_dict['smape']
+    metrics_dict['r2'] = metrics_dict['r2']
     metrics_dict['rmsle'] = denormalize(metrics_dict['rmsle'], quantity)
     metrics_dict['rmse'] = denormalize(metrics_dict['rmse'], quantity)
     metrics_dict['mae'] = denormalize(metrics_dict['mae'], quantity)
 
     return metrics_dict
+
 
 def get_model(opt):
     """Get model.
@@ -211,7 +212,7 @@ def get_loss_function(opt):
         criterion = nn.MSELoss()
     if opt.loss == 'sc_mse':
         criterion = sc_mse
-        
+
     return criterion
 
 def get_model_from_weight(opt):

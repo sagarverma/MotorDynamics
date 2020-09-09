@@ -50,6 +50,7 @@ def setup_args(setup_data_dir, setup_weights_dir, setup_logs_dir):
             '--stride': '1',
             '--window': '100',
             '--act': 'relu',
+            '--loss': 'mse',
             '--hidden_size': '32',
             '--num_workers': '8'}
     return args

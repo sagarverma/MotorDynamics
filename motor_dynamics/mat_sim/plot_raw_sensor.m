@@ -7,7 +7,7 @@
 %   data = load('../../datasets/RawData/OFVC4kW_LM60Hz_TorqueSteps_20190419_Data.mat');
 %   data = load('../../datasets/RawData/OFVC4kW_NoLM_SpeedVariations_20190419_Data.mat');
 %    data = load('../../datasets/RawData/OFVC4kW_LM45Hz_TorqueSteps_20190419_Data.mat');
-  data = load('../../datasets/RawData/OFVC4kW_LM20Hz_TorqueSteps_20190419_Data.mat');
+  data = load('../../../datasets/data/OFVC4kW_LM20Hz_TorqueSteps_20190419_Data.mat');
 
 vd = hampel(data.VdRef_V);
 vq = hampel(data.VqRef_V);

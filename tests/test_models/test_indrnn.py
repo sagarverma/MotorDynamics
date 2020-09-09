@@ -42,4 +42,4 @@ class Test_IndRNN(object):
         assert isinstance(out[1], torch.Tensor)
         assert len(out[0].size()) == 3
         assert out[0].size()[0] == 8 and out[0].size()[1] == 100 and \
-               out[0].size()[2] == 3
+            out[0].size()[2] == 3

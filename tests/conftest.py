@@ -5,12 +5,13 @@ import tarfile
 
 from motor_dynamics.utils.parser import get_parser_with_args
 
+
 @pytest.fixture(scope="session")
 def setup_data_dir(tmpdir_factory):
-    data_url = 'https://sagarverma.github.io/others/motor_data.tar'
+    data_url = 'https://sagarverma.github.io/others/motor_data.tar.xz'
     fname, headers = urlretrieve(data_url,
-                                os.path.join(tmpdir_factory.getbasetemp(),
-                                "motor_data.tar"))
+                                 os.path.join(tmpdir_factory.getbasetemp(),
+                                              "motor_data.tar.xz"))
 
     tar = tarfile.open(fname)
     tar.extractall(path=tmpdir_factory.getbasetemp())

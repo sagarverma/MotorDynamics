@@ -23,6 +23,7 @@ class Test_ShallowCNN(object):
         assert len(out.size()) == 2
         assert out.size()[0] == 8 and out.size()[1] == 1
 
+
 class Test_DeepCNN(object):
     """
     Test model initialization and forward function.

@@ -22,7 +22,7 @@ class Test_ShallowRNN(object):
         assert isinstance(out, torch.Tensor)
         assert len(out.size()) == 3
         assert out.size()[0] == 8 and out.size()[1] == 1 and \
-               out.size()[2] == 100
+            out.size()[2] == 100
 
 
 class Test_DeepRNN(object):
@@ -41,4 +41,4 @@ class Test_DeepRNN(object):
         assert isinstance(out, torch.Tensor)
         assert len(out.size()) == 3
         assert out.size()[0] == 8 and out.size()[1] == 1 and \
-               out.size()[2] == 100
+            out.size()[2] == 100

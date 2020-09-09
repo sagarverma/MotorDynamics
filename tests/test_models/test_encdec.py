@@ -24,7 +24,7 @@ class Test_ShallowEncDec(object):
         assert isinstance(out, torch.Tensor)
         assert len(out.size()) == 3
         assert out.size()[0] == 8 and out.size()[1] == 1 and \
-               out.size()[2] == 100
+            out.size()[2] == 100
 
 
 class Test_DeepEncDec(object):
@@ -43,7 +43,7 @@ class Test_DeepEncDec(object):
         assert isinstance(out, torch.Tensor)
         assert len(out.size()) == 3
         assert out.size()[0] == 8 and out.size()[1] == 1 and \
-               out.size()[2] == 100
+            out.size()[2] == 100
 
 
 class Test_EncDecSkip(object):
@@ -62,7 +62,7 @@ class Test_EncDecSkip(object):
         assert isinstance(out, torch.Tensor)
         assert len(out.size()) == 3
         assert out.size()[0] == 8 and out.size()[1] == 1 and \
-               out.size()[2] == 100
+            out.size()[2] == 100
 
 
 class Test_EncDecRNNSkip(object):
@@ -81,7 +81,7 @@ class Test_EncDecRNNSkip(object):
         assert isinstance(out, torch.Tensor)
         assert len(out.size()) == 3
         assert out.size()[0] == 8 and out.size()[1] == 1 and \
-               out.size()[2] == 100
+            out.size()[2] == 100
 
 
 class Test_EncDecBiRNNSkip(object):
@@ -100,7 +100,7 @@ class Test_EncDecBiRNNSkip(object):
         assert isinstance(out, torch.Tensor)
         assert len(out.size()) == 3
         assert out.size()[0] == 8 and out.size()[1] == 1 and \
-               out.size()[2] == 100
+            out.size()[2] == 100
 
 
 class Test_EncDecDiagBiRNNSkip(object):
@@ -119,4 +119,4 @@ class Test_EncDecDiagBiRNNSkip(object):
         assert isinstance(out, torch.Tensor)
         assert len(out.size()) == 3
         assert out.size()[0] == 8 and out.size()[1] == 1 and \
-               out.size()[2] == 100
+            out.size()[2] == 100

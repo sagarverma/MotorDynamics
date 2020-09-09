@@ -135,8 +135,8 @@ class Test_FlatInFlatOut(object):
         out_quants = ['current_d', 'current_q', 'torque']
 
         dataloader = FlatInFlatOut(dataset, index_quant_map,
-                                     samples, inp_quants,
-                                     out_quants)
+                                   samples, inp_quants,
+                                   out_quants)
 
         assert isinstance(dataloader.samples, list)
         assert isinstance(dataloader.inp_quant_ids, list)
@@ -150,8 +150,8 @@ class Test_FlatInFlatOut(object):
         out_quants = ['current_d', 'current_q', 'torque']
 
         dataloader = FlatInFlatOut(dataset, index_quant_map,
-                                     samples, inp_quants,
-                                     out_quants)
+                                   samples, inp_quants,
+                                   out_quants)
 
         inp_seq, out_seq = dataloader.__getitem__(0)
 
@@ -172,8 +172,8 @@ class Test_SeqInFlatOut(object):
         out_quants = ['current_d', 'current_q', 'torque']
 
         dataloader = SeqInFlatOut(dataset, index_quant_map,
-                                     samples, inp_quants,
-                                     out_quants)
+                                  samples, inp_quants,
+                                  out_quants)
 
         assert isinstance(dataloader.samples, list)
         assert isinstance(dataloader.inp_quant_ids, list)
@@ -187,8 +187,8 @@ class Test_SeqInFlatOut(object):
         out_quants = ['current_d', 'current_q', 'torque']
 
         dataloader = SeqInFlatOut(dataset, index_quant_map,
-                                     samples, inp_quants,
-                                     out_quants)
+                                  samples, inp_quants,
+                                  out_quants)
 
         inp_seq, out_seq = dataloader.__getitem__(0)
 
@@ -210,8 +210,8 @@ class Test_SeqInSeqOut(object):
         out_quants = ['current_d', 'current_q', 'torque']
 
         dataloader = SeqInSeqOut(dataset, index_quant_map,
-                                     samples, inp_quants,
-                                     out_quants)
+                                 samples, inp_quants,
+                                 out_quants)
 
         assert isinstance(dataloader.samples, list)
         assert isinstance(dataloader.inp_quant_ids, list)
@@ -225,8 +225,8 @@ class Test_SeqInSeqOut(object):
         out_quants = ['current_d', 'current_q', 'torque']
 
         dataloader = SeqInSeqOut(dataset, index_quant_map,
-                                     samples, inp_quants,
-                                     out_quants)
+                                 samples, inp_quants,
+                                 out_quants)
 
         inp_seq, out_seq = dataloader.__getitem__(0)
 

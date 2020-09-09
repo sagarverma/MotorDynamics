@@ -17,12 +17,13 @@ from motor_dynamics.models.cnn import ShallowCNN, DeepCNN
 from motor_dynamics.models.ffnn import ShallowFNN, DeepFNN
 from motor_dynamics.models.rnn import ShallowRNN, DeepRNN
 from motor_dynamics.models.lstm import ShallowLSTM, DeepLSTM
-from motor_dynamics.models.encdec import (ShallowEncDec, DeepEncDec, EncDecSkip,
-                          EncDecRNNSkip, EncDecBiRNNSkip,
-                          EncDecDiagBiRNNSkip)
+from motor_dynamics.models.encdec import (ShallowEncDec, DeepEncDec,
+                                          EncDecSkip, EncDecRNNSkip,
+                                          EncDecBiRNNSkip, EncDecDiagBiRNNSkip)
 
 from motor_dynamics.utils.dataloader import (FlatInFlatOut, SeqInFlatOut,
                                              SeqInSeqOut)
+
 
 def test__get_file_name_fnn(setup_args, tmpdir_factory):
     parser = get_parser_with_args()
@@ -36,17 +37,21 @@ def test__get_file_name_fnn(setup_args, tmpdir_factory):
     assert weight_path
     assert log_path
     assert weight_path == os.path.join(tmpdir_factory.getbasetemp(), 'weights',
-                        f"shallow_fnn/"\
-                        f"shallow_fnn_train_sim_act_relu_stride_1_window_100"\
-                        f"_inpQuants_voltage_d,voltage_q,speed_outQuants_"\
-                        f"current_d,current_q,torque_lr_0.01_batchSize_2_"\
-                        f"epochs_1_loss_mse.pt")
+                                       f"shallow_fnn/"
+                                       f"shallow_fnn_train_sim_act_relu"
+                                       f"_stride_1_window_100"
+                                       f"_inpQuants_voltage_d,voltage_q,speed_"
+                                       f"outQuants_current_d,current_q,torque_"
+                                       f"lr_0.01_batchSize_2_"
+                                       f"epochs_1_loss_mse.pt")
     assert log_path == os.path.join(tmpdir_factory.getbasetemp(), 'logs',
-                       f"shallow_fnn/"\
-                       f"shallow_fnn_train_sim_act_relu_stride_1_window_100_"\
-                       f"inpQuants_voltage_d,voltage_q,speed_outQuants_"\
-                       f"current_d,current_q,torque_lr_0.01_batchSize_2_"\
-                       f"epochs_1_loss_mse.log")
+                                    f"shallow_fnn/"
+                                    f"shallow_fnn_train_sim_act_relu"
+                                    f"_stride_1_window_100"
+                                    f"_inpQuants_voltage_d,voltage_q,speed_"
+                                    f"outQuants_current_d,current_q,torque_"
+                                    f"lr_0.01_batchSize_2_"
+                                    f"epochs_1_loss_mse.log")
 
 
 def test__get_file_name_rnn(setup_args, tmpdir_factory):
@@ -63,17 +68,21 @@ def test__get_file_name_rnn(setup_args, tmpdir_factory):
     assert weight_path
     assert log_path
     assert weight_path == os.path.join(tmpdir_factory.getbasetemp(), 'weights',
-                        f"deep_rnn/",
-                        f"deep_rnn_train_sim_act_relu_stride_1_window_100"\
-                        f"_inpQuants_voltage_d,voltage_q,speed_outQuants_"\
-                        f"current_d,current_q,torque_lr_0.01_batchSize_2_"\
-                        f"epochs_1_loss_mse_hiddenSize_64.pt")
+                                       f"deep_rnn/"
+                                       f"deep_rnn_train_sim_act_relu_"
+                                       f"stride_1_window_100"
+                                       f"_inpQuants_voltage_d,voltage_q,speed"
+                                       f"_outQuants_current_d,current_q,torque"
+                                       f"_lr_0.01_batchSize_2_"
+                                       f"epochs_1_loss_mse_hiddenSize_64.pt")
     assert log_path == os.path.join(tmpdir_factory.getbasetemp(), 'logs',
-                       f"deep_rnn/",
-                       f"deep_rnn_train_sim_act_relu_stride_1_window_100_"\
-                       f"inpQuants_voltage_d,voltage_q,speed_outQuants_"\
-                       f"current_d,current_q,torque_lr_0.01_batchSize_2_"\
-                       f"epochs_1_loss_mse_hiddenSize_64.log")
+                                    f"deep_rnn/"
+                                    f"deep_rnn_train_sim_act_relu_"
+                                    f"stride_1_window_100_"
+                                    f"inpQuants_voltage_d,voltage_q,speed_"
+                                    f"outQuants_current_d,current_q,torque_"
+                                    f"lr_0.01_batchSize_2_"
+                                    f"epochs_1_loss_mse_hiddenSize_64.log")
 
 
 def test__get_file_name_encdec(setup_args, tmpdir_factory):
@@ -89,17 +98,21 @@ def test__get_file_name_encdec(setup_args, tmpdir_factory):
     assert weight_path
     assert log_path
     assert weight_path == os.path.join(tmpdir_factory.getbasetemp(), 'weights',
-                        f"deep_encdec/",
-                        f"deep_encdec_train_sim_act_relu_stride_1_window_100"\
-                        f"_inpQuants_voltage_d,voltage_q,speed_outQuants_"\
-                        f"current_d,current_q,torque_lr_0.01_batchSize_2_"\
-                        f"epochs_1_loss_mse.pt")
+                                       f"deep_encdec/"
+                                       f"deep_encdec_train_sim_act_relu_"
+                                       f"stride_1_window_100"
+                                       f"_inpQuants_voltage_d,voltage_q,speed_"
+                                       f"outQuants_current_d,current_q,torque_"
+                                       f"lr_0.01_batchSize_2_"
+                                       f"epochs_1_loss_mse.pt")
     assert log_path == os.path.join(tmpdir_factory.getbasetemp(), 'logs',
-                       f"deep_encdec/",
-                       f"deep_encdec_train_sim_act_relu_stride_1_window_100_"\
-                       f"inpQuants_voltage_d,voltage_q,speed_outQuants_"\
-                       f"current_d,current_q,torque_lr_0.01_batchSize_2_"\
-                       f"epochs_1_loss_mse.log")
+                                    f"deep_encdec/"
+                                    f"deep_encdec_train_sim_act_relu_"
+                                    f"stride_1_window_100_"
+                                    f"inpQuants_voltage_d,voltage_q,speed_"
+                                    f"outQuants_current_d,current_q,torque_"
+                                    f"lr_0.01_batchSize_2_"
+                                    f"epochs_1_loss_mse.log")
 
 
 def test__get_intialize_metrics():

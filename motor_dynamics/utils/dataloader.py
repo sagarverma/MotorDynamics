@@ -13,9 +13,9 @@ import scipy.io as sio
 from scipy.signal import resample
 from scipy.interpolate import interp1d
 
-quantities_min_max = {'voltage_d': (-200, 200),
+quantities_min_max = {'voltage_d': (-500, 500),
                       'voltage_q': (-500, 500),
-                      'speed': (-700, 700),
+                      'speed': (-5000, 5000),
                       'current_d': (-30, 30),
                       'current_q': (-30, 30),
                       'torque': (-200, 200)}
@@ -39,6 +39,9 @@ def normalize(data, quantity):
         >>>
 
     """
+    if data.max() > quantities_min_max[quantity][1] or \
+        data.min() < quantities_min_max[quantity][0]:
+        print (quantity, data.max(), data.min())
     a = 0
     b = 1
     minn, maxx = quantities_min_max[quantity]

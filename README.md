@@ -4,6 +4,8 @@ This is the github repository containing the code for the paper ["Modeling Elect
 
 [Project page](https://sagarverma.github.io/dynamics.html)
 
+Note: All the tables in the paper are for models trained for predicting individual quantities from three input quantities. It is possible to use the model for any input-ouput combinations by passing appropriate arguments. 
+
 ## Requirements
 The code has been tested on:
 

@@ -34,55 +34,49 @@ speed_denormed, torque_denormed, speed_ml_metrics, torque_ml_metrics = \
         predict(speed_model, torque_model, data, args.window, args.alpha, args.noise)
 
 print(args.speed_model_file.split('/')[-1][:30], args.benchmark_file.split('/')[-1])
-print('Speed ML Metrics', speed_ml_metrics)
-print('Torque ML Metrics', torque_ml_metrics)
-torque_metrics, model_torque_metrics, speed_metrics, model_speed_metrics =\
-    compute_metrics(data, speed_denormed, torque_denormed)
-
-for i in range(len(speed_metrics['perc2_times'])):
-    print('Speed')
-    print('Quantity', 'Simulation', 'Model')
-    print('2% time', speed_metrics['perc2_times'][i],
-          model_speed_metrics['perc2_times'][i])
-    print('95% time', speed_metrics['perc95_times'][i],
-          model_speed_metrics['perc95_times'][i])
-    print('Overshoot', speed_metrics['overshoot_errs'][i],
-          model_speed_metrics['overshoot_errs'][i])
-    print('Following Error', speed_metrics['following_errs'][i],
-          model_speed_metrics['following_errs'][i])
-    print('Steady State Error', speed_metrics['sse_errs'][i],
-          model_speed_metrics['sse_errs'][i])
-    print('Max Acc Torque', speed_metrics['max_trq_accs'][i],
-          model_speed_metrics['max_trq_accs'][i])
-
-for i in range(len(torque_metrics['perc2_times'])):
-    print('Torque')
-    print('Quantity', 'Simulation', 'Model')
-    print('2% time', torque_metrics['perc2_times'][i],
-          model_torque_metrics['perc2_times'][i])
-    print('95% time', torque_metrics['perc95_times'][i],
-          model_torque_metrics['perc95_times'][i])
-    print('Overshoot', torque_metrics['overshoot_errs'][i],
-          model_torque_metrics['overshoot_errs'][i])
-    print('Following Error', torque_metrics['following_errs'][i],
-          model_torque_metrics['following_errs'][i])
-    print('Steady State Error', torque_metrics['sse_errs'][i],
-          model_torque_metrics['sse_errs'][i])
-    print('Speed Drop', torque_metrics['speed_drops'][i],
-          model_torque_metrics['speed_drops'][i])
+# print('Speed ML Metrics', speed_ml_metrics)
+# print('Torque ML Metrics', torque_ml_metrics)
+# torque_metrics, model_torque_metrics, speed_metrics, model_speed_metrics =\
+#     compute_metrics(data, speed_denormed, torque_denormed)
+#
+# for i in range(len(speed_metrics['perc2_times'])):
+#     print('Speed')
+#     print('Quantity', 'Simulation', 'Model')
+#     print('2% time', speed_metrics['perc2_times'][i],
+#           model_speed_metrics['perc2_times'][i])
+#     print('95% time', speed_metrics['perc95_times'][i],
+#           model_speed_metrics['perc95_times'][i])
+#     print('Overshoot', speed_metrics['overshoot_errs'][i],
+#           model_speed_metrics['overshoot_errs'][i])
+#     print('Following Error', speed_metrics['following_errs'][i],
+#           model_speed_metrics['following_errs'][i])
+#     print('Steady State Error', speed_metrics['sse_errs'][i],
+#           model_speed_metrics['sse_errs'][i])
+#     print('Max Acc Torque', speed_metrics['max_trq_accs'][i],
+#           model_speed_metrics['max_trq_accs'][i])
+#
+# for i in range(len(torque_metrics['perc2_times'])):
+#     print('Torque')
+#     print('Quantity', 'Simulation', 'Model')
+#     print('2% time', torque_metrics['perc2_times'][i],
+#           model_torque_metrics['perc2_times'][i])
+#     print('95% time', torque_metrics['perc95_times'][i],
+#           model_torque_metrics['perc95_times'][i])
+#     print('Overshoot', torque_metrics['overshoot_errs'][i],
+#           model_torque_metrics['overshoot_errs'][i])
+#     print('Following Error', torque_metrics['following_errs'][i],
+#           model_torque_metrics['following_errs'][i])
+#     print('Steady State Error', torque_metrics['sse_errs'][i],
+#           model_torque_metrics['sse_errs'][i])
+#     print('Speed Drop', torque_metrics['speed_drops'][i],
+#           model_torque_metrics['speed_drops'][i])
 
 save_dir = os.path.join(args.save_dir, args.benchmark_file.split('/')[-1].split('.')[0])
 if not os.path.exists(save_dir):
     os.makedirs(save_dir)
 
 to_dump = {'pred_speed': speed_denormed,
-           'pred_torque': torque_denormed,
-           'speed_ml_metrics': speed_ml_metrics,
-           'torque_ml_metrics': torque_ml_metrics,
-           'speed_metrics': speed_metrics,
-           'torque_metrics': torque_metrics,
-           'model_speed_metrics': model_speed_metrics,
-           'model_torque_metrics': model_torque_metrics}
+           'pred_torque': torque_denormed}
 fout = open(os.path.join(save_dir, args.out_name + '.pkl'), 'wb')
 pickle.dump({**to_dump, **out}, fout)
 fout.close()

@@ -1,18 +1,19 @@
-  load('LM30.mat');
+clear; 
+load('NoLM_SpeedVariations2.mat');
 %load('../../../datasets/data/train_sim/30LM.mat');
 
  subplot(4,1,1)
 hold on
  plot(time, cspeed)
  hold on
-s = plot(time, speed )
+s = plot(time, dspeed )
 s.Color = [s.Color 0.5]
 xlabel('Time (s)')
 ylabel('Speed (Hz)')
-legend('Denoised', 'Raw')
+legend('Prediction', 'Raw')
 
  subplot(4,1,2)
- plot(time, speed - cspeed)
+ plot(time, dspeed - cspeed)
  xlabel('Time (s)')
  ylabel('Speed (Hz)')
 
@@ -21,16 +22,17 @@ legend('Denoised', 'Raw')
 hold on
  plot(time, ctorque)
  hold on
-t = plot(time, torque)
+t = plot(time, dtorque)
 t.Color = [t.Color 0.5]
 xlabel('Time (s)')
 ylabel('Torque (% Nominal)')
-legend('Denoised', 'Raw')
+legend('Prediction', 'Raw')
 %  
  subplot(4,1,4)
- plot(time, torque - ctorque)
+ plot(time, dtorque - ctorque)
  xlabel('Time (s)')
  ylabel('Torque (% Nominal)')
+
 
 
 % fprintf("\n\nSignal to noise ratio\n\n");

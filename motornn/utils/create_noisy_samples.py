@@ -33,7 +33,7 @@ def process_split(out_dir, split, args):
                                                    scale=args.iq_std_mean)
         data['noisy_voltage_d'] = np.random.normal(data['voltage_d'],
                                                    scale=args.ud_std_mean)
-        data['nosiy_voltage_q'] = np.random.normal(data['voltage_q'],
+        data['noisy_voltage_q'] = np.random.normal(data['voltage_q'],
                                                    scale=args.uq_std_mean)
 
         fout = open(os.path.join(out_dir, split, sample), 'wb')

@@ -29,7 +29,6 @@ args = get_arg_parse()
 speed_model, torque_model = load_model(args)
 data = load_data(args)
 out = deepcopy(data)
-print (args.noise)
 speed_denormed, torque_denormed, speed_ml_metrics, torque_ml_metrics = \
         predict(speed_model, torque_model, data, args.window, args.alpha, args.noise)
 
@@ -76,9 +75,18 @@ if not os.path.exists(save_dir):
     os.makedirs(save_dir)
 
 to_dump = {'pred_speed': speed_denormed,
-           'pred_torque': torque_denormed}
-fout = open(os.path.join(save_dir, args.out_name + '.pkl'), 'wb')
+           'pred_torque': torque_denormed,
+           'speed_ml_metrics': speed_ml_metrics,
+           'torque_ml_metrics': torque_ml_metrics,
+           'speed_metrics': speed_metrics,
+           'torque_metrics': torque_metrics,
+           'model_speed_metrics': model_speed_metrics,
+           'model_torque_metrics': model_torque_metrics}
+fout = open(os.path.join(save_dir,
+            args.speed_model_file.split('/')[-1].replace('.pt', '.pkl')), 'wb')
 pickle.dump({**to_dump, **out}, fout)
 fout.close()
 
-savemat(os.path.join(save_dir, args.out_name + '.mat'), {**to_dump, **out})
+savemat(os.path.join(save_dir,
+        args.speed_model_file.split('/')[-1].replace('.pt', '.mat')),
+        {**to_dump, **out})

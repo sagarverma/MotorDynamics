@@ -120,8 +120,7 @@ def predict(speed_model, torque_model, data, window, alpha, noise=False):
         inp_quants = ['voltage_d', 'voltage_q', 'current_d', 'current_q']
 
     inp_data = []
-    for inp_quant in inp_quants:
-        print (inp_quant)
+    for inp_quant in ['noisy_tvoltage_d', 'noisy_voltage_q', 'noisy_current_d', 'noisy_current_q']:
         quantity = data[inp_quant]
         minn = metadata['min'][inp_quant]
         maxx = metadata['max'][inp_quant]

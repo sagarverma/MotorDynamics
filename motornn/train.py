@@ -10,6 +10,7 @@ parser = get_parser_with_args()
 args = parser.parse_args()
 
 weight_path, log_path = get_file_names(args)
+print (weight_path, log_path)
 logger = Log(log_path, 'w')
 
 train_loader, val_loader = get_dataloaders(args)
@@ -36,7 +37,7 @@ for epoch in range(args.epochs):
     logger.log_train_metrics(train_metrics, epoch)
     logger.log_validation_metrics(val_metrics, epoch)
 
-    if val_metrics['smape'] >= best_smape:
+    if val_metrics['smape'] <= best_smape:
         torch.save(model, weight_path)
         best_smape = val_metrics['smape']
 
